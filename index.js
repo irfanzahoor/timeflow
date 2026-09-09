@@ -4283,7 +4283,7 @@ const CURRENCIES = {
     MY: 'RM', US: '$', GB: '£', EU: '€', SG: 'S$', AU: 'A$',
     JP: '¥', AE: 'د.إ', SA: 'ر.س', IN: '₹', ID: 'Rp', PH: '₱',
     TH: '฿', CN: '¥', KR: '₩', TR: '₺', BR: 'R$', CA: 'CA$',
-    NG: '₦', ZA: 'R', BD: '৳'
+    NG: '₦', ZA: 'R', BD: '৳' , PK: '₨', VN: '₫', RU: '₽', EG: 'ج.م', IL: '₪', AR: '$',
 };
 
 function getCurrency() {
