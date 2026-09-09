@@ -200,8 +200,3 @@ This is a personal project and portfolio piece, but PRs and issues are welcome. 
 
 📄 License
 Use it, fork it, build on it.
-
-
-# shiny-train
-# shiny-train
-# timeflow

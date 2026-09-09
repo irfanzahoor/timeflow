@@ -1,0 +1,2790 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discipline — Daily Tracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <button class="mobile-menu btn btn-secondary" onclick="toggleSidebar()">☰</button>
+
+  <div class="sidebar" id="sidebar">
+    <div style="padding: 24px 20px 20px;">
+      <div class="serif" style="font-size: 20px; color: var(--accent);">Discipline</div>
+      <div style="font-size: 11px; color: var(--muted); margin-top: 2px;" id="sidebar-date"></div>
+    </div>
+    <div class="divider" style="margin: 0;"></div>
+    <nav style="padding: 12px 0; flex: 1;">
+      <div class="nav-item active" onclick="showPage('dashboard')" id="nav-dashboard">
+        <span class="nav-icon">🖥️</span> Dashboard
+      </div>
+      <div class="nav-item" onclick="showPage('log')" id="nav-log">
+        <span class="nav-icon">✏️</span> Daily Log
+      </div>
+      <div class="nav-item" onclick="showPage('gym')" id="nav-gym">
+        <span class="nav-icon">💪</span> Gym
+      </div>
+      <div class="nav-item" onclick="showPage('prayers')" id="nav-prayers">
+        <span class="nav-icon">📿</span> Prayers
+      </div>
+      <div class="nav-item" onclick="showPage('study')" id="nav-study">
+        <span class="nav-icon">📚</span> Study
+      </div>
+      <div class="nav-item" onclick="showPage('nutrition')" id="nav-nutrition">
+        <span class="nav-icon">🥗</span> Nutrition
+      </div>
+      <div class="nav-item" onclick="showPage('screentime')" id="nav-screentime">
+        <span class="nav-icon">⏰</span> Screen Time
+      </div>
+      <div class="nav-item" onclick="showPage('calendar')" id="nav-calendar">
+        <span class="nav-icon">📅</span> Calendar
+      </div>
+      <div class="nav-item" onclick="showPage('diary')" id="nav-diary">
+        <span class="nav-icon">📔</span> Diary
+      </div>
+      <div class="nav-item" onclick="showPage('analytics')" id="nav-analytics">
+        <span class="nav-icon">📊</span> Analytics
+      </div>
+      <div class="nav-item" onclick="showPage('money')" id="nav-money">
+        <span class="nav-icon">💰</span> Money
+      </div>
+      <div class="nav-item" onclick="showPage('tasks')" id="nav-tasks">
+        <span class="nav-icon">✅</span> Tasks
+        <span id="nav-tasks-badge"
+          style="margin-left:auto;font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px;background:rgba(248,113,113,0.2);color:var(--danger);display:none;"></span>
+      </div>
+      <div class="nav-item" onclick="showPage('routine')" id="nav-routine">
+        <span class="nav-icon">🔁</span> Routine
+      </div>
+    </nav>
+    <div style="padding: 8px 20px 16px; border-top: 1px solid var(--border);">
+      <div class="nav-item" onclick="showPage('settings')" id="nav-settings"
+        style="padding:9px 0; border-left:none; margin:0 -20px; padding-left:20px;">
+        <span class="nav-icon">⚙️</span> Settings
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+
+    <!-- DASHBOARD -->
+    <div class="page active" id="page-dashboard">
+      <div
+        style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
+        <div>
+          <h1 class="serif section-title" id="dash-greeting">Good Morning</h1>
+          <div class="section-sub" id="dash-date-full">Loading...</div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <span class="streak-badge" id="dash-streak">🔥 0 day streak</span>
+          <button class="btn btn-primary" onclick="showPage('log')">+ Log Today</button>
+        </div>
+      </div>
+
+      <!-- Period tabs -->
+      <div class="toggle" style="margin-bottom:24px; width:fit-content;" id="dash-period-toggle">
+        <button class="toggle-btn active" onclick="switchDashPeriod('today')">Today</button>
+        <button class="toggle-btn" onclick="switchDashPeriod('week')">This Week</button>
+        <button class="toggle-btn" onclick="switchDashPeriod('month')">This Month</button>
+      </div>
+
+      <!-- TODAY panel -->
+      <div id="dash-panel-today">
+        <!-- Completion ring + quick stats -->
+        <div style="display:grid; grid-template-columns:auto 1fr; gap:20px; margin-bottom:20px; align-items:center;">
+          <div class="card card-sm" style="text-align:center; padding:20px 24px;">
+            <div class="ring-wrap" id="dash-today-ring-wrap">
+              <svg width="90" height="90">
+                <circle cx="45" cy="45" r="36" fill="none" stroke="var(--surface2)" stroke-width="7" />
+                <circle cx="45" cy="45" r="36" fill="none" stroke="var(--accent)" stroke-width="7"
+                  stroke-linecap="round" id="dash-ring-arc" stroke-dasharray="226" stroke-dashoffset="226" />
+              </svg>
+              <div class="ring-label">
+                <div style="font-size:20px; font-weight:700;" id="dash-ring-pct">0%</div>
+                <div style="font-size:10px; color:var(--muted);">done</div>
+              </div>
+            </div>
+            <div style="font-size:11px; color:var(--muted); margin-top:8px;" id="dash-ring-label">0 of 0 tasks</div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="card card-sm">
+              <div class="label">Prayers</div>
+              <div class="stat-big" id="dash-prayer-count">0/5</div>
+              <div class="progress-bar" style="margin-top:8px;">
+                <div class="progress-fill" id="dash-prayer-bar" style="width:0%"></div>
+              </div>
+            </div>
+            <div class="card card-sm">
+              <div class="label">Study</div>
+              <div class="stat-big" id="dash-study-hrs">0h</div>
+              <div style="font-size:11px; color:var(--muted); margin-top:4px;" id="dash-study-status">—</div>
+            </div>
+            <div class="card card-sm">
+              <div class="label">Gym</div>
+              <div class="stat-big" id="dash-gym-week">0/4</div>
+              <div class="progress-bar" style="margin-top:8px;">
+                <div class="progress-fill purple" id="dash-gym-bar" style="width:0%"></div>
+              </div>
+            </div>
+            <div class="card card-sm">
+              <div class="label">Sleep</div>
+              <div class="stat-big" id="dash-sleep-today">—</div>
+              <div style="font-size:11px; color:var(--muted); margin-top:4px;" id="dash-sleep-quality">—</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Today detailed sections -->
+        <div id="dash-gym-banner"></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <div style="font-size:14px; font-weight:600;">📿 Prayers</div>
+              <span id="dash-prayer-pill" class="pill pill-yellow">0/5</span>
+            </div>
+            <div style="display:flex; gap:6px; flex-wrap:wrap;" id="dash-prayers-detail"></div>
+          </div>
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <div style="font-size:14px; font-weight:600;">💪 Gym</div>
+              <span id="dash-gym-pill" class="pill pill-yellow">—</span>
+            </div>
+            <div id="dash-gym-detail" style="font-size:13px; color:var(--muted);">Not logged</div>
+          </div>
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <div style="font-size:14px; font-weight:600;">📚 Study</div>
+              <span id="dash-study-pill" class="pill pill-yellow">0h</span>
+            </div>
+            <div id="dash-study-detail" style="font-size:13px; color:var(--muted);">No sessions</div>
+          </div>
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <div style="font-size:14px; font-weight:600;">😴 Sleep</div>
+              <span id="dash-sleep-pill" class="pill pill-yellow">—</span>
+            </div>
+            <div id="dash-sleep-detail" style="font-size:13px; color:var(--muted);">Not logged</div>
+          </div>
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <div style="font-size:14px; font-weight:600;">🥗 Nutrition</div>
+              <span id="dash-nutr-pill" class="pill pill-yellow">0 kcal</span>
+            </div>
+            <div id="dash-nutr-detail" style="font-size:13px; color:var(--muted);">No meals</div>
+          </div>
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <div style="font-size:14px; font-weight:600;">📖 Hadith & Quran</div>
+              <span id="dash-deen-pill" class="pill pill-yellow">—</span>
+            </div>
+            <div id="dash-deen-detail" style="font-size:13px; color:var(--muted);">Not logged</div>
+          </div>
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <div style="font-size:14px; font-weight:600;">📱 Screen Time</div>
+              <span id="dash-screen-pill" class="pill pill-yellow">0h</span>
+            </div>
+            <div id="dash-screen-detail" style="font-size:13px; color:var(--muted);">Not logged</div>
+          </div>
+          <div class="card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+              <div style="font-size:14px; font-weight:600;">💰 Spending</div>
+              <span id="dash-money-pill" class="pill pill-yellow">—</span>
+            </div>
+            <div id="dash-money-detail" style="font-size:13px; color:var(--muted);">No expenses</div>
+          </div>
+        </div>
+
+        <!-- Upcoming events -->
+        <div class="card" style="margin-bottom:16px;">
+          <div style="font-size:14px; font-weight:600; margin-bottom:12px;">📅 Upcoming Events</div>
+          <div id="dash-events-preview"></div>
+        </div>
+
+      </div>
+
+      <!-- WEEK panel -->
+      <div id="dash-panel-week" style="display:none;">
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:16px;">
+          <div class="card card-sm">
+            <div class="label">Prayers (avg/day)</div>
+            <div class="stat-big" id="wk-prayers">—</div>
+          </div>
+          <div class="card card-sm">
+            <div class="label">Gym Sessions</div>
+            <div class="stat-big" id="wk-gym">—</div>
+          </div>
+          <div class="card card-sm">
+            <div class="label">Study Hours</div>
+            <div class="stat-big" id="wk-study">—</div>
+          </div>
+          <div class="card card-sm">
+            <div class="label">Avg Sleep</div>
+            <div class="stat-big" id="wk-sleep">—</div>
+          </div>
+          <div class="card card-sm">
+            <div class="label">Avg Screen</div>
+            <div class="stat-big" id="wk-screen">—</div>
+          </div>
+          <div class="card card-sm">
+            <div class="label">Spent</div>
+            <div class="stat-big" id="wk-money">—</div>
+          </div>
+        </div>
+        <div id="wk-detail-section" style="display:none;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;">
+            <div class="card">
+              <div style="font-size:13px; font-weight:600; margin-bottom:10px;">📿 Prayers — Daily</div>
+              <div id="wk-prayers-detail"></div>
+            </div>
+            <div class="card">
+              <div style="font-size:13px; font-weight:600; margin-bottom:10px;">📚 Study Sessions</div>
+              <div id="wk-study-detail"></div>
+            </div>
+            <div class="card">
+              <div style="font-size:13px; font-weight:600; margin-bottom:10px;">😴 Sleep Log</div>
+              <div id="wk-sleep-detail"></div>
+            </div>
+            <div class="card">
+              <div style="font-size:13px; font-weight:600; margin-bottom:10px;">📱 Top Apps</div>
+              <div id="wk-apps-detail"></div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-secondary" onclick="toggleWkDetail()" id="wk-detail-btn" style="width:100%;">▾ View
+          Detailed Breakdown</button>
+      </div>
+
+      <!-- MONTH panel -->
+      <div id="dash-panel-month" style="display:none;">
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:16px;">
+          <div class="card card-sm">
+            <div class="label">Perfect Prayer Days</div>
+            <div class="stat-big" id="mo-prayers">—</div>
+          </div>
+          <div class="card card-sm">
+            <div class="label">Gym Sessions</div>
+            <div class="stat-big" id="mo-gym">—</div>
+          </div>
+          <div class="card card-sm">
+            <div class="label">Study Hours</div>
+            <div class="stat-big" id="mo-study">—</div>
+          </div>
+          <div class="card card-sm">
+            <div class="label">Avg Sleep</div>
+            <div class="stat-big" id="mo-sleep">—</div>
+          </div>
+          <div class="card card-sm">
+            <div class="label">Total Spending</div>
+            <div class="stat-big" id="mo-money">—</div>
+          </div>
+          <div class="card card-sm">
+            <div class="label">Hadiths Read</div>
+            <div class="stat-big" id="mo-hadith">—</div>
+          </div>
+        </div>
+        <div id="mo-detail-section" style="display:none;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;">
+            <div class="card">
+              <div style="font-size:13px; font-weight:600; margin-bottom:10px;">💪 Gym by Week</div>
+              <div id="mo-gym-detail"></div>
+            </div>
+            <div class="card">
+              <div style="font-size:13px; font-weight:600; margin-bottom:10px;">📚 Study by Subject</div>
+              <div id="mo-study-detail"></div>
+            </div>
+            <div class="card">
+              <div style="font-size:13px; font-weight:600; margin-bottom:10px;">💰 Top Expense Cats</div>
+              <div id="mo-money-detail"></div>
+            </div>
+            <div class="card">
+              <div style="font-size:13px; font-weight:600; margin-bottom:10px;">🕌 Quran Progress</div>
+              <div id="mo-quran-detail"></div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-secondary" onclick="toggleMoDetail()" id="mo-detail-btn" style="width:100%;">▾ View
+          Detailed Breakdown</button>
+      </div>
+    </div>
+
+    <!-- DAILY LOG -->
+    <div class="page" id="page-log">
+      <h1 class="serif section-title">Daily Log</h1>
+      <div class="section-sub">Your daily checklist — complete what's missing</div>
+      <div style="display:flex; gap:10px; align-items:center; margin-bottom:24px; flex-wrap:wrap;">
+        <input type="date" class="input" id="log-date-select" style="width:180px;" onchange="loadLogForDate()">
+        <button class="btn btn-secondary" onclick="loadToday()">Today</button>
+        <div id="log-completion-badge" style="margin-left:auto;"></div>
+      </div>
+
+      <!-- CHECKLIST ITEMS -->
+      <div id="log-checklist-items" style="display:flex; flex-direction:column; gap:12px;"></div>
+
+      <!-- Hidden inputs kept for saveAllLog compat -->
+      <input type="hidden" id="screen-hrs-input">
+      <input type="hidden" id="screen-productive-input">
+    </div>
+
+    <!-- GYM -->
+    <div class="page" id="page-gym">
+      <h1 class="serif section-title">Gym Tracker</h1>
+      <div class="section-sub">Track your 4x/week goal</div>
+      <div class="grid-3" style="margin-bottom:20px;">
+        <div class="card card-sm">
+          <div class="label">This Week</div>
+          <div class="stat-big" id="gym-this-week">0/4</div>
+          <div class="progress-bar" style="margin-top:10px;">
+            <div class="progress-fill purple" id="gym-week-bar" style="width:0%"></div>
+          </div>
+        </div>
+        <div class="card card-sm">
+          <div class="label">This Month</div>
+          <div class="stat-big" id="gym-this-month">0</div>
+          <div style="font-size:12px; color:var(--muted); margin-top:6px;">sessions</div>
+        </div>
+        <div class="card card-sm">
+          <div class="label">Completion Rate</div>
+          <div class="stat-big" id="gym-rate">0%</div>
+          <div style="font-size:12px; color:var(--muted); margin-top:6px;">of weekly goals met</div>
+        </div>
+      </div>
+
+      <!-- GYM SCHEDULE SETUP -->
+      <div class="card" style="margin-bottom:20px;">
+        <div
+          style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; flex-wrap:wrap; gap:8px;">
+          <div style="font-size:15px; font-weight:600;">🗓 My Workout Schedule</div>
+          <button class="btn btn-ghost" onclick="toggleScheduleEdit()" id="schedule-edit-btn"
+            style="font-size:12px; padding:5px 12px; border:1px solid var(--border);">Edit</button>
+        </div>
+        <div style="font-size:12px; color:var(--muted); margin-bottom:16px;">Set which days you train — the dashboard
+          will remind you every day.</div>
+
+        <!-- View mode: day pills -->
+        <div id="schedule-view" style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <div style="font-size:12px; color:var(--muted); font-style:italic;" id="schedule-empty-hint">No schedule set
+            yet — click Edit to set your training days.</div>
+        </div>
+
+        <!-- Edit mode -->
+        <div id="schedule-edit" style="display:none; margin-top:8px;">
+          <div style="font-size:12px; color:var(--muted); margin-bottom:12px;">Tap days to toggle workout / rest.
+            Optionally assign a workout type to each training day.</div>
+
+          <!-- Day toggles -->
+          <div style="display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap;" id="schedule-day-toggles"></div>
+
+          <!-- Per-day workout type assignment -->
+          <div id="schedule-day-assignments" style="margin-bottom:16px;"></div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn btn-primary" onclick="saveGymSchedule()">💾 Save Schedule</button>
+            <button class="btn btn-secondary" onclick="toggleScheduleEdit()">Cancel</button>
+            <button class="btn btn-ghost" onclick="clearGymSchedule()"
+              style="color:var(--muted); margin-left:auto;">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- LOG TODAY'S SESSION -->
+      <div class="card" style="margin-bottom:20px;">
+        <div style="font-size:15px; font-weight:600; margin-bottom:4px;">💪 Log Today's Session</div>
+        <div style="font-size:12px; color:var(--muted); margin-bottom:18px;">How did today go?</div>
+
+        <!-- Yes / Rest / Skipped toggle -->
+        <div style="display:flex; gap:8px; margin-bottom:18px; flex-wrap:wrap;">
+          <button class="prayer-btn" id="gym-log-yes" onclick="setGymLog('yes')"
+            style="flex:1; min-width:90px; text-align:center;">💪 I went!</button>
+          <button class="prayer-btn" id="gym-log-rest" onclick="setGymLog('rest')"
+            style="flex:1; min-width:90px; text-align:center;">😴 Rest Day</button>
+          <button class="prayer-btn" id="gym-log-skipped" onclick="setGymLog('skipped')"
+            style="flex:1; min-width:90px; text-align:center;">❌ Skipped</button>
+        </div>
+
+        <!-- Session details (shown only when gym = yes) -->
+        <div id="gym-session-details"
+          style="display:none; border-top:1px solid var(--border); padding-top:16px; margin-top:4px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;">
+            <div>
+              <label class="label">Workout Type</label>
+              <select class="input" id="gym-type-input">
+                <option value="">— Select —</option>
+                <option value="Leg Day">🦵 Leg Day</option>
+                <option value="Push (Chest / Shoulders / Triceps)">🏋️ Push — Chest / Shoulders / Tris</option>
+                <option value="Pull (Back / Biceps)">💪 Pull — Back / Biceps</option>
+                <option value="Upper Body">🙌 Upper Body</option>
+                <option value="Lower Body">🦵 Lower Body</option>
+                <option value="Full Body">⚡ Full Body</option>
+                <option value="Cardio">🏃 Cardio</option>
+                <option value="Chest Day">💥 Chest Day</option>
+                <option value="Back Day">🔙 Back Day</option>
+                <option value="Shoulder Day">🎯 Shoulder Day</option>
+                <option value="Arm Day">💪 Arm Day</option>
+                <option value="Core / Abs">🎯 Core / Abs</option>
+                <option value="HIIT">🔥 HIIT</option>
+                <option value="Other">📌 Other</option>
+              </select>
+            </div>
+            <div>
+              <label class="label">Duration (mins)</label>
+              <input type="number" class="input" id="gym-duration-input" placeholder="e.g. 60" min="5" max="300"
+                step="5">
+            </div>
+          </div>
+          <div style="margin-bottom:14px;">
+            <label class="label">Notes (optional)</label>
+            <input type="text" class="input" id="gym-notes-input" placeholder="e.g. New PR on bench, felt strong…"
+              maxlength="200">
+          </div>
+          <button class="btn btn-primary" onclick="saveGymSession()">💾 Save Session</button>
+          <span id="gym-save-msg"
+            style="font-size:12px; color:var(--success); margin-left:12px; display:none;">Saved!</span>
+        </div>
+
+        <!-- Rest day saved state -->
+        <div id="gym-rest-msg" style="display:none; font-size:13px; color:var(--success); padding-top:4px;">😴 Rest day
+          logged — recovery is part of the program.</div>
+        <!-- Skipped state -->
+        <div id="gym-skipped-msg" style="display:none; font-size:13px; color:var(--danger); padding-top:4px;">❌ Skipped
+          logged — shake it off, show up tomorrow.</div>
+      </div>
+
+      <div class="card">
+        <div style="font-size:15px; font-weight:600; margin-bottom:14px;">Recent Sessions</div>
+        <div id="gym-sessions-list"></div>
+      </div>
+
+      <!-- SLEEP TRACKING -->
+      <div style="margin-top:28px;">
+        <h2 class="serif" style="font-size:18px; margin-bottom:4px;">😴 Sleep Tracker</h2>
+        <div class="section-sub" style="margin-bottom:16px;">Log your sleep to stay recovered and strong</div>
+
+        <!-- SLEEP GOAL CARD -->
+        <div class="card" style="margin-bottom:20px; border-color:rgba(124,110,240,0.25);">
+          <div
+            style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; flex-wrap:wrap; gap:8px;">
+            <div style="font-size:15px; font-weight:600;">🎯 Sleep Goal</div>
+            <button class="btn btn-ghost" id="sleep-goal-edit-btn" onclick="toggleSleepGoalEdit()"
+              style="font-size:12px; padding:5px 12px; border:1px solid var(--border);">Edit Goal</button>
+          </div>
+          <div style="font-size:12px; color:var(--muted); margin-bottom:14px;">Set your nightly sleep target. Use the
+            calculator for a personalised recommendation.</div>
+
+          <!-- View: current goal + last night progress -->
+          <div id="sleep-goal-view"></div>
+
+          <!-- Edit form + calculator -->
+          <div id="sleep-goal-edit"
+            style="display:none; border-top:1px solid var(--border); padding-top:18px; margin-top:4px;">
+
+            <!-- Mini recommendation calculator -->
+            <div
+              style="background:var(--surface2); border-radius:12px; padding:16px; margin-bottom:18px; border:1px solid var(--border);">
+              <div style="font-size:13px; font-weight:600; margin-bottom:12px; color:var(--accent2);">🧮 Sleep
+                Recommendation Calculator</div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+                <div>
+                  <label class="label" style="font-size:11px;">Age</label>
+                  <input type="number" class="input" id="slc-age" placeholder="e.g. 22" min="5" max="100"
+                    oninput="calcSleepRec()" style="font-size:13px;">
+                </div>
+                <div>
+                  <label class="label" style="font-size:11px;">Activity Level</label>
+                  <select class="input" id="slc-activity" onchange="calcSleepRec()" style="font-size:13px;">
+                    <option value="low">Sedentary / light</option>
+                    <option value="med" selected>Moderately active</option>
+                    <option value="high">Very active / athlete</option>
+                  </select>
+                </div>
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+                <div>
+                  <label class="label" style="font-size:11px;">Stress Level</label>
+                  <select class="input" id="slc-stress" onchange="calcSleepRec()" style="font-size:13px;">
+                    <option value="low">Low</option>
+                    <option value="med" selected>Moderate</option>
+                    <option value="high">High / burnout risk</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="label" style="font-size:11px;">Screen time before bed</label>
+                  <select class="input" id="slc-screen" onchange="calcSleepRec()" style="font-size:13px;">
+                    <option value="none">None / minimal</option>
+                    <option value="some" selected>30–60 min</option>
+                    <option value="heavy">1h+ on phone/TV</option>
+                  </select>
+                </div>
+              </div>
+              <div style="margin-bottom:12px;">
+                <label class="label" style="font-size:11px;">Do you train gym regularly?</label>
+                <div style="display:flex; gap:8px; margin-top:4px;">
+                  <button class="prayer-btn" id="slc-gym-yes" onclick="setSleepCalcGym(true)"
+                    style="flex:1; font-size:12px; padding:7px;">💪 Yes</button>
+                  <button class="prayer-btn" id="slc-gym-no" onclick="setSleepCalcGym(false)"
+                    style="flex:1; font-size:12px; padding:7px;">No</button>
+                </div>
+              </div>
+
+              <!-- Result -->
+              <div id="slc-result"
+                style="display:none; background:rgba(124,110,240,0.1); border:1px solid rgba(124,110,240,0.25); border-radius:10px; padding:14px 16px;">
+                <div
+                  style="font-size:11px; color:var(--accent2); font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:6px;">
+                  Recommended Sleep</div>
+                <div style="font-size:28px; font-family:'DM Serif Display',serif; font-weight:700;" id="slc-rec-hrs">—
+                </div>
+                <div style="font-size:12px; color:var(--muted); margin-top:4px;" id="slc-rec-note"></div>
+                <button class="btn btn-primary" style="margin-top:12px; font-size:12px; padding:8px 18px;"
+                  onclick="applySleepRec()">✓ Use This Target</button>
+              </div>
+            </div>
+
+            <!-- Manual target -->
+            <div style="display:flex; align-items:flex-end; gap:12px; flex-wrap:wrap; margin-bottom:16px;">
+              <div style="flex:1; min-width:160px;">
+                <label class="label">My Sleep Goal (hrs/night)</label>
+                <input type="number" class="input" id="sleep-goal-input" placeholder="e.g. 7.5" min="4" max="12"
+                  step="0.5" style="font-size:15px; font-weight:600;">
+              </div>
+              <button class="btn btn-primary" onclick="saveSleepGoal()" style="padding:10px 22px;">💾 Save</button>
+              <button class="btn btn-secondary" onclick="toggleSleepGoalEdit()">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-3" style="margin-bottom:20px;">
+          <div class="card card-sm">
+            <div class="label">Last Night</div>
+            <div class="stat-big" id="sleep-last-night">—</div>
+            <div id="sleep-last-night-bar" style="margin-top:6px;"></div>
+          </div>
+          <div class="card card-sm">
+            <div class="label">Weekly Avg</div>
+            <div class="stat-big" id="sleep-week-avg">—</div>
+            <div style="font-size:12px; color:var(--muted); margin-top:6px;">hrs/night</div>
+          </div>
+          <div class="card card-sm">
+            <div class="label">Quality Score</div>
+            <div class="stat-big" id="sleep-quality-avg">—</div>
+            <div style="font-size:12px; color:var(--muted); margin-top:6px;">avg this week</div>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:16px;">
+          <div style="font-size:15px; font-weight:600; margin-bottom:16px;">Log Tonight's Sleep</div>
+          <div class="grid-2" style="gap:16px; margin-bottom:14px;">
+            <div>
+              <label class="label">Bedtime</label>
+              <input type="time" class="input" id="sleep-bedtime" value="23:00">
+            </div>
+            <div>
+              <label class="label">Wake Up</label>
+              <input type="time" class="input" id="sleep-waketime" value="07:00">
+            </div>
+          </div>
+          <div style="margin-bottom:14px;">
+            <label class="label">Sleep Quality</label>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;" id="sleep-quality-btns">
+              <button class="prayer-btn" onclick="setSleepQuality(1)" id="sq-1">😫 Poor</button>
+              <button class="prayer-btn" onclick="setSleepQuality(2)" id="sq-2">😐 Okay</button>
+              <button class="prayer-btn" onclick="setSleepQuality(3)" id="sq-3">😊 Good</button>
+              <button class="prayer-btn" onclick="setSleepQuality(4)" id="sq-4">🌟 Great</button>
+            </div>
+          </div>
+          <div style="margin-bottom:14px;">
+            <label class="label">Notes (optional)</label>
+            <input type="text" class="input" id="sleep-notes-input" placeholder="e.g. Slept well, no interruptions"
+              maxlength="200">
+          </div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <button class="btn btn-primary" onclick="saveSleepLog()">💾 Save Sleep Log</button>
+            <span id="sleep-save-msg" style="font-size:12px; color:var(--success); display:none;">Saved!</span>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:15px; font-weight:600; margin-bottom:14px;">Recent Sleep Logs</div>
+          <div id="sleep-logs-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRAYERS -->
+    <div class="page" id="page-prayers">
+      <h1 class="serif section-title">Prayer Tracker</h1>
+      <div class="section-sub">Track your 5 daily prayers</div>
+      <div class="grid-3" style="margin-bottom:20px;">
+        <div class="card card-sm">
+          <div class="label">Today</div>
+          <div class="stat-big" id="prayer-today-count">0/5</div>
+        </div>
+        <div class="card card-sm">
+          <div class="label">This Week (avg)</div>
+          <div class="stat-big" id="prayer-week-avg">0/5</div>
+        </div>
+        <div class="card card-sm">
+          <div class="label">Perfect Days (Month)</div>
+          <div class="stat-big" id="prayer-perfect-days">0</div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:20px;">
+        <div style="font-size:15px; font-weight:600; margin-bottom:16px;">Today — <span id="prayer-today-label"></span>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;" id="prayer-today-btns"></div>
+      </div>
+      <div class="card" style="margin-bottom:20px;">
+        <div style="font-size:15px; font-weight:600; margin-bottom:14px;">Last 30 Days</div>
+        <div id="prayer-history-grid" style="display:flex; flex-wrap:wrap; gap:4px;"></div>
+        <div style="display:flex; gap:16px; margin-top:12px;">
+          <div style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--muted);">
+            <div style="width:12px;height:12px;border-radius:2px;background:var(--success);"></div>5/5
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--muted);">
+            <div style="width:12px;height:12px;border-radius:2px;background:var(--accent);"></div>3-4
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--muted);">
+            <div style="width:12px;height:12px;border-radius:2px;background:var(--danger);"></div>1-2
+          </div>
+          <div style="display:flex; align-items:center; gap:6px; font-size:11px; color:var(--muted);">
+            <div style="width:12px;height:12px;border-radius:2px;background:var(--surface2);"></div>0
+          </div>
+        </div>
+      </div>
+
+      <!-- HADITH TRACKER -->
+      <div style="margin-top:8px;">
+        <h2 class="serif" style="font-size:18px; margin-bottom:4px;">📖 Hadith Tracker</h2>
+        <div class="section-sub" style="margin-bottom:16px;">Log the hadiths you've read today</div>
+        <div class="grid-2" style="margin-bottom:16px;">
+          <div class="card card-sm">
+            <div class="label">Read Today</div>
+            <div class="stat-big" id="hadith-today-count">0</div>
+            <div style="font-size:12px; color:var(--muted); margin-top:4px;">hadiths</div>
+          </div>
+          <div class="card card-sm">
+            <div class="label">Read This Week</div>
+            <div class="stat-big" id="hadith-week-count">0</div>
+            <div style="font-size:12px; color:var(--muted); margin-top:4px;">hadiths</div>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:16px;">
+          <div style="font-size:14px; font-weight:600; margin-bottom:14px;">Add Hadith Entry</div>
+          <div class="grid-2" style="gap:12px; margin-bottom:12px;">
+            <div>
+              <label class="label">Book / Collection</label>
+              <input type="text" class="input" id="hadith-book-input" placeholder="e.g. Sahih al-Bukhari"
+                maxlength="200">
+            </div>
+            <div>
+              <label class="label">Hadith Number(s)</label>
+              <input type="text" class="input" id="hadith-number-input" placeholder="e.g. 1, 2–5" maxlength="200">
+            </div>
+          </div>
+          <div style="margin-bottom:12px;">
+            <label class="label">Count</label>
+            <input type="number" class="input" id="hadith-count-input" placeholder="1" min="1" style="max-width:120px;"
+              max="9999">
+          </div>
+          <div style="margin-bottom:14px;">
+            <label class="label">What I Learned (optional)</label>
+            <textarea class="input" id="hadith-note-input" rows="2" placeholder="Key lessons, reflections..."
+              maxlength="2000"></textarea>
+          </div>
+          <button class="btn btn-primary" onclick="addHadithEntry()">+ Add Hadith</button>
+        </div>
+        <div class="card">
+          <div style="font-size:14px; font-weight:600; margin-bottom:12px;">Today's Hadith Log</div>
+          <div id="hadith-today-list"></div>
+        </div>
+      </div>
+
+      <!-- QURAN TRACKER -->
+      <div style="margin-top:28px; margin-bottom:28px;">
+        <h2 class="serif" style="font-size:18px; margin-bottom:4px;">🕌 Quran Tracker</h2>
+        <div class="section-sub" style="margin-bottom:16px;">Track your Quran recitation and reflection</div>
+        <div class="grid-3" style="margin-bottom:16px;">
+          <div class="card card-sm">
+            <div class="label">Pages Today</div>
+            <div class="stat-big" id="quran-pages-today">0</div>
+          </div>
+          <div class="card card-sm">
+            <div class="label">Pages This Week</div>
+            <div class="stat-big" id="quran-pages-week">0</div>
+          </div>
+          <div class="card card-sm">
+            <div class="label">Sessions This Month</div>
+            <div class="stat-big" id="quran-sessions-month">0</div>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:16px;">
+          <div style="font-size:14px; font-weight:600; margin-bottom:14px;">Add Quran Session</div>
+          <div style="margin-bottom:12px;">
+            <label class="label">Surah</label>
+            <select class="input" id="quran-surah-input" onchange="onSurahChange()">
+              <option value="">— Select a Surah —</option>
+            </select>
+            <div style="font-size:11px; color:var(--muted); margin-top:4px;" id="quran-surah-meta"></div>
+          </div>
+          <div class="grid-2" style="gap:12px; margin-bottom:12px;">
+            <div>
+              <label class="label">Ayah From</label>
+              <input type="number" class="input" id="quran-ayah-from" placeholder="1" min="1">
+            </div>
+            <div>
+              <label class="label">Ayah To</label>
+              <input type="number" class="input" id="quran-ayah-to" placeholder="10" min="1">
+            </div>
+          </div>
+          <div style="margin-bottom:12px;">
+            <label class="label">Pages Read</label>
+            <input type="number" class="input" id="quran-pages-input" placeholder="2" min="1" style="max-width:120px;"
+              max="120">
+          </div>
+          <div style="margin-bottom:14px;">
+            <label class="label">Reflection / Notes (optional)</label>
+            <textarea class="input" id="quran-note-input" rows="2" placeholder="What stood out, tafsir notes..."
+              maxlength="2000"></textarea>
+          </div>
+          <button class="btn btn-primary" onclick="addQuranEntry()">+ Add Session</button>
+        </div>
+        <div class="card">
+          <div style="font-size:14px; font-weight:600; margin-bottom:12px;">Today's Quran Log</div>
+          <div id="quran-today-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STUDY -->
+    <div class="page" id="page-study">
+      <h1 class="serif section-title">Study Tracker</h1>
+      <div class="section-sub">Monitor your focused study hours</div>
+
+      <!-- STUDY GOALS CARD -->
+      <div class="card" style="margin-bottom:20px; border-color:rgba(124,110,240,0.25);">
+        <div
+          style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; flex-wrap:wrap; gap:8px;">
+          <div style="font-size:15px; font-weight:600;">🎯 Daily Study Goals</div>
+          <div style="display:flex; gap:8px;">
+            <button class="btn btn-ghost" id="study-goals-edit-btn" onclick="toggleStudyGoalsEdit()"
+              style="font-size:12px; padding:5px 12px; border:1px solid var(--border);">Edit Goals</button>
+          </div>
+        </div>
+        <div style="font-size:12px; color:var(--muted); margin-bottom:16px;">Set min/max daily hours for each category.
+          Progress tracks against today's actual hours.</div>
+
+        <!-- Goals view (progress bars) -->
+        <div id="study-goals-view"></div>
+
+        <!-- Goals edit form -->
+        <div id="study-goals-edit"
+          style="display:none; border-top:1px solid var(--border); padding-top:16px; margin-top:4px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+
+            <!-- Overall -->
+            <div style="background:var(--surface2); border-radius:10px; padding:14px; border:1px solid var(--border);">
+              <div style="font-size:13px; font-weight:600; margin-bottom:10px; color:var(--accent2);">📚 Overall Study
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                <div>
+                  <label class="label" style="font-size:10px;">Min hrs/day</label>
+                  <input type="number" class="input" id="sg-overall-min" placeholder="e.g. 2" min="0" max="24"
+                    step="0.5" style="font-size:13px;">
+                </div>
+                <div>
+                  <label class="label" style="font-size:10px;">Max hrs/day</label>
+                  <input type="number" class="input" id="sg-overall-max" placeholder="e.g. 6" min="0" max="24"
+                    step="0.5" style="font-size:13px;">
+                </div>
+              </div>
+            </div>
+
+            <!-- Academic -->
+            <div style="background:var(--surface2); border-radius:10px; padding:14px; border:1px solid var(--border);">
+              <div style="font-size:13px; font-weight:600; margin-bottom:10px; color:var(--accent2);">🎓 Academic</div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                <div>
+                  <label class="label" style="font-size:10px;">Min hrs/day</label>
+                  <input type="number" class="input" id="sg-acad-min" placeholder="e.g. 1" min="0" max="24" step="0.5"
+                    style="font-size:13px;">
+                </div>
+                <div>
+                  <label class="label" style="font-size:10px;">Max hrs/day</label>
+                  <input type="number" class="input" id="sg-acad-max" placeholder="e.g. 4" min="0" max="24" step="0.5"
+                    style="font-size:13px;">
+                </div>
+              </div>
+            </div>
+
+            <!-- Books -->
+            <div style="background:var(--surface2); border-radius:10px; padding:14px; border:1px solid var(--border);">
+              <div style="font-size:13px; font-weight:600; margin-bottom:10px; color:var(--success);">📖 Book Reading
+              </div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                <div>
+                  <label class="label" style="font-size:10px;">Min hrs/day</label>
+                  <input type="number" class="input" id="sg-books-min" placeholder="e.g. 0.5" min="0" max="24"
+                    step="0.25" style="font-size:13px;">
+                </div>
+                <div>
+                  <label class="label" style="font-size:10px;">Max hrs/day</label>
+                  <input type="number" class="input" id="sg-books-max" placeholder="e.g. 2" min="0" max="24" step="0.25"
+                    style="font-size:13px;">
+                </div>
+              </div>
+            </div>
+
+            <!-- Skills -->
+            <div style="background:var(--surface2); border-radius:10px; padding:14px; border:1px solid var(--border);">
+              <div style="font-size:13px; font-weight:600; margin-bottom:10px; color:#fb923c;">🏆 Skills</div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                <div>
+                  <label class="label" style="font-size:10px;">Min hrs/day</label>
+                  <input type="number" class="input" id="sg-skills-min" placeholder="e.g. 0.5" min="0" max="24"
+                    step="0.25" style="font-size:13px;">
+                </div>
+                <div>
+                  <label class="label" style="font-size:10px;">Max hrs/day</label>
+                  <input type="number" class="input" id="sg-skills-max" placeholder="e.g. 2" min="0" max="24"
+                    step="0.25" style="font-size:13px;">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="font-size:11px; color:var(--muted); margin-bottom:14px;">💡 Min = your daily minimum target. Max =
+            the ceiling you don't want to exceed (optional). Leave blank to skip.</div>
+          <div style="display:flex; gap:10px;">
+            <button class="btn btn-primary" onclick="saveStudyGoals()">💾 Save Goals</button>
+            <button class="btn btn-secondary" onclick="toggleStudyGoalsEdit()">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- OVERALL STATS -->
+      <div class="grid-3" style="margin-bottom:20px;">
+        <div class="card card-sm">
+          <div class="label">Today</div>
+          <div class="stat-big" id="study-today-hrs">0h</div>
+          <div id="study-today-goal-bar" style="margin-top:8px;"></div>
+        </div>
+        <div class="card card-sm">
+          <div class="label">This Week</div>
+          <div class="stat-big" id="study-week-hrs">0h</div>
+        </div>
+        <div class="card card-sm">
+          <div class="label">This Month</div>
+          <div class="stat-big" id="study-month-hrs">0h</div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:20px;">
+        <div style="font-size:15px; font-weight:600; margin-bottom:14px;">Weekly Study Hours</div>
+        <div id="study-week-chart"></div>
+        <div id="study-week-labels"></div>
+      </div>
+
+      <!-- ACADEMIC STUDY TRACKER -->
+      <div style="margin-top:28px;">
+        <h2 class="serif" style="font-size:18px; margin-bottom:4px;">🎓 Academic Study</h2>
+        <div class="section-sub" style="margin-bottom:16px;">Log your focused academic study sessions — lectures,
+          revision, assignments</div>
+        <div class="grid-3" style="margin-bottom:16px;">
+          <div class="card card-sm">
+            <div class="label">Today</div>
+            <div class="stat-big" id="acad-today-hrs">0h</div>
+            <div id="acad-today-goal-bar" style="margin-top:8px;"></div>
+          </div>
+          <div class="card card-sm">
+            <div class="label">This Week</div>
+            <div class="stat-big" id="acad-week-hrs">0h</div>
+          </div>
+          <div class="card card-sm">
+            <div class="label">This Month</div>
+            <div class="stat-big" id="acad-month-hrs">0h</div>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:16px;">
+          <div style="font-size:14px; font-weight:600; margin-bottom:14px;">Log Academic Session</div>
+          <div class="grid-2" style="gap:12px; margin-bottom:12px;">
+            <div>
+              <label class="label">Subject</label>
+              <input type="text" class="input" id="acad-subject-input" placeholder="e.g. Calculus, Biology, History"
+                maxlength="200">
+            </div>
+            <div>
+              <label class="label">Session Type</label>
+              <select class="input" id="acad-type-input">
+                <option value="Revision">📖 Revision</option>
+                <option value="Lecture">🎧 Lecture / Class</option>
+                <option value="Assignment">📝 Assignment</option>
+                <option value="Past Papers">📄 Past Papers</option>
+                <option value="Research">🔍 Research</option>
+                <option value="Lab">🔬 Lab / Practical</option>
+                <option value="Group Study">👥 Group Study</option>
+                <option value="Other">📌 Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid-2" style="gap:12px; margin-bottom:12px;">
+            <div>
+              <label class="label">Duration (hrs)</label>
+              <input type="number" class="input" id="acad-hrs-input" placeholder="1.5" min="0.25" max="24" step="0.25">
+            </div>
+            <div>
+              <label class="label">Date</label>
+              <input type="date" class="input" id="acad-date-input">
+            </div>
+          </div>
+          <div style="margin-bottom:14px;">
+            <label class="label">Notes (optional)</label>
+            <textarea class="input" id="acad-note-input" rows="2" placeholder="What did you cover? Any key concepts?"
+              maxlength="2000"></textarea>
+          </div>
+          <button class="btn btn-primary" onclick="addAcadSession()">+ Log Session</button>
+        </div>
+        <div class="card" style="margin-bottom:16px;">
+          <div
+            style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+            <div style="font-size:14px; font-weight:600;">Recent Sessions</div>
+            <div style="display:flex; gap:6px; align-items:center;">
+              <input type="text" class="input" id="acad-filter-input" placeholder="Filter by subject..."
+                style="font-size:12px; padding:5px 10px; width:160px;" oninput="renderAcadSessions()" maxlength="200">
+            </div>
+          </div>
+          <div id="acad-log-list"></div>
+        </div>
+        <div class="card" style="margin-bottom:16px;">
+          <div style="font-size:14px; font-weight:600; margin-bottom:12px;">Subject Breakdown — This Week</div>
+          <div id="acad-week-breakdown"></div>
+        </div>
+      </div>
+
+      <!-- BOOK READING TRACKER -->
+      <div style="margin-top:28px;">
+        <h2 class="serif" style="font-size:18px; margin-bottom:4px;">📚 Book Reading Tracker</h2>
+        <div class="section-sub" style="margin-bottom:16px;">Log the books you read, pages covered, and what you learned
+        </div>
+        <div class="grid-3" style="margin-bottom:16px;">
+          <div class="card card-sm">
+            <div class="label">Pages Today</div>
+            <div class="stat-big" id="books-pages-today">0</div>
+          </div>
+          <div class="card card-sm">
+            <div class="label">Time Today</div>
+            <div class="stat-big" id="books-time-today">0m</div>
+            <div id="books-today-goal-bar" style="margin-top:8px;"></div>
+          </div>
+          <div class="card card-sm">
+            <div class="label">Books Logged</div>
+            <div class="stat-big" id="books-unique-count">0</div>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:16px;">
+          <div style="font-size:14px; font-weight:600; margin-bottom:14px;">Log a Reading Session</div>
+          <div class="grid-2" style="gap:12px; margin-bottom:12px;">
+            <div>
+              <label class="label">Book Title</label>
+              <input type="text" class="input" id="book-title-input" placeholder="e.g. Atomic Habits" maxlength="200">
+            </div>
+            <div>
+              <label class="label">Author (optional)</label>
+              <input type="text" class="input" id="book-author-input" placeholder="e.g. James Clear" maxlength="200">
+            </div>
+          </div>
+          <div class="grid-2" style="gap:12px; margin-bottom:12px;">
+            <div>
+              <label class="label">Pages Read</label>
+              <input type="number" class="input" id="book-pages-input" placeholder="20" min="1" max="120">
+            </div>
+            <div>
+              <label class="label">Time Spent (mins)</label>
+              <input type="number" class="input" id="book-time-input" placeholder="30" min="1">
+            </div>
+          </div>
+          <div style="margin-bottom:12px;">
+            <label class="label">Page Range (optional)</label>
+            <input type="text" class="input" id="book-range-input" placeholder="e.g. 45–65" maxlength="200">
+          </div>
+          <div style="margin-bottom:14px;">
+            <label class="label">What I Learned (optional)</label>
+            <textarea class="input" id="book-note-input" rows="2" placeholder="Key takeaways, quotes, ideas..."
+              maxlength="2000"></textarea>
+          </div>
+          <button class="btn btn-primary" onclick="addBookEntry()">+ Log Session</button>
+        </div>
+        <div class="card">
+          <div style="font-size:14px; font-weight:600; margin-bottom:12px;">Reading Log</div>
+          <div id="book-log-list"></div>
+        </div>
+      </div>
+
+      <!-- SKILLS TRACKER -->
+      <div style="margin-top:28px; margin-bottom:28px;">
+        <h2 class="serif" style="font-size:18px; margin-bottom:4px;">🎯 Skills Tracker</h2>
+        <div class="section-sub" style="margin-bottom:16px;">Track which skills you're investing time in</div>
+        <div class="grid-2" style="margin-bottom:16px;">
+          <div class="card card-sm">
+            <div class="label">Skill Time Today</div>
+            <div class="stat-big" id="skills-today-count">0m</div>
+            <div id="skills-today-goal-bar" style="margin-top:8px;"></div>
+          </div>
+          <div class="card card-sm">
+            <div class="label">Total Hours This Week</div>
+            <div class="stat-big" id="skills-week-hrs">0h</div>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:16px;">
+          <div style="font-size:14px; font-weight:600; margin-bottom:14px;">Log Skill Practice</div>
+          <div class="grid-2" style="gap:12px; margin-bottom:12px;">
+            <div>
+              <label class="label">Skill Name</label>
+              <input type="text" class="input" id="skill-name-input" placeholder="e.g. Public Speaking, Coding, Arabic"
+                maxlength="200">
+            </div>
+            <div>
+              <label class="label">Category</label>
+              <select class="input" id="skill-category-input">
+                <option value="Technical">Technical</option>
+                <option value="Language">Language</option>
+                <option value="Creative">Creative</option>
+                <option value="Physical">Physical</option>
+                <option value="Social">Social</option>
+                <option value="Business">Business</option>
+                <option value="Academic">Academic</option>
+                <option value="Religious">Religious</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-bottom:12px;">
+            <label class="label">Time Invested (mins)</label>
+            <input type="number" class="input" id="skill-time-input" placeholder="45" min="1" style="max-width:160px;">
+          </div>
+          <div style="margin-bottom:14px;">
+            <label class="label">What I Practiced / Learned (optional)</label>
+            <textarea class="input" id="skill-note-input" rows="2"
+              placeholder="What did you work on? Any breakthroughs?" maxlength="2000"></textarea>
+          </div>
+          <button class="btn btn-primary" onclick="addSkillEntry()">+ Log Practice</button>
+        </div>
+        <div class="card" style="margin-bottom:16px;">
+          <div style="font-size:14px; font-weight:600; margin-bottom:12px;">Today's Skill Log</div>
+          <div id="skill-today-list"></div>
+        </div>
+        <div class="card">
+          <div style="font-size:14px; font-weight:600; margin-bottom:12px;">Skill Breakdown — This Week</div>
+          <div id="skill-week-breakdown"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NUTRITION -->
+    <div class="page" id="page-nutrition">
+      <h1 class="serif section-title">Nutrition</h1>
+      <div class="section-sub">Track meals, macros, goals and trends</div>
+      <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
+        <div class="toggle" id="nutrition-toggle">
+          <button class="toggle-btn active" onclick="switchNutritionTab('today')">Today</button>
+          <button class="toggle-btn" onclick="switchNutritionTab('analytics')">Analytics</button>
+          <button class="toggle-btn" onclick="switchNutritionTab('goals')">Goals</button>
+          <button class="toggle-btn" onclick="switchNutritionTab('library')">Food Library</button>
+        </div>
+      </div>
+
+      <!-- TODAY TAB -->
+      <div id="nutr-tab-today">
+        <div id="nutr-macros-today" style="margin-bottom:20px;"></div>
+
+        <!-- WATER TRACKER -->
+        <div class="card" style="margin-bottom:20px;">
+          <div
+            style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; flex-wrap:wrap; gap:8px;">
+            <div style="font-size:15px; font-weight:600;">💧 Water Intake</div>
+            <div style="font-size:12px; color:var(--muted);" id="water-goal-label">Goal: — L</div>
+          </div>
+          <div style="font-size:12px; color:var(--muted); margin-bottom:14px;" id="water-recommendation-note"></div>
+          <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:14px;">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <button class="btn btn-secondary" onclick="adjustWater(-250)"
+                style="padding:8px 14px; font-size:16px;">−</button>
+              <div style="text-align:center; min-width:80px;">
+                <div style="font-size:32px; font-family:'DM Serif Display',serif; font-weight:700;"
+                  id="water-today-amount">0</div>
+                <div style="font-size:11px; color:var(--muted);">ml</div>
+              </div>
+              <button class="btn btn-secondary" onclick="adjustWater(250)"
+                style="padding:8px 14px; font-size:16px;">+</button>
+            </div>
+            <div style="flex:1; min-width:160px;">
+              <div
+                style="display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-bottom:5px;">
+                <span id="water-ml-label">0 ml</span>
+                <span id="water-pct-label">0%</span>
+              </div>
+              <div style="height:10px; background:var(--surface2); border-radius:5px; overflow:hidden;">
+                <div id="water-progress-bar"
+                  style="height:100%; width:0%; background:#3b9eff; border-radius:5px; transition:width 0.5s ease;">
+                </div>
+              </div>
+              <div style="font-size:11px; color:var(--muted); margin-top:4px;" id="water-remaining-label"></div>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <button class="btn btn-ghost" style="font-size:12px; padding:6px 12px; border:1px solid var(--border);"
+              onclick="adjustWater(150)">+150ml ☕</button>
+            <button class="btn btn-ghost" style="font-size:12px; padding:6px 12px; border:1px solid var(--border);"
+              onclick="adjustWater(250)">+250ml 🥛</button>
+            <button class="btn btn-ghost" style="font-size:12px; padding:6px 12px; border:1px solid var(--border);"
+              onclick="adjustWater(500)">+500ml 🍶</button>
+            <button class="btn btn-ghost" style="font-size:12px; padding:6px 12px; border:1px solid var(--border);"
+              onclick="adjustWater(750)">+750ml 🧴</button>
+            <button class="btn btn-ghost"
+              style="font-size:12px; padding:6px 12px; border:1px solid var(--border); color:var(--muted);"
+              onclick="resetWater()">Reset</button>
+          </div>
+        </div>
+
+        <div class="card" style="margin-bottom:20px;">
+          <div style="font-size:15px; font-weight:600; margin-bottom:4px;">Today vs Target</div>
+          <div style="font-size:12px; color:var(--muted); margin-bottom:14px;">How your intake stacks up against your
+            daily goals</div>
+          <div id="nutr-target-chart"></div>
+        </div>
+        <div class="card">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+            <div style="font-size:15px; font-weight:600;">Today's Meals</div>
+            <button class="btn btn-primary" onclick="openAddMealModal()">+ Add Meal</button>
+          </div>
+          <div id="nutr-meals-today"></div>
+        </div>
+      </div>
+
+      <!-- ANALYTICS TAB -->
+      <div id="nutr-tab-analytics" style="display:none;">
+        <div class="grid-3" style="margin-bottom:20px;" id="nutr-analytics-stats"></div>
+        <div class="card" style="margin-bottom:20px;">
+          <div
+            style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
+            <div style="font-size:15px; font-weight:600;">7-Day Trend</div>
+            <div style="display:flex; gap:14px; font-size:11px; align-items:center; flex-wrap:wrap;">
+              <span style="display:flex;align-items:center;gap:5px;"><span
+                  style="display:inline-block;width:14px;height:3px;background:#c8a96e;border-radius:2px;"></span>Calories
+                ÷10</span>
+              <span style="display:flex;align-items:center;gap:5px;"><span
+                  style="display:inline-block;width:14px;height:3px;background:#7c6ef0;border-radius:2px;"></span>Protein
+                (g)</span>
+              <span style="display:flex;align-items:center;gap:5px;"><span
+                  style="display:inline-block;width:14px;height:3px;background:#4ade80;border-radius:2px;"></span>Carbs
+                (g)</span>
+              <span style="display:flex;align-items:center;gap:5px;color:var(--muted);">— Target</span>
+            </div>
+          </div>
+          <div id="nutr-trend-chart"></div>
+        </div>
+        <div class="card">
+          <div style="font-size:15px; font-weight:600; margin-bottom:14px;">Goal Adherence — Last 7 Days</div>
+          <div id="nutr-adherence-grid"></div>
+        </div>
+      </div>
+
+      <!-- GOALS TAB -->
+      <div id="nutr-tab-goals" style="display:none;">
+        <div style="display:flex; gap:20px; flex-wrap:wrap; align-items:flex-start;">
+
+          <!-- CALCULATOR CARD -->
+          <div class="card" style="flex:1; min-width:300px; max-width:520px;">
+            <div style="font-size:15px; font-weight:600; margin-bottom:2px;">🧮 Calculate My Targets</div>
+            <div style="font-size:12px; color:var(--muted); margin-bottom:20px;">Fill in your stats and we'll work out
+              your optimal daily intake</div>
+
+            <div style="display:flex; flex-direction:column; gap:14px;">
+
+              <!-- Sex -->
+              <div>
+                <label class="label">Biological Sex</label>
+                <div style="display:flex; gap:8px;">
+                  <button class="calc-sex-btn toggle-btn active" id="calc-sex-male" onclick="setCalcSex('male')"
+                    style="flex:1;padding:9px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);cursor:pointer;font-family:inherit;font-size:13px;transition:all 0.2s;">♂
+                    Male</button>
+                  <button class="calc-sex-btn toggle-btn" id="calc-sex-female" onclick="setCalcSex('female')"
+                    style="flex:1;padding:9px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);cursor:pointer;font-family:inherit;font-size:13px;transition:all 0.2s;">♀
+                    Female</button>
+                </div>
+              </div>
+
+              <!-- Age / Weight / Height -->
+              <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+                <div>
+                  <label class="label">Age</label>
+                  <input type="number" class="input" id="calc-age" placeholder="25" min="10" max="100"
+                    oninput="liveCalc()">
+                </div>
+                <div>
+                  <label class="label">Weight (kg)</label>
+                  <input type="number" class="input" id="calc-weight" placeholder="70" min="20" max="300" step="0.5"
+                    oninput="liveCalc()">
+                </div>
+                <div>
+                  <label class="label">Height (cm)</label>
+                  <input type="number" class="input" id="calc-height" placeholder="170" min="100" max="250"
+                    oninput="liveCalc()">
+                </div>
+              </div>
+
+              <!-- Activity Level -->
+              <div>
+                <label class="label">Activity Level</label>
+                <select class="input" id="calc-activity" onchange="liveCalc()">
+                  <option value="1.2">Sedentary — desk job, little/no exercise</option>
+                  <option value="1.375">Lightly active — light exercise 1–3 days/week</option>
+                  <option value="1.55" selected>Moderately active — exercise 3–5 days/week</option>
+                  <option value="1.725">Very active — hard exercise 6–7 days/week</option>
+                  <option value="1.9">Extremely active — physical job + training daily</option>
+                </select>
+              </div>
+
+              <!-- Goal -->
+              <div>
+                <label class="label">Your Goal</label>
+                <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+                  <button class="goal-obj-btn" id="gobj-cut" onclick="setGoalObj('cut')"
+                    style="padding:10px 6px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);cursor:pointer;font-family:inherit;font-size:12px;text-align:center;transition:all 0.2s;line-height:1.4;">🔥<br><b>Cut</b><br><span
+                      style="font-size:10px;">Lose fat</span></button>
+                  <button class="goal-obj-btn" id="gobj-maintain" onclick="setGoalObj('maintain')"
+                    style="padding:10px 6px;border-radius:8px;border:1px solid var(--accent);background:rgba(200,169,110,0.08);color:var(--accent);cursor:pointer;font-family:inherit;font-size:12px;text-align:center;transition:all 0.2s;line-height:1.4;">⚖️<br><b>Maintain</b><br><span
+                      style="font-size:10px;">Stay the same</span></button>
+                  <button class="goal-obj-btn" id="gobj-bulk" onclick="setGoalObj('bulk')"
+                    style="padding:10px 6px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);color:var(--muted);cursor:pointer;font-family:inherit;font-size:12px;text-align:center;transition:all 0.2s;line-height:1.4;">💪<br><b>Bulk</b><br><span
+                      style="font-size:10px;">Build muscle</span></button>
+                </div>
+              </div>
+
+              <!-- Workout intensity (only shown when relevant) -->
+              <div id="calc-workout-row">
+                <label class="label">Gym Intensity</label>
+                <select class="input" id="calc-gym-intensity" onchange="liveCalc()">
+                  <option value="low">Light — cardio or casual lifting</option>
+                  <option value="med" selected>Moderate — structured weight training</option>
+                  <option value="high">Heavy — powerlifting / high-volume bodybuilding</option>
+                </select>
+              </div>
+
+              <!-- Supplements -->
+              <div>
+                <label class="label">Supplements</label>
+                <div style="display:flex; flex-direction:column; gap:8px;">
+                  <label
+                    style="display:flex; align-items:center; gap:10px; cursor:pointer; font-size:13px; color:var(--text);">
+                    <input type="checkbox" id="calc-creatine" onchange="liveCalc()"
+                      style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer;">
+                    <span>💊 Creatine monohydrate <span style="font-size:11px; color:var(--muted);">(+300–500ml
+                        water/day)</span></span>
+                  </label>
+                  <label
+                    style="display:flex; align-items:center; gap:10px; cursor:pointer; font-size:13px; color:var(--text);">
+                    <input type="checkbox" id="calc-preworkout" onchange="liveCalc()"
+                      style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer;">
+                    <span>⚡ Pre-workout <span style="font-size:11px; color:var(--muted);">(+200ml
+                        water/day)</span></span>
+                  </label>
+                  <label
+                    style="display:flex; align-items:center; gap:10px; cursor:pointer; font-size:13px; color:var(--text);">
+                    <input type="checkbox" id="calc-protein-powder" onchange="liveCalc()"
+                      style="width:16px;height:16px;accent-color:var(--accent);cursor:pointer;">
+                    <span>🥛 Protein powder <span style="font-size:11px; color:var(--muted);">(adjust protein
+                        targets)</span></span>
+                  </label>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- RESULTS CARD -->
+          <div style="flex:1; min-width:260px;">
+            <div id="calc-results-placeholder" style="color:var(--muted);font-size:13px;padding:20px 0;">Fill in your
+              stats on the left to see your recommended targets.</div>
+            <div id="calc-results" style="display:none;">
+              <div class="card" style="margin-bottom:16px; border-color:rgba(200,169,110,0.3);">
+                <div
+                  style="font-size:13px; color:var(--muted); margin-bottom:12px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase;">
+                  Recommended Targets</div>
+
+                <div style="margin-bottom:16px;">
+                  <div style="font-size:12px; color:var(--muted); margin-bottom:4px;">Daily Calories</div>
+                  <div style="font-size:34px; font-family:'DM Serif Display',serif;" id="res-cal">—</div>
+                  <div style="font-size:11px; color:var(--muted);" id="res-cal-note"></div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
+                  <div
+                    style="background:rgba(124,110,240,0.08);border:1px solid rgba(124,110,240,0.2);border-radius:10px;padding:12px;">
+                    <div style="font-size:11px;color:var(--accent2);font-weight:600;margin-bottom:4px;">PROTEIN</div>
+                    <div style="font-size:26px;font-family:'DM Serif Display',serif;" id="res-protein">—</div>
+                    <div style="font-size:10px;color:var(--muted);" id="res-protein-note"></div>
+                  </div>
+                  <div
+                    style="background:rgba(74,222,128,0.08);border:1px solid rgba(74,222,128,0.2);border-radius:10px;padding:12px;">
+                    <div style="font-size:11px;color:var(--success);font-weight:600;margin-bottom:4px;">CARBS</div>
+                    <div style="font-size:26px;font-family:'DM Serif Display',serif;" id="res-carbs">—</div>
+                    <div style="font-size:10px;color:var(--muted);" id="res-carbs-note"></div>
+                  </div>
+                </div>
+
+                <!-- Macro split visual -->
+                <div style="margin-bottom:14px;">
+                  <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">Macro Split</div>
+                  <div style="height:10px;border-radius:5px;overflow:hidden;display:flex;" id="res-split-bar"></div>
+                  <div style="display:flex;gap:12px;margin-top:6px;font-size:10px;color:var(--muted);"
+                    id="res-split-labels"></div>
+                </div>
+
+                <!-- BMR / TDEE breakdown -->
+                <div style="background:var(--surface2);border-radius:8px;padding:10px 12px;font-size:12px;">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                    <span style="color:var(--muted);">BMR (base metabolic rate)</span>
+                    <span id="res-bmr" style="font-weight:600;">—</span>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+                    <span style="color:var(--muted);">TDEE (maintenance calories)</span>
+                    <span id="res-tdee" style="font-weight:600;">—</span>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;">
+                    <span style="color:var(--muted);">Adjustment for goal</span>
+                    <span id="res-adj" style="font-weight:600;">—</span>
+                  </div>
+                </div>
+
+                <!-- Water recommendation -->
+                <div
+                  style="margin-top:14px; background:rgba(59,158,255,0.08); border:1px solid rgba(59,158,255,0.2); border-radius:10px; padding:12px 14px;">
+                  <div style="font-size:11px; color:#3b9eff; font-weight:600; margin-bottom:6px;">💧 RECOMMENDED WATER
+                    INTAKE</div>
+                  <div style="font-size:24px; font-family:'DM Serif Display',serif;" id="res-water">—</div>
+                  <div style="font-size:11px; color:var(--muted); margin-top:3px;" id="res-water-note"></div>
+                  <div id="res-supp-note" style="font-size:11px; color:#3b9eff; margin-top:5px; display:none;"></div>
+                </div>
+              </div>
+
+              <button class="btn btn-primary" style="width:100%;padding:12px;" onclick="applyCalculatedGoals()">
+                ✓ Use These Targets
+              </button>
+              <div style="font-size:11px;color:var(--muted);text-align:center;margin-top:8px;">This fills in your goals
+                below. You can still edit them manually.</div>
+            </div>
+
+            <!-- MANUAL GOALS (always visible below) -->
+            <div class="card" style="margin-top:16px;">
+              <div style="font-size:14px; font-weight:600; margin-bottom:4px;">Manual Targets</div>
+              <div style="font-size:11px; color:var(--muted); margin-bottom:16px;">Override or set targets directly
+              </div>
+              <div style="display:flex; flex-direction:column; gap:12px;">
+                <div>
+                  <label class="label">Calories (kcal/day)</label>
+                  <input type="number" class="input" id="goal-cal" placeholder="e.g. 2200" min="0" step="50">
+                </div>
+                <div>
+                  <label class="label">Protein (g/day)</label>
+                  <input type="number" class="input" id="goal-protein" placeholder="e.g. 150" min="0" step="5">
+                </div>
+                <div>
+                  <label class="label">Carbs (g/day)</label>
+                  <input type="number" class="input" id="goal-carbs" placeholder="e.g. 250" min="0" step="5">
+                </div>
+                <div>
+                  <label class="label">💧 Daily Water Goal (ml)</label>
+                  <input type="number" class="input" id="goal-water" placeholder="e.g. 2500" min="0" step="100">
+                  <div style="font-size:11px; color:var(--muted); margin-top:4px;">Used in Nutrition → Today for
+                    tracking</div>
+                </div>
+                <button class="btn btn-primary" style="align-self:flex-start; padding:10px 24px;"
+                  onclick="saveNutritionGoals()">Save Goals</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- FOOD LIBRARY TAB -->
+      <div id="nutr-tab-library" style="display:none;">
+        <div style="display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap;">
+          <input type="text" class="input" id="food-search" placeholder="Search foods..." style="max-width:260px;"
+            oninput="renderFoodLibrary()" maxlength="200">
+          <button class="btn btn-primary" onclick="openAddFoodModal()">+ Add Food</button>
+        </div>
+        <div id="food-library-list"></div>
+      </div>
+    </div>
+
+    <!-- SCREEN TIME -->
+    <div class="page" id="page-screentime">
+      <h1 class="serif section-title">Screen Time</h1>
+      <div class="section-sub">Monitor your daily device usage</div>
+      <div class="grid-3" style="margin-bottom:20px;">
+        <div class="card card-sm">
+          <div class="label">Screen Time Today</div>
+          <div class="stat-big" id="screen-today">0h</div>
+        </div>
+        <div class="card card-sm">
+          <div class="label">Screen Time This Week (avg)</div>
+          <div class="stat-big" id="screen-week-avg">0h</div>
+        </div>
+        <div class="card card-sm">
+          <div class="label">Productive Today</div>
+          <div class="stat-big" id="screen-productive-today">0h</div>
+        </div>
+      </div>
+
+      <!-- Daily Goal Card -->
+      <div class="card" style="margin-bottom:20px;" id="screen-goal-card">
+        <div
+          style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+          <div style="font-size:15px; font-weight:600;">📵 Daily Screen Time Goal</div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <input type="number" class="input" id="screen-goal-input" placeholder="e.g. 120" min="1" max="1440"
+              style="width:100px; font-size:13px; padding:6px 10px;" onchange="saveScreenGoal()">
+            <span style="font-size:13px; color:var(--muted);">mins / day</span>
+          </div>
+        </div>
+        <div id="screen-goal-progress-wrap" style="display:none;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <span style="font-size:13px;" id="screen-goal-label">0 / 0 min used</span>
+            <span style="font-size:12px; font-weight:600;" id="screen-goal-pct">0%</span>
+          </div>
+          <div style="height:8px; background:var(--surface2); border-radius:4px; overflow:hidden;">
+            <div id="screen-goal-bar"
+              style="height:8px; width:0%; border-radius:4px; background:var(--success); transition:width 0.4s ease;">
+            </div>
+          </div>
+          <div style="font-size:12px; color:var(--muted); margin-top:6px;" id="screen-goal-remaining"></div>
+        </div>
+        <div id="screen-goal-empty" style="font-size:12px; color:var(--muted);">Set a daily goal above to track your
+          overall screen time limit.</div>
+      </div>
+
+      <div class="card" style="margin-bottom:20px;">
+        <div style="font-size:15px; font-weight:600; margin-bottom:14px;">7-Day Screen Time</div>
+        <div id="screen-week-chart"></div>
+        <div id="screen-week-labels"></div>
+      </div>
+
+      <!-- APP USAGE TRACKER -->
+      <div style="margin-top:8px;">
+        <h2 class="serif" style="font-size:18px; margin-bottom:4px;">📱 App Usage Tracker</h2>
+        <div class="section-sub" style="margin-bottom:16px;">Log which apps you used and for how long — get warned when
+          usage is excessive</div>
+
+        <!-- Danger alerts -->
+        <div id="screen-danger-alerts" style="margin-bottom:16px;"></div>
+
+        <div class="card" style="margin-bottom:16px;">
+          <div style="font-size:14px; font-weight:600; margin-bottom:14px;">Log App Usage</div>
+          <div class="grid-2" style="gap:12px; margin-bottom:12px;">
+            <div>
+              <label class="label">App Name</label>
+              <input type="text" class="input" id="app-name-input" placeholder="e.g. Instagram, YouTube"
+                maxlength="200">
+            </div>
+            <div>
+              <label class="label">Category</label>
+              <select class="input" id="app-category-input">
+                <option value="Social Media">Social Media</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Productivity">Productivity</option>
+                <option value="Education">Education</option>
+                <option value="Gaming">Gaming</option>
+                <option value="Communication">Communication</option>
+                <option value="News">News</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Health & Fitness">Health & Fitness</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="grid-2" style="gap:12px; margin-bottom:12px;">
+            <div>
+              <label class="label">Time Spent (mins)</label>
+              <input type="number" class="input" id="app-mins-input" placeholder="45" min="1" max="1440">
+            </div>
+            <div>
+              <label class="label">Daily Limit (mins, optional)</label>
+              <input type="number" class="input" id="app-limit-input" placeholder="60" min="1">
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="addAppUsage()">+ Log App</button>
+        </div>
+
+        <div class="card" style="margin-bottom:16px;">
+          <div style="font-size:14px; font-weight:600; margin-bottom:12px;">Today's App Usage</div>
+          <div id="app-today-list"></div>
+        </div>
+
+        <div class="card">
+          <div style="font-size:14px; font-weight:600; margin-bottom:12px;">Weekly App Breakdown</div>
+          <div id="app-week-breakdown"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CALENDAR -->
+    <div class="page" id="page-calendar">
+      <h1 class="serif section-title">Calendar</h1>
+      <div class="section-sub">Manage events and never miss anything</div>
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+        <div style="flex:1; min-width:280px;">
+          <div class="card">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+              <button class="btn btn-ghost" onclick="changeMonth(-1)">‹</button>
+              <div style="font-size:15px; font-weight:600;" id="cal-month-label"></div>
+              <button class="btn btn-ghost" onclick="changeMonth(1)">›</button>
+            </div>
+            <div class="cal-grid" style="margin-bottom:8px;" id="cal-header"></div>
+            <div class="cal-grid" id="cal-grid"></div>
+          </div>
+        </div>
+        <div style="flex:1; min-width:280px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+            <div style="font-size:15px; font-weight:600;" id="cal-selected-label">All Events</div>
+            <button class="btn btn-primary" onclick="openAddEventModal()">+ Add Event</button>
+          </div>
+          <div id="cal-events-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DIARY -->
+    <div class="page" id="page-diary">
+
+      <!-- VIEW 1: Folders/Notebooks list -->
+      <div class="notes-view active" id="diary-view-folders">
+        <div
+          style="display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
+          <div>
+            <h1 class="serif section-title">Diary</h1>
+            <div class="section-sub" style="margin-bottom:0;">Your notebooks</div>
+          </div>
+          <button class="btn btn-primary" onclick="openNewNotebookModal()">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" style="flex-shrink:0;">
+              <path d="M7 1v12M1 7h12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+            New Notebook
+          </button>
+        </div>
+        <div id="diary-folders-list" style="max-width:520px;"></div>
+      </div>
+
+      <!-- VIEW 2: Notes inside a notebook -->
+      <div class="notes-view" id="diary-view-notes">
+        <div style="display:flex; gap:20px; align-items:flex-start; flex-wrap:wrap;">
+          <!-- Left panel: notes list -->
+          <div class="notes-panel">
+            <button class="notes-back-btn" onclick="diaryGoFolders()">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M9 1L3 7l6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+              Notebooks
+            </button>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+              <div>
+                <div id="diary-notebook-title" style="font-size:16px; font-weight:700;"></div>
+                <div id="diary-notebook-count" style="font-size:11px; color:var(--muted); margin-top:2px;"></div>
+              </div>
+              <div style="display:flex; gap:6px;">
+                <button class="btn btn-ghost" onclick="editCurrentNotebook()" style="padding:6px 8px; font-size:14px;"
+                  title="Edit notebook">✏️</button>
+                <button class="btn btn-primary" onclick="openNewNote()"
+                  style="padding:6px 10px; font-size:18px; line-height:1;" title="New note">+</button>
+              </div>
+            </div>
+            <div id="diary-notes-list"></div>
+          </div>
+          <!-- Right panel: editor -->
+          <div style="flex:1; min-width:300px;">
+            <div id="diary-editor" style="display:none;">
+              <div
+                style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:10px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <div id="diary-entry-date"
+                    style="font-size:12px; color:var(--muted); font-weight:500; letter-spacing:0.04em;"></div>
+                  <div id="diary-mood-display" style="font-size:14px;"></div>
+                </div>
+                <div style="display:flex; gap:8px;">
+                  <button class="btn btn-secondary" onclick="deleteDiaryEntry()" style="padding:7px 12px;">🗑</button>
+                  <button class="btn btn-primary" onclick="saveDiaryEntry()">Save</button>
+                </div>
+              </div>
+              <input type="text" id="diary-title-input" placeholder="Note title…" style="width:100%; background:transparent; border:none; outline:none; font-family:'DM Serif Display',serif;
+                   font-size:28px; color:var(--text); margin-bottom:6px; caret-color:var(--accent);" maxlength="200">
+              <div style="display:flex; gap:6px; margin-bottom:20px; flex-wrap:wrap;" id="diary-mood-btns"></div>
+              <div style="height:1px; background:var(--border); margin-bottom:20px;"></div>
+              <textarea id="diary-content-input" placeholder="Start writing…" style="width:100%; background:transparent; border:none; outline:none; resize:none;
+                   font-family:'DM Sans',sans-serif; font-size:15px; line-height:1.8;
+                   color:var(--text); min-height:420px; caret-color:var(--accent);" maxlength="2000"></textarea>
+              <div
+                style="text-align:right; font-size:11px; color:var(--muted); margin-top:8px; padding-top:8px; border-top:1px solid var(--border);"
+                id="diary-word-count">0 words</div>
+            </div>
+            <div id="diary-empty-state"
+              style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:340px; color:var(--muted); text-align:center; gap:12px;">
+              <div style="font-size:36px; opacity:0.3;">✦</div>
+              <div style="font-size:14px;">Select a note or create a new one</div>
+              <div style="font-size:12px; opacity:0.6;">Your thoughts deserve a home</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notebook modal -->
+    <div class="modal-bg" id="modal-notebook">
+      <div class="modal" style="max-width:400px;">
+        <div class="modal-header">
+          <h3 class="serif" id="notebook-modal-title">New Notebook</h3>
+          <button class="btn btn-ghost" onclick="closeModal('modal-notebook')"
+            style="padding:4px 8px; font-size:18px;">✕</button>
+        </div>
+        <div class="modal-body">
+          <div style="margin-bottom:14px;">
+            <label class="label">Notebook Name</label>
+            <input type="text" id="notebook-name-input" class="input" placeholder="e.g. Personal, Work, Travel…"
+              maxlength="200">
+          </div>
+          <div style="margin-bottom:6px;">
+            <label class="label">Icon</label>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;" id="notebook-icon-picker">
+              <!-- rendered by JS -->
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-danger" id="notebook-delete-btn" onclick="deleteCurrentNotebook()"
+            style="margin-right:auto; display:none;">Delete</button>
+          <button class="btn btn-secondary" onclick="closeModal('modal-notebook')">Cancel</button>
+          <button class="btn btn-primary" onclick="saveNotebook()">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANALYTICS -->
+    <div class="page" id="page-analytics">
+      <h1 class="serif section-title">Analytics</h1>
+      <div class="section-sub">A deep look at your discipline journey</div>
+
+      <!-- Period toggle -->
+      <div class="toggle" style="margin-bottom:24px; width:fit-content;" id="analytics-period-toggle">
+        <button class="toggle-btn active" onclick="switchAnalyticsPeriod('week')">7 Days</button>
+        <button class="toggle-btn" onclick="switchAnalyticsPeriod('month')">30 Days</button>
+        <button class="toggle-btn" onclick="switchAnalyticsPeriod('all')">All Time</button>
+      </div>
+
+      <!-- Top KPI row -->
+      <div
+        style="display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:12px; margin-bottom:24px;"
+        id="ana-kpi-row"></div>
+
+      <!-- Charts row -->
+      <div class="grid-2" style="margin-bottom:20px;">
+        <div class="card">
+          <div style="font-size:14px; font-weight:600; margin-bottom:4px;">💪 Gym Sessions</div>
+          <div style="font-size:11px; color:var(--muted); margin-bottom:14px;" id="ana-gym-chart-label">per week</div>
+          <div style="display:flex; align-items:flex-end; gap:6px; height:90px;" id="ana-gym-chart"></div>
+          <div style="display:flex; gap:6px; margin-top:4px;" id="ana-gym-chart-labels"></div>
+        </div>
+        <div class="card">
+          <div style="font-size:14px; font-weight:600; margin-bottom:4px;">📚 Study Hours</div>
+          <div style="font-size:11px; color:var(--muted); margin-bottom:14px;" id="ana-study-chart-label">per day</div>
+          <div style="display:flex; align-items:flex-end; gap:6px; height:90px;" id="ana-study-chart"></div>
+          <div style="display:flex; gap:6px; margin-top:4px;" id="ana-study-chart-labels"></div>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-bottom:20px;">
+        <div class="card">
+          <div style="font-size:14px; font-weight:600; margin-bottom:4px;">📿 Prayer Consistency</div>
+          <div style="font-size:11px; color:var(--muted); margin-bottom:14px;" id="ana-prayer-chart-label">prayers per
+            day</div>
+          <div style="display:flex; align-items:flex-end; gap:6px; height:90px;" id="ana-prayer-chart"></div>
+          <div style="display:flex; gap:6px; margin-top:4px;" id="ana-prayer-chart-labels"></div>
+        </div>
+        <div class="card">
+          <div style="font-size:14px; font-weight:600; margin-bottom:4px;">📱 Screen Time</div>
+          <div style="font-size:11px; color:var(--muted); margin-bottom:14px;" id="ana-screen-chart-label">hours per day
+          </div>
+          <div style="display:flex; align-items:flex-end; gap:6px; height:90px;" id="ana-screen-chart"></div>
+          <div style="display:flex; gap:6px; margin-top:4px;" id="ana-screen-chart-labels"></div>
+        </div>
+      </div>
+
+      <!-- Sleep + Money row -->
+      <div class="grid-2" style="margin-bottom:20px;">
+        <div class="card">
+          <div style="font-size:14px; font-weight:600; margin-bottom:4px;">😴 Sleep Hours</div>
+          <div style="font-size:11px; color:var(--muted); margin-bottom:14px;" id="ana-sleep-chart-label">hours per
+            night</div>
+          <div style="display:flex; align-items:flex-end; gap:6px; height:90px;" id="ana-sleep-chart"></div>
+          <div style="display:flex; gap:6px; margin-top:4px;" id="ana-sleep-chart-labels"></div>
+        </div>
+        <div class="card">
+          <div style="font-size:14px; font-weight:600; margin-bottom:4px;">💰 Daily Spending</div>
+          <div style="font-size:11px; color:var(--muted); margin-bottom:14px;" id="ana-money-chart-label">per day</div>
+          <div style="display:flex; align-items:flex-end; gap:6px; height:90px;" id="ana-money-chart"></div>
+          <div style="display:flex; gap:6px; margin-top:4px;" id="ana-money-chart-labels"></div>
+        </div>
+      </div>
+
+      <!-- Streaks & Scores -->
+      <div class="card" style="margin-bottom:20px;">
+        <div style="font-size:14px; font-weight:600; margin-bottom:14px;">🔥 Habit Streaks</div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:12px;"
+          id="ana-streaks"></div>
+      </div>
+
+      <!-- Daily log table -->
+      <div class="card">
+        <div style="font-size:14px; font-weight:600; margin-bottom:14px;">📋 Daily Log</div>
+        <div style="overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse; font-size:12px;" id="ana-log-table">
+            <thead>
+              <tr style="border-bottom:1px solid var(--border); color:var(--muted); text-align:left;">
+                <th style="padding:6px 10px 8px 0; font-weight:600; white-space:nowrap;">Date</th>
+                <th style="padding:6px 10px 8px; font-weight:600; text-align:center;">💪</th>
+                <th style="padding:6px 10px 8px; font-weight:600; text-align:center;">📿</th>
+                <th style="padding:6px 10px 8px; font-weight:600; text-align:center;">📚 Study</th>
+                <th style="padding:6px 10px 8px; font-weight:600; text-align:center;">😴 Sleep</th>
+                <th style="padding:6px 10px 8px; font-weight:600; text-align:center;">📱 Screen</th>
+                <th style="padding:6px 10px 8px; font-weight:600; text-align:center;">💰 Spent</th>
+                <th style="padding:6px 10px 8px; font-weight:600; text-align:center;">Score</th>
+              </tr>
+            </thead>
+            <tbody id="ana-log-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="page" id="page-settings">
+      <h1 class="serif section-title">Settings</h1>
+      <div class="section-sub">Personalise your experience</div>
+      <div style="max-width:620px; display:flex; flex-direction:column; gap:16px;">
+        <div class="card">
+          <div style="font-size:15px; font-weight:600; margin-bottom:4px;">🎨 Themes</div>
+          <div style="font-size:12px; color:var(--muted); margin-bottom:16px;">Choose a preset or build your own</div>
+          <div
+            style="display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:10px; margin-bottom:18px;"
+            id="theme-preset-grid"></div>
+          <div id="custom-themes-section">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+              <div style="font-size:13px; font-weight:500; color:var(--muted);">Your Themes</div>
+              <button class="btn btn-secondary" style="font-size:12px; padding:5px 10px;" onclick="openThemeBuilder()">+
+                Create Theme</button>
+            </div>
+            <div id="custom-themes-grid"
+              style="display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:10px;"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:15px; font-weight:600; margin-bottom:16px;">🌍 Region & Currency</div>
+          <div style="margin-bottom:14px;">
+            <label class="label">Region</label>
+            <select class="input" id="settings-region" onchange="saveSettings()">
+              <option value="MY">Malaysia (RM)</option>
+              <option value="US">United States (USD $)</option>
+              <option value="GB">United Kingdom (GBP £)</option>
+              <option value="EU">Europe (EUR €)</option>
+              <option value="SG">Singapore (SGD S$)</option>
+              <option value="AU">Australia (AUD A$)</option>
+              <option value="JP">Japan (JPY ¥)</option>
+              <option value="AE">UAE (AED د.إ)</option>
+              <option value="SA">Saudi Arabia (SAR ر.س)</option>
+              <option value="IN">India (INR ₹)</option>
+              <option value="ID">Indonesia (IDR Rp)</option>
+              <option value="PH">Philippines (PHP ₱)</option>
+              <option value="TH">Thailand (THB ฿)</option>
+              <option value="CN">China (CNY ¥)</option>
+              <option value="KR">South Korea (KRW ₩)</option>
+              <option value="TR">Turkey (TRY ₺)</option>
+              <option value="BR">Brazil (BRL R$)</option>
+              <option value="CA">Canada (CAD CA$)</option>
+              <option value="NG">Nigeria (NGN ₦)</option>
+              <option value="ZA">South Africa (ZAR R)</option>
+              <option value="BD">Bangladesh (BDT ৳)</option>
+            </select>
+          </div>
+          <div style="background:var(--surface2); border-radius:8px; padding:12px; font-size:13px; color:var(--muted);">
+            Currency symbol: <strong id="settings-currency-preview" style="color:var(--accent);">RM</strong>
+            — used across all money tracking features
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:15px; font-weight:600; margin-bottom:16px;">⚙ Preferences</div>
+          <div
+            style="display:flex; align-items:center; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--border);">
+            <div>
+              <div style="font-size:13px; font-weight:500;">Week starts on Monday</div>
+              <div style="font-size:11px; color:var(--muted);">Calendar week layout</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="pref-week-monday" onchange="saveSettings()" checked>
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; padding:10px 0;">
+            <div>
+              <div style="font-size:13px; font-weight:500;">Show streak on dashboard</div>
+              <div style="font-size:11px; color:var(--muted);">Activity streak badge</div>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="pref-show-streak" onchange="saveSettings()" checked>
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:15px; font-weight:600; margin-bottom:16px;">💾 Data & Backup</div>
+          <div style="margin-bottom:18px;">
+            <div
+              style="font-size:12px; color:var(--muted); font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:10px;">
+              Manual</div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn btn-secondary" onclick="exportData()">⬇ Export JSON</button>
+              <button class="btn btn-secondary" onclick="document.getElementById('import-file').click()">⬆ Import
+                JSON</button>
+              <input type="file" id="import-file" accept=".json" style="display:none;" onchange="importData(event)">
+            </div>
+            <div style="font-size:11px; color:var(--muted); margin-top:8px;" id="last-backup-label">Last backup: Never
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div style="margin-top:16px; margin-bottom:18px;">
+            <div
+              style="font-size:12px; color:var(--muted); font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:10px;">
+              Auto Backup</div>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+              <div>
+                <div style="font-size:13px; font-weight:500;">Enable auto-backup</div>
+                <div style="font-size:11px; color:var(--muted);">Silently saves a backup file to your chosen folder
+                </div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="pref-auto-backup" onchange="saveSettings()">
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+            <div id="auto-backup-interval-row" style="display:none;">
+              <div style="margin-bottom:14px;">
+                <label class="label">Backup Folder</label>
+                <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                  <div id="backup-folder-display" style="flex:1; min-width:0; background:var(--surface2); border:1px solid var(--border);
+                       border-radius:8px; padding:8px 12px; font-size:12px; color:var(--muted);
+                       font-family:monospace; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                    No folder selected
+                  </div>
+                  <button class="btn btn-secondary" style="flex-shrink:0;" onclick="pickBackupFolder()">
+                    📁 Choose Folder
+                  </button>
+                </div>
+                <div id="folder-api-warning" style="display:none; margin-top:8px; background:rgba(248,113,113,0.08);
+              border:1px solid rgba(248,113,113,0.2); border-radius:8px; padding:10px;
+              font-size:12px; color:var(--danger);">
+                  ⚠ Your browser doesn't support folder access (use Chrome or Edge for this feature).
+                  Auto-backup will fall back to regular Downloads.
+                </div>
+              </div>
+              <label class="label">Backup every</label>
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+                <input type="number" class="input" id="pref-backup-days" value="3" min="1" max="30" style="width:80px;"
+                  onchange="saveSettings()">
+                <span style="font-size:13px; color:var(--muted);">days</span>
+              </div>
+              <div style="font-size:11px; color:var(--muted);">
+                Next backup: <span id="next-backup-label" style="color:var(--accent);">—</span>
+              </div>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div style="margin-top:16px;">
+            <div
+              style="font-size:12px; color:var(--muted); font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:10px;">
+              Auto-Delete Local Data</div>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+              <div>
+                <div style="font-size:13px; font-weight:500;">Enable auto-delete</div>
+                <div style="font-size:11px; color:var(--muted);">Wipe all local data after N days of inactivity</div>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" id="pref-auto-delete" onchange="saveSettings()">
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+            <div id="auto-delete-row" style="display:none;">
+              <label class="label">Delete after</label>
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+                <input type="number" class="input" id="pref-delete-days" value="30" min="7" max="365"
+                  style="width:80px;" onchange="saveSettings()">
+                <span style="font-size:13px; color:var(--muted);">days of inactivity</span>
+              </div>
+              <div
+                style="background:rgba(248,113,113,0.08); border:1px solid rgba(248,113,113,0.2); border-radius:8px; padding:10px; font-size:12px; color:var(--danger);">
+                ⚠ Make sure auto-backup is enabled too — deleted data cannot be recovered without a backup file.
+              </div>
+            </div>
+          </div>
+          <div style="border-top:1px solid var(--border); margin-top:16px; padding-top:16px;">
+            <div style="font-size:13px; font-weight:600; margin-bottom:6px; color:var(--danger);">⚠ Danger Zone</div>
+            <div style="font-size:12px; color:var(--muted); margin-bottom:12px;">This permanently wipes all your data —
+              logs, sessions, habits, everything. Export a backup first if you want to keep anything.</div>
+            <button class="btn" onclick="resetAllData()"
+              style="background:rgba(248,113,113,0.12); border:1px solid rgba(248,113,113,0.35); color:var(--danger); font-size:13px;">
+              🗑 Reset All Data
+            </button>
+          </div>
+        </div>
+        <div class="card">
+          <div style="font-size:15px; font-weight:600; margin-bottom:10px;">ℹ About</div>
+          <div style="font-size:13px; color:var(--muted); line-height:1.7;">
+            <div>Discipline Tracker — local-first daily tracker</div>
+            <div>All data stored in your browser's localStorage</div>
+            <div style="margin-top:6px; font-size:11px; opacity:0.6;">No accounts. No cloud. No ads.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MONEY TRACKER -->
+    <div class="page" id="page-money">
+      <!-- Header -->
+      <div
+        style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+        <div>
+          <h1 class="serif section-title">Money</h1>
+          <div class="section-sub" id="money-month-sub">Loading...</div>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <button class="btn btn-ghost" onclick="changeMoneyMonth(-1)">‹</button>
+          <div style="font-size:15px; font-weight:600; min-width:110px; text-align:center;" id="money-month-label">
+          </div>
+          <button class="btn btn-ghost" onclick="changeMoneyMonth(1)">›</button>
+          <button class="btn btn-secondary" onclick="openBudgetConsultant()" style="white-space:nowrap;">🧮
+            Consultant</button>
+          <button class="btn btn-primary" onclick="openAddExpenseModal()">+ Expense</button>
+        </div>
+      </div>
+
+      <!-- No plan banner -->
+      <div id="money-no-plan-banner" style="display:none; margin-bottom:20px;">
+        <div
+          style="padding:20px; background:rgba(200,169,110,0.08); border:1px dashed rgba(200,169,110,0.4); border-radius:12px; text-align:center;">
+          <div style="font-size:28px; margin-bottom:8px;">🧮</div>
+          <div style="font-size:15px; font-weight:600; margin-bottom:6px;">Set up your money plan first</div>
+          <div style="font-size:13px; color:var(--muted); margin-bottom:14px;">Tell the consultant your income and
+            expenses — it'll build your full budget breakdown automatically.</div>
+          <button class="btn btn-primary" onclick="openBudgetConsultant()">Run Budget Consultant →</button>
+        </div>
+      </div>
+
+      <!-- MAIN MONEY PLAN OVERVIEW — only shown when plan exists -->
+      <div id="money-plan-section">
+        <!-- Big income waterfall card -->
+        <div class="card" style="margin-bottom:20px;">
+          <div
+            style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:8px;">
+            <div style="font-size:15px; font-weight:600;">📊 Your Money This Month</div>
+            <button class="btn btn-ghost" style="font-size:12px;" onclick="openBudgetConsultant()">Edit Plan</button>
+          </div>
+          <div id="money-waterfall"></div>
+        </div>
+
+        <!-- Envelope cards -->
+        <div style="font-size:15px; font-weight:600; margin-bottom:12px;">💼 Budget Envelopes</div>
+        <div id="money-envelopes" style="margin-bottom:20px;"></div>
+
+        <!-- Savings Goals -->
+        <div class="card" style="margin-bottom:20px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;">
+            <div>
+              <div style="font-size:15px; font-weight:600;">🎯 Savings Goals</div>
+              <div style="font-size:12px; color:var(--muted); margin-top:2px;" id="money-goals-sub">Deducted from your
+                monthly income</div>
+            </div>
+            <button class="btn btn-secondary" onclick="openSavingsGoalModal()">+ Add Goal</button>
+          </div>
+          <div id="savings-goals-list">
+            <div style="color:var(--muted); font-size:13px; text-align:center; padding:16px 0;">No savings goals yet.
+            </div>
+          </div>
+        </div>
+
+        <!-- Charts row -->
+        <div class="grid-2" style="margin-bottom:20px;">
+          <div class="card">
+            <div style="font-size:15px; font-weight:600; margin-bottom:14px;">Category Breakdown</div>
+            <div id="money-category-breakdown"></div>
+          </div>
+          <div class="card">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+              <div style="font-size:15px; font-weight:600;">Daily Spending</div>
+              <div style="font-size:11px;color:var(--muted);" id="money-chart-tooltip"></div>
+            </div>
+            <div id="money-daily-chart" style="width:100%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- hidden inputs kept for compat -->
+      <input type="hidden" id="money-budget-input">
+
+      <!-- Spending Averages -->
+      <div class="card" style="margin-bottom:20px;">
+        <div style="font-size:15px;font-weight:600;margin-bottom:14px;">📊 Spending Averages</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+          <div style="background:var(--surface2);border-radius:10px;padding:14px;border:1px solid var(--border);">
+            <div class="label">Avg / Day</div>
+            <div class="stat-big" id="money-avg-day" style="font-size:22px;">—</div>
+          </div>
+          <div style="background:var(--surface2);border-radius:10px;padding:14px;border:1px solid var(--border);">
+            <div class="label">Avg / Week</div>
+            <div class="stat-big" id="money-avg-week" style="font-size:22px;">—</div>
+          </div>
+          <div style="background:var(--surface2);border-radius:10px;padding:14px;border:1px solid var(--border);">
+            <div class="label">Avg / Month (3mo)</div>
+            <div class="stat-big" id="money-avg-month" style="font-size:22px;">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monthly History -->
+      <div class="card" style="margin-bottom:20px;">
+        <div style="font-size:15px;font-weight:600;margin-bottom:14px;">🗓 Monthly History</div>
+        <div id="money-monthly-history"></div>
+      </div>
+
+      <!-- Expense List -->
+      <div class="card">
+        <div
+          style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
+          <div style="font-size:15px; font-weight:600;">Expenses — <span id="money-list-month-label"></span></div>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <select class="input" id="money-filter-cat" style="width:150px;" onchange="renderMoneyPage()">
+              <option value="">All Categories</option>
+            </select>
+          </div>
+        </div>
+        <div id="money-expense-list"></div>
+      </div>
+
+      <!-- compat hidden elements for old renderMoneyStats references -->
+      <span id="money-spent-month" style="display:none;"></span>
+      <span id="money-budget-label" style="display:none;"></span>
+      <span id="money-budget-bar" style="display:none;"></span>
+      <span id="money-saved-month" style="display:none;"></span>
+      <span id="money-saved-lifetime" style="display:none;"></span>
+    </div>
+
+    <!-- ============================================================
+     TASKS PAGE
+     ============================================================ -->
+    <div class="page" id="page-tasks">
+      <!-- Header -->
+      <div
+        style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+        <div>
+          <h1 class="serif section-title">Tasks</h1>
+          <div class="section-sub">Standalone tasks & project folders</div>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn btn-secondary" onclick="openTaskModal()">＋ New Task</button>
+          <button class="btn btn-primary" onclick="openFolderModal()">📁 New Project</button>
+        </div>
+      </div>
+
+      <!-- Stats row: circle + 3 counters -->
+      <div style="display:flex; gap:16px; margin-bottom:20px; flex-wrap:wrap;">
+        <!-- Completion ring -->
+        <div class="card"
+          style="display:flex; align-items:center; justify-content:center; padding:20px 24px; flex-shrink:0;">
+          <div style="position:relative; width:80px; height:80px;">
+            <svg width="80" height="80" viewBox="0 0 80 80" style="transform:rotate(-90deg);">
+              <circle cx="40" cy="40" r="32" fill="none" stroke="var(--surface2)" stroke-width="7" />
+              <circle cx="40" cy="40" r="32" fill="none" stroke="var(--accent)" stroke-width="7" stroke-linecap="round"
+                stroke-dasharray="201" stroke-dashoffset="201" id="tasks-ring-circle"
+                style="transition: stroke-dashoffset 0.6s cubic-bezier(0.4,0,0.2,1);" />
+            </svg>
+            <div
+              style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+              <span style="font-size:18px;font-weight:800;line-height:1;" id="tasks-ring-pct">0%</span>
+              <span style="font-size:9px;color:var(--muted);letter-spacing:0.06em;margin-top:1px;">DONE</span>
+            </div>
+          </div>
+        </div>
+        <!-- 3 stat cards -->
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; flex:1; min-width:200px;">
+          <div class="card card-sm" style="display:flex;flex-direction:column;gap:4px;">
+            <div class="label">Open</div>
+            <div class="stat-big" id="tasks-stat-open">0</div>
+            <div style="font-size:11px;color:var(--muted);" id="tasks-stat-open-sub"></div>
+          </div>
+          <div class="card card-sm" style="display:flex;flex-direction:column;gap:4px;">
+            <div class="label">Due This Week</div>
+            <div class="stat-big" id="tasks-stat-week">0</div>
+            <div style="font-size:11px;color:var(--danger);" id="tasks-stat-overdue-sub"></div>
+          </div>
+          <div class="card card-sm" style="display:flex;flex-direction:column;gap:4px;">
+            <div class="label">Completed</div>
+            <div class="stat-big" id="tasks-stat-done">0</div>
+            <div style="font-size:11px;color:var(--muted);" id="tasks-stat-done-sub"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Overdue / urgent banner -->
+      <div id="tasks-urgent-banner" style="margin-bottom:16px;"></div>
+
+      <!-- Filter + sort bar -->
+      <div style="display:flex; gap:8px; align-items:center; margin-bottom:18px; flex-wrap:wrap;">
+        <div class="toggle" id="tasks-filter-toggle">
+          <button class="toggle-btn active" onclick="switchTasksView('all')">All</button>
+          <button class="toggle-btn" onclick="switchTasksView('open')">Open</button>
+          <button class="toggle-btn" onclick="switchTasksView('done')">Completed</button>
+          <button class="toggle-btn" onclick="switchTasksView('projects')">Projects</button>
+        </div>
+        <select class="input" id="tasks-sort-select" onchange="renderTasks()"
+          style="width:auto; font-size:12px; padding:5px 10px; margin-left:auto;">
+          <option value="deadline">Sort: Deadline</option>
+          <option value="priority">Sort: Priority</option>
+          <option value="created">Sort: Newest</option>
+          <option value="alpha">Sort: A–Z</option>
+        </select>
+      </div>
+
+      <!-- Main task list -->
+      <div id="tasks-main-list"></div>
+    </div>
+
+    <!-- ROUTINE PAGE -->
+    <div class="page" id="page-routine">
+      <div
+        style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+        <div>
+          <h1 class="serif section-title">Routine</h1>
+          <div class="section-sub">Build and manage your daily routine profiles</div>
+        </div>
+        <button class="btn btn-primary" onclick="openRoutineModal()">＋ New Routine</button>
+      </div>
+      <div id="routine-today-banner" style="margin-bottom:20px;"></div>
+      <div id="routine-profiles-list"></div>
+    </div>
+
+  </div>
+  <!-- END MAIN -->
+
+  <!-- MODALS -->
+
+  <!-- Add Meal Modal -->
+  <div class="modal-bg" id="modal-meal">
+    <div class="modal animate-in">
+      <div class="modal-header">
+        <div style="font-size:16px; font-weight:600;">Add Meal</div>
+        <button class="btn btn-ghost" onclick="closeModal('modal-meal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom:14px;">
+          <label class="label">Meal Name / Label</label>
+          <input type="text" class="input" id="meal-name-input" placeholder="e.g. Breakfast" maxlength="200">
+        </div>
+        <div style="margin-bottom:14px;">
+          <label class="label">Food Items (from library or custom)</label>
+          <div style="display:flex; gap:8px; margin-bottom:8px;">
+            <select class="input" id="meal-food-select" style="flex:1;" onchange="prefillFoodFromLibrary()">
+              <option value="">— Select from library —</option>
+            </select>
+          </div>
+          <div id="meal-food-items-list" style="margin-bottom:8px;"></div>
+          <div style="background:var(--surface2); border-radius:10px; padding:12px; border:1px solid var(--border);">
+            <div style="font-size:13px; font-weight:500; margin-bottom:10px;">Add Item</div>
+            <div class="grid-2" style="margin-bottom:8px; gap:8px;">
+              <div><label class="label">Name</label><input type="text" class="input" id="fi-name"
+                  placeholder="e.g. Chicken Breast" maxlength="200"></div>
+              <div><label class="label">Qty (g / serving)</label><input type="number" class="input" id="fi-qty"
+                  placeholder="100" min="0"></div>
+            </div>
+            <div class="grid-3" style="gap:8px; margin-bottom:8px;">
+              <div><label class="label">Calories</label><input type="number" class="input" id="fi-cal" placeholder="0"
+                  min="0"></div>
+              <div><label class="label">Protein (g)</label><input type="number" class="input" id="fi-protein"
+                  placeholder="0" min="0"></div>
+              <div><label class="label">Carbs (g)</label><input type="number" class="input" id="fi-carbs"
+                  placeholder="0" min="0"></div>
+            </div>
+            <button class="btn btn-secondary" style="width:100%;" onclick="addFoodItemToMeal()">Add to Meal</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-meal')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveMeal()">Save Meal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Food to Library Modal -->
+  <div class="modal-bg" id="modal-food">
+    <div class="modal animate-in">
+      <div class="modal-header">
+        <div style="font-size:16px; font-weight:600;">Add Food to Library</div>
+        <button class="btn btn-ghost" onclick="closeModal('modal-food')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom:12px;"><label class="label">Food Name</label><input type="text" class="input"
+            id="food-lib-name" placeholder="e.g. Chicken Breast" maxlength="200"></div>
+        <div class="grid-3" style="gap:10px; margin-bottom:12px;">
+          <div><label class="label">Cal / 100g</label><input type="number" class="input" id="food-lib-cal"
+              placeholder="0" min="0"></div>
+          <div><label class="label">Protein (g)</label><input type="number" class="input" id="food-lib-protein"
+              placeholder="0" min="0"></div>
+          <div><label class="label">Carbs (g)</label><input type="number" class="input" id="food-lib-carbs"
+              placeholder="0" min="0"></div>
+        </div>
+        <div><label class="label">Notes (optional)</label><input type="text" class="input" id="food-lib-notes"
+            placeholder="e.g. grilled, no skin" maxlength="200"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-food')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveFoodToLibrary()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Event Modal -->
+  <div class="modal-bg" id="modal-event">
+    <div class="modal animate-in">
+      <div class="modal-header">
+        <div style="font-size:16px; font-weight:600;" id="event-modal-title">Add Event</div>
+        <button class="btn btn-ghost" onclick="closeModal('modal-event')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom:12px;"><label class="label">Event Title</label><input type="text" class="input"
+            id="ev-title" placeholder="Event name" maxlength="200"></div>
+        <div style="margin-bottom:12px;"><label class="label">Start Date</label><input type="date" class="input"
+            id="ev-start"></div>
+        <div style="margin-bottom:12px; display:flex; align-items:center; gap:10px;">
+          <label style="display:flex; align-items:center; gap:6px; cursor:pointer; font-size:13px;">
+            <input type="checkbox" id="ev-ongoing" onchange="toggleOngoing()"> Ongoing (no end date)
+          </label>
+        </div>
+        <div style="margin-bottom:12px;" id="ev-end-row"><label class="label">End Date (optional)</label><input
+            type="date" class="input" id="ev-end"></div>
+        <div style="margin-bottom:12px;">
+          <label class="label">Color</label>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;" id="ev-colors"></div>
+        </div>
+        <div><label class="label">Details</label><textarea class="input" id="ev-details"
+            placeholder="Add notes or details..." maxlength="2000"></textarea></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-event')">Cancel</button>
+        <button class="btn btn-danger" id="ev-delete-btn" style="display:none;" onclick="deleteEvent()">Delete</button>
+        <button class="btn btn-primary" onclick="saveEvent()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add / Edit Expense Modal -->
+  <div class="modal-bg" id="modal-expense">
+    <div class="modal animate-in">
+      <div class="modal-header">
+        <div style="font-size:16px; font-weight:600;" id="expense-modal-title">Add Expense</div>
+        <button class="btn btn-ghost" onclick="closeModal('modal-expense')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom:12px;">
+          <label class="label">Description</label>
+          <input type="text" class="input" id="exp-desc" placeholder="e.g. Lunch at Mamak" maxlength="200">
+        </div>
+        <div class="grid-2" style="gap:10px; margin-bottom:12px;">
+          <div>
+            <label class="label">Amount</label>
+            <input type="number" class="input" id="exp-amount" placeholder="0.00" min="0" step="0.01" max="9999999">
+          </div>
+          <div>
+            <label class="label">Date</label>
+            <input type="date" class="input" id="exp-date">
+          </div>
+        </div>
+        <div style="margin-bottom:12px;">
+          <label class="label">Category</label>
+          <select class="input" id="exp-category">
+            <optgroup label="── Fixed / Bills ──">
+              <option value="Rent">🏠 Rent</option>
+              <option value="Utilities">💡 Utilities</option>
+              <option value="Groceries">🛒 Groceries</option>
+              <option value="Transport">🚗 Transport</option>
+              <option value="Health">💊 Health &amp; Insurance</option>
+              <option value="Loans">🏦 Loan Repayment</option>
+            </optgroup>
+            <optgroup label="── Lifestyle ──">
+              <option value="Food & Drinks">🍜 Dining Out / Food</option>
+              <option value="Shopping">🛍 Shopping</option>
+              <option value="Entertainment">🎮 Entertainment</option>
+              <option value="Personal">🧴 Personal Care</option>
+              <option value="Education">📚 Education</option>
+              <option value="Gym & Fitness">💪 Gym &amp; Fitness</option>
+              <option value="Other">📦 Other</option>
+            </optgroup>
+          </select>
+        </div>
+        <div>
+          <label class="label">Notes (optional)</label>
+          <input type="text" class="input" id="exp-notes" placeholder="Any extra details..." maxlength="200">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-expense')">Cancel</button>
+        <button class="btn btn-danger" id="exp-delete-btn" style="display:none;"
+          onclick="deleteExpense()">Delete</button>
+        <button class="btn btn-primary" onclick="saveExpense()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Budget Consultant Modal -->
+  <div class="modal-bg" id="modal-budget-consultant">
+    <div class="modal animate-in" style="max-width:560px;">
+      <div class="modal-header">
+        <div>
+          <div style="font-size:16px; font-weight:600;" id="consultant-modal-title">🧮 Budget Consultant</div>
+          <div style="font-size:12px; color:var(--muted); margin-top:2px;" id="consultant-step-label">Step 1 of 4</div>
+        </div>
+        <button class="btn btn-ghost" onclick="closeModal('modal-budget-consultant')">✕</button>
+      </div>
+      <div class="modal-body" id="consultant-modal-body"></div>
+      <div class="modal-footer" style="justify-content:space-between;">
+        <button class="btn btn-secondary" id="consultant-back-btn" onclick="consultantBack()" style="display:none;">←
+          Back</button>
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-secondary" onclick="closeModal('modal-budget-consultant')">Cancel</button>
+          <button class="btn btn-primary" id="consultant-next-btn" onclick="consultantNext()">Next →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Savings Goal Modal -->
+  <div class="modal-bg" id="modal-savings-goal">
+    <div class="modal animate-in" style="max-width:440px;">
+      <div class="modal-header">
+        <div style="font-size:16px; font-weight:600;" id="savings-goal-modal-title">Add Savings Goal</div>
+        <button class="btn btn-ghost" onclick="closeModal('modal-savings-goal')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom:12px;">
+          <label class="label">What are you saving for?</label>
+          <input type="text" class="input" id="sg-name" placeholder="e.g. New laptop, Holiday trip, Car..."
+            maxlength="200">
+        </div>
+        <div style="margin-bottom:12px;">
+          <label class="label">Target Amount</label>
+          <input type="number" class="input" id="sg-target" placeholder="e.g. 5000" min="0" step="0.01" max="9999999">
+        </div>
+        <div style="margin-bottom:12px;">
+          <label class="label">Amount Already Saved</label>
+          <input type="number" class="input" id="sg-saved" placeholder="e.g. 0" min="0" step="0.01">
+        </div>
+        <div style="margin-bottom:12px;">
+          <label class="label">Monthly Contribution (optional)</label>
+          <input type="number" class="input" id="sg-monthly" placeholder="How much do you put in each month?"
+            max="9999999">
+        </div>
+        <div style="margin-bottom:12px;">
+          <label class="label">Target Date (optional)</label>
+          <input type="date" class="input" id="sg-date">
+        </div>
+        <div>
+          <label class="label">Emoji / Icon</label>
+          <input type="text" class="input" id="sg-emoji" placeholder="e.g. 💻 🏖️ 🚗" maxlength="6" style="width:90px;">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-savings-goal')">Cancel</button>
+        <button class="btn btn-danger" id="sg-delete-btn" style="display:none;"
+          onclick="deleteSavingsGoal()">Delete</button>
+        <button class="btn btn-primary" onclick="saveSavingsGoal()">Save Goal</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- First-Time Modal -->
+  <div class="modal-bg" id="modal-firsttime" style="z-index:300;">
+    <div class="modal animate-in" style="max-width:440px;">
+      <div class="modal-header" style="border-bottom:none; padding-bottom:8px;">
+        <div></div>
+        <button class="btn btn-ghost" onclick="closeFirstTimeModal()">✕</button>
+      </div>
+      <div class="modal-body" style="text-align:center; padding-top:0;">
+        <div style="font-size:36px; margin-bottom:12px;">👋</div>
+        <div class="serif" style="font-size:22px; margin-bottom:8px;">Welcome to Discipline</div>
+        <div style="font-size:13px; color:var(--muted); margin-bottom:28px; line-height:1.6;">
+          No data was found. Is this your first time using this app?
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <button class="btn btn-primary" style="width:100%; padding:12px; font-size:14px;"
+            onclick="closeFirstTimeModal()">
+            ✨ Yes, this is my first time — let's go!
+          </button>
+          <button class="btn btn-secondary" style="width:100%; padding:12px; font-size:14px;"
+            onclick="triggerImportFromFirstTime()">
+            📂 No, I have a backup — import my data
+          </button>
+        </div>
+        <div style="font-size:11px; color:var(--muted); margin-top:16px; opacity:0.7;">
+          You can always import a backup later from Settings → Data
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Theme Builder Modal -->
+  <div class="modal-bg" id="modal-theme">
+    <div class="modal animate-in" style="max-width:520px;">
+      <div class="modal-header">
+        <div style="font-size:16px; font-weight:600;" id="theme-modal-title">Create Theme</div>
+        <button class="btn btn-ghost" onclick="closeModal('modal-theme')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="theme-preview-bar"
+          style="border-radius:10px; padding:14px 16px; margin-bottom:18px; display:flex; align-items:center; gap:12px; transition:all 0.2s;">
+          <div style="display:flex; flex-direction:column; gap:4px; flex:1;">
+            <div id="tp-title" style="font-family:'DM Serif Display',serif; font-size:16px; font-weight:600;">Discipline
+            </div>
+            <div id="tp-sub" style="font-size:11px;">Preview your theme here</div>
+          </div>
+          <div style="display:flex; gap:6px;">
+            <div id="tp-pill" style="padding:4px 10px; border-radius:20px; font-size:11px; font-weight:600;">Accent
+            </div>
+            <div id="tp-pill2" style="padding:4px 10px; border-radius:20px; font-size:11px; font-weight:600;">Alt</div>
+          </div>
+        </div>
+        <div style="margin-bottom:14px;">
+          <label class="label">Theme Name</label>
+          <input type="text" class="input" id="tb-name" placeholder="e.g. Midnight Blue" oninput="updateThemePreview()"
+            maxlength="200">
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:4px;">
+          <div>
+            <label class="label">Background</label>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <input type="color" id="tb-bg" value="#0a0a0f" oninput="updateThemePreview()"
+                style="width:38px;height:32px;border:none;border-radius:6px;cursor:pointer;background:none;padding:0;">
+              <input type="text" class="input" id="tb-bg-hex" value="#0a0a0f"
+                style="flex:1;font-size:12px;font-family:monospace;" oninput="syncColorPicker('tb-bg','tb-bg-hex')"
+                maxlength="200">
+            </div>
+          </div>
+          <div>
+            <label class="label">Surface</label>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <input type="color" id="tb-surface" value="#111118" oninput="updateThemePreview()"
+                style="width:38px;height:32px;border:none;border-radius:6px;cursor:pointer;background:none;padding:0;">
+              <input type="text" class="input" id="tb-surface-hex" value="#111118"
+                style="flex:1;font-size:12px;font-family:monospace;"
+                oninput="syncColorPicker('tb-surface','tb-surface-hex')" maxlength="200">
+            </div>
+          </div>
+          <div>
+            <label class="label">Surface 2</label>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <input type="color" id="tb-surface2" value="#18181f" oninput="updateThemePreview()"
+                style="width:38px;height:32px;border:none;border-radius:6px;cursor:pointer;background:none;padding:0;">
+              <input type="text" class="input" id="tb-surface2-hex" value="#18181f"
+                style="flex:1;font-size:12px;font-family:monospace;"
+                oninput="syncColorPicker('tb-surface2','tb-surface2-hex')" maxlength="200">
+            </div>
+          </div>
+          <div>
+            <label class="label">Border</label>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <input type="color" id="tb-border" value="#24242e" oninput="updateThemePreview()"
+                style="width:38px;height:32px;border:none;border-radius:6px;cursor:pointer;background:none;padding:0;">
+              <input type="text" class="input" id="tb-border-hex" value="#24242e"
+                style="flex:1;font-size:12px;font-family:monospace;"
+                oninput="syncColorPicker('tb-border','tb-border-hex')" maxlength="200">
+            </div>
+          </div>
+          <div>
+            <label class="label">Text</label>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <input type="color" id="tb-text" value="#e8e8f0" oninput="updateThemePreview()"
+                style="width:38px;height:32px;border:none;border-radius:6px;cursor:pointer;background:none;padding:0;">
+              <input type="text" class="input" id="tb-text-hex" value="#e8e8f0"
+                style="flex:1;font-size:12px;font-family:monospace;" oninput="syncColorPicker('tb-text','tb-text-hex')"
+                maxlength="200">
+            </div>
+          </div>
+          <div>
+            <label class="label">Muted Text</label>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <input type="color" id="tb-muted" value="#6b6b80" oninput="updateThemePreview()"
+                style="width:38px;height:32px;border:none;border-radius:6px;cursor:pointer;background:none;padding:0;">
+              <input type="text" class="input" id="tb-muted-hex" value="#6b6b80"
+                style="flex:1;font-size:12px;font-family:monospace;"
+                oninput="syncColorPicker('tb-muted','tb-muted-hex')" maxlength="200">
+            </div>
+          </div>
+          <div>
+            <label class="label">Accent (primary)</label>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <input type="color" id="tb-accent" value="#c8a96e" oninput="updateThemePreview()"
+                style="width:38px;height:32px;border:none;border-radius:6px;cursor:pointer;background:none;padding:0;">
+              <input type="text" class="input" id="tb-accent-hex" value="#c8a96e"
+                style="flex:1;font-size:12px;font-family:monospace;"
+                oninput="syncColorPicker('tb-accent','tb-accent-hex')" maxlength="200">
+            </div>
+          </div>
+          <div>
+            <label class="label">Accent 2 (secondary)</label>
+            <div style="display:flex; gap:8px; align-items:center;">
+              <input type="color" id="tb-accent2" value="#7c6ef0" oninput="updateThemePreview()"
+                style="width:38px;height:32px;border:none;border-radius:6px;cursor:pointer;background:none;padding:0;">
+              <input type="text" class="input" id="tb-accent2-hex" value="#7c6ef0"
+                style="flex:1;font-size:12px;font-family:monospace;"
+                oninput="syncColorPicker('tb-accent2','tb-accent2-hex')" maxlength="200">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('modal-theme')">Cancel</button>
+        <button class="btn btn-danger" id="tb-delete-btn" style="display:none;"
+          onclick="deleteCustomTheme()">Delete</button>
+        <button class="btn btn-primary" onclick="saveCustomTheme()">Save & Apply</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================================================
+     TASK MODAL (create / edit single task)
+     ============================================================ -->
+  <div class="modal-bg" id="modal-task">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="serif" id="task-modal-title">New Task</h3>
+        <button class="btn btn-ghost" onclick="closeModal('modal-task')"
+          style="font-size:18px; padding:4px 8px;">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom:14px;">
+          <label class="label">Task Name</label>
+          <input type="text" class="input" id="task-name-input" placeholder="What needs to be done?" maxlength="200">
+        </div>
+        <div style="margin-bottom:14px;">
+          <label class="label">Description (optional)</label>
+          <textarea class="input" id="task-desc-input" rows="2" placeholder="Details, context, links..."
+            maxlength="2000"></textarea>
+        </div>
+        <div class="grid-2" style="gap:12px; margin-bottom:14px;">
+          <div>
+            <label class="label">Deadline</label>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+              <label class="toggle-switch" style="flex-shrink:0;">
+                <input type="checkbox" id="task-has-deadline" onchange="toggleTaskDeadline()" checked>
+                <span class="toggle-track"></span>
+              </label>
+              <span style="font-size:13px;color:var(--muted);cursor:pointer;"
+                onclick="document.getElementById('task-has-deadline').click()">Has deadline</span>
+            </div>
+            <input type="datetime-local" class="input" id="task-deadline-input">
+          </div>
+          <div>
+            <label class="label">Priority</label>
+            <select class="input" id="task-priority-input">
+              <option value="low">🟢 Low</option>
+              <option value="medium" selected>🟡 Medium</option>
+              <option value="high">🔴 High</option>
+              <option value="critical">🚨 Critical</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid-2" style="gap:12px; margin-bottom:14px;">
+          <div>
+            <label class="label">Project Folder (optional)</label>
+            <select class="input" id="task-folder-input">
+              <option value="">— None —</option>
+            </select>
+          </div>
+          <div>
+            <label class="label">Tag / Label (optional)</label>
+            <input type="text" class="input" id="task-tag-input" placeholder="e.g. School, Work" maxlength="200">
+          </div>
+        </div>
+        <div style="margin-bottom:14px;">
+          <label class="label">Alert Me Before Deadline</label>
+          <div style="display:flex; gap:8px; align-items:center;">
+            <input type="number" class="input" id="task-alert-hrs" placeholder="3" min="0" style="width:90px;" max="24">
+            <span style="font-size:13px; color:var(--muted);">hours before</span>
+            <input type="number" class="input" id="task-alert-mins" placeholder="0" min="0" max="59"
+              style="width:90px;">
+            <span style="font-size:13px; color:var(--muted);">mins</span>
+          </div>
+          <div style="font-size:11px; color:var(--muted); margin-top:4px;">Leave blank to use the global default (3
+            hours). Set 0 to disable.</div>
+        </div>
+        <div style="margin-bottom:6px;">
+          <label class="label">Notes / Checklist Steps (one per line)</label>
+          <textarea class="input" id="task-steps-input" rows="3" placeholder="Step 1&#10;Step 2&#10;Step 3"
+            maxlength="2000"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" id="task-delete-btn" style="display:none; margin-right:auto;"
+          onclick="deleteTask()">Delete</button>
+        <button class="btn btn-secondary" onclick="closeModal('modal-task')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveTask()">Save Task</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROUTINE MODAL -->
+  <div class="modal-bg" id="modal-routine">
+    <div class="modal" style="max-width:780px;">
+      <div class="modal-header">
+        <h3 class="serif" id="routine-modal-title">New Routine</h3>
+        <button class="btn btn-ghost" onclick="closeModal('modal-routine')"
+          style="font-size:18px;padding:4px 8px;">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom:14px;">
+          <label class="label">Routine Name</label>
+          <input type="text" class="input" id="routine-name-input" placeholder="e.g. Morning Routine, Night Wind-Down"
+            maxlength="200">
+        </div>
+        <input type="hidden" id="routine-type-input">
+        <input type="hidden" id="routine-time-input">
+        <input type="hidden" id="routine-purpose-input">
+        <div style="margin-bottom:14px;">
+          <label class="label">Days Active</label>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;" id="routine-days-picker">
+            <div class="routine-day-pill" data-day="0" onclick="toggleRoutineDay(this)"
+              style="padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;font-size:12px;color:var(--muted);transition:all 0.2s;">
+              Mon</div>
+            <div class="routine-day-pill" data-day="1" onclick="toggleRoutineDay(this)"
+              style="padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;font-size:12px;color:var(--muted);transition:all 0.2s;">
+              Tue</div>
+            <div class="routine-day-pill" data-day="2" onclick="toggleRoutineDay(this)"
+              style="padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;font-size:12px;color:var(--muted);transition:all 0.2s;">
+              Wed</div>
+            <div class="routine-day-pill" data-day="3" onclick="toggleRoutineDay(this)"
+              style="padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;font-size:12px;color:var(--muted);transition:all 0.2s;">
+              Thu</div>
+            <div class="routine-day-pill" data-day="4" onclick="toggleRoutineDay(this)"
+              style="padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;font-size:12px;color:var(--muted);transition:all 0.2s;">
+              Fri</div>
+            <div class="routine-day-pill" data-day="5" onclick="toggleRoutineDay(this)"
+              style="padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;font-size:12px;color:var(--muted);transition:all 0.2s;">
+              Sat</div>
+            <div class="routine-day-pill" data-day="6" onclick="toggleRoutineDay(this)"
+              style="padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;font-size:12px;color:var(--muted);transition:all 0.2s;">
+              Sun</div>
+          </div>
+        </div>
+        <div style="margin-bottom:6px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+            <div>
+              <label class="label" style="margin:0;">Schedule Blocks</label>
+              <div style="font-size:11px;color:var(--muted);margin-top:3px;">Add top-level blocks, then + Sub inside
+                each</div>
+            </div>
+            <button class="btn btn-secondary" style="font-size:11px;padding:4px 10px;" onclick="addRoutineStep()">+ Add
+              Block</button>
+          </div>
+          <div id="routine-steps-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" id="routine-delete-btn" style="display:none;margin-right:auto;"
+          onclick="deleteRoutine()">Delete</button>
+        <button class="btn btn-secondary" onclick="closeModal('modal-routine')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveRoutine()">Save Routine</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+     PROJECT / FOLDER MODAL
+     ============================================================ -->
+  <div class="modal-bg" id="modal-folder">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="serif" id="folder-modal-title">New Project</h3>
+        <button class="btn btn-ghost" onclick="closeModal('modal-folder')"
+          style="font-size:18px; padding:4px 8px;">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom:14px;">
+          <label class="label">Project Name</label>
+          <input type="text" class="input" id="folder-name-input" placeholder="e.g. Final Assignment, App Launch"
+            maxlength="200">
+        </div>
+        <div style="margin-bottom:14px;">
+          <label class="label">Description (optional)</label>
+          <textarea class="input" id="folder-desc-input" rows="2" placeholder="What is this project about?"
+            maxlength="2000"></textarea>
+        </div>
+        <div class="grid-2" style="gap:12px; margin-bottom:14px;">
+          <div>
+            <label class="label">Due Date (optional)</label>
+            <input type="date" class="input" id="folder-due-input">
+          </div>
+          <div>
+            <label class="label">Color</label>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:4px;" id="folder-color-picker">
+              <div class="fcol-opt" data-color="#7c6ef0" onclick="selectFolderColor('#7c6ef0')"
+                style="width:24px;height:24px;border-radius:6px;background:#7c6ef0;cursor:pointer;border:2px solid transparent;">
+              </div>
+              <div class="fcol-opt" data-color="#c8a96e" onclick="selectFolderColor('#c8a96e')"
+                style="width:24px;height:24px;border-radius:6px;background:#c8a96e;cursor:pointer;border:2px solid transparent;">
+              </div>
+              <div class="fcol-opt" data-color="#4ade80" onclick="selectFolderColor('#4ade80')"
+                style="width:24px;height:24px;border-radius:6px;background:#4ade80;cursor:pointer;border:2px solid transparent;">
+              </div>
+              <div class="fcol-opt" data-color="#f87171" onclick="selectFolderColor('#f87171')"
+                style="width:24px;height:24px;border-radius:6px;background:#f87171;cursor:pointer;border:2px solid transparent;">
+              </div>
+              <div class="fcol-opt" data-color="#38bdf8" onclick="selectFolderColor('#38bdf8')"
+                style="width:24px;height:24px;border-radius:6px;background:#38bdf8;cursor:pointer;border:2px solid transparent;">
+              </div>
+              <div class="fcol-opt" data-color="#fb923c" onclick="selectFolderColor('#fb923c')"
+                style="width:24px;height:24px;border-radius:6px;background:#fb923c;cursor:pointer;border:2px solid transparent;">
+              </div>
+              <div class="fcol-opt" data-color="#f472b6" onclick="selectFolderColor('#f472b6')"
+                style="width:24px;height:24px;border-radius:6px;background:#f472b6;cursor:pointer;border:2px solid transparent;">
+              </div>
+              <div class="fcol-opt" data-color="#a3e635" onclick="selectFolderColor('#a3e635')"
+                style="width:24px;height:24px;border-radius:6px;background:#a3e635;cursor:pointer;border:2px solid transparent;">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" id="folder-delete-btn" style="display:none; margin-right:auto;"
+          onclick="deleteFolder()">Delete Project</button>
+        <button class="btn btn-secondary" onclick="closeModal('modal-folder')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveFolder()">Save Project</button>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+<script src="index.js"></script>
+</html>
