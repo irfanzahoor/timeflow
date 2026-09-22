@@ -1,0 +1,911 @@
+{
+  "1": {
+    "day": 1,
+    "date": "Sep 22",
+    "bd": "Audit GitHub (irfanzahoor): list repos to clean, archive or delete.",
+    "tech": "Study DocTypes fundamentals in the Frappe framework docs \u2014 take structured notes.",
+    "content": "Study scripting: read/watch one solid resource and take notes.",
+    "islamic": "Study routine: 15\u201320 min from an authentic source (Qur'an tafsir or a recognized Hadith collection).",
+    "asset": "Research digital asset formats relevant to ERPNext consulting (checklists, templates, mini-courses)."
+  },
+  "2": {
+    "day": 2,
+    "date": "Sep 23",
+    "bd": "Rewrite GitHub profile README + pin best repos around ERPNext Customization & Integration Specialist positioning.",
+    "tech": "Build one small, working example using DocTypes in a test/dev site.",
+    "content": "Study hooks: read/watch one solid resource and take notes.",
+    "islamic": "Source verification practice: check the narrator chain / cross-reference the translation used for today's topic.",
+    "asset": "Research digital asset formats relevant to ERPNext consulting (checklists, templates, mini-courses)."
+  },
+  "3": {
+    "day": 3,
+    "date": "Sep 24",
+    "bd": "Draft LinkedIn headline + About section around the same positioning.",
+    "tech": "Document the DocTypes example (screenshot + short write-up) as portfolio/GitHub proof.",
+    "content": "Study storytelling structure: read/watch one solid resource and take notes.",
+    "islamic": "Write short personal notes summarizing today's lesson \u2014 start of your Islamic content idea log.",
+    "asset": "Research digital asset formats relevant to ERPNext consulting (checklists, templates, mini-courses)."
+  },
+  "4": {
+    "day": 4,
+    "date": "Sep 25",
+    "bd": "List every past ERPNext project as raw case-study material (client type, problem, what you built).",
+    "tech": "Study Client Scripts fundamentals in the Frappe framework docs \u2014 take structured notes.",
+    "content": "Study TTS/voice-over tools: read/watch one solid resource and take notes.",
+    "islamic": "Study routine: 15\u201320 min from an authentic source (Qur'an tafsir or a recognized Hadith collection).",
+    "asset": "Research digital asset formats relevant to ERPNext consulting (checklists, templates, mini-courses)."
+  },
+  "5": {
+    "day": 5,
+    "date": "Sep 26",
+    "bd": "Pick the strongest past project; outline it as Case Study #1 (problem \u2192 approach \u2192 result).",
+    "tech": "Build one small, working example using Client Scripts in a test/dev site.",
+    "content": "Study basic video editing: read/watch one solid resource and take notes.",
+    "islamic": "Source verification practice: check the narrator chain / cross-reference the translation used for today's topic.",
+    "asset": "Research digital asset formats relevant to ERPNext consulting (checklists, templates, mini-courses)."
+  },
+  "6": {
+    "day": 6,
+    "date": "Sep 27",
+    "bd": "Define the pharmacy / SME retail-wholesale niche: list 10 target business types you can credibly serve.",
+    "tech": "Document the Client Scripts example (screenshot + short write-up) as portfolio/GitHub proof.",
+    "content": "Study thumbnail design: read/watch one solid resource and take notes.",
+    "islamic": "Write short personal notes summarizing today's lesson \u2014 start of your Islamic content idea log.",
+    "asset": "Research digital asset formats relevant to ERPNext consulting (checklists, templates, mini-courses)."
+  },
+  "7": {
+    "day": 7,
+    "date": "Sep 28",
+    "bd": "Week review: finalize a one-line positioning statement combining niche + specialization.",
+    "tech": "Study Server-side Python (Controllers) fundamentals in the Frappe framework docs \u2014 take structured notes.",
+    "content": "Study title writing: read/watch one solid resource and take notes.",
+    "islamic": "Study routine: 15\u201320 min from an authentic source (Qur'an tafsir or a recognized Hadith collection).",
+    "asset": "Research digital asset formats relevant to ERPNext consulting (checklists, templates, mini-courses)."
+  },
+  "8": {
+    "day": 8,
+    "date": "Sep 29",
+    "bd": "Draft Offer 1 \u2014 ERPNext Health Check & Quick-Win Report: scope, what's included, what client receives.",
+    "tech": "Build one small, working example using Server-side Python (Controllers) in a test/dev site.",
+    "content": "Study retention techniques: read/watch one solid resource and take notes.",
+    "islamic": "Source verification practice: check the narrator chain / cross-reference the translation used for today's topic.",
+    "asset": "Research digital asset formats relevant to ERPNext consulting (checklists, templates, mini-courses)."
+  },
+  "9": {
+    "day": 9,
+    "date": "Sep 30",
+    "bd": "Draft Offer 2 \u2014 ERPNext Customization & Workflow Build: scope and typical inclusions.",
+    "tech": "Document the Server-side Python (Controllers) example (screenshot + short write-up) as portfolio/GitHub proof.",
+    "content": "Study building a content idea database: read/watch one solid resource and take notes.",
+    "islamic": "Write short personal notes summarizing today's lesson \u2014 start of your Islamic content idea log.",
+    "asset": "Research digital asset formats relevant to ERPNext consulting (checklists, templates, mini-courses)."
+  },
+  "10": {
+    "day": 10,
+    "date": "Oct 01",
+    "bd": "Draft Offer 3 \u2014 ERPNext Care Plan: scope and retainer structure (support/maintenance cadence).",
+    "tech": "Study Workflows fundamentals in the Frappe framework docs \u2014 take structured notes.",
+    "content": "Practice scripting with a real draft (not theory only).",
+    "islamic": "Study routine: 15\u201320 min from an authentic source (Qur'an tafsir or a recognized Hadith collection).",
+    "asset": "Research digital asset formats relevant to ERPNext consulting (checklists, templates, mini-courses)."
+  },
+  "11": {
+    "day": 11,
+    "date": "Oct 02",
+    "bd": "Draft 1-page portfolio: positioning + 3 offers + Case Study #1 in one layout.",
+    "tech": "Build one small, working example using Workflows in a test/dev site.",
+    "content": "Practice hooks with a real draft (not theory only).",
+    "islamic": "Source verification practice: check the narrator chain / cross-reference the translation used for today's topic.",
+    "asset": "Identify one realistic first asset (e.g. ERPNext Health Check template, discovery questionnaire) and outline it."
+  },
+  "12": {
+    "day": 12,
+    "date": "Oct 03",
+    "bd": "Design pass on the 1-page portfolio (visual formatting, not just text).",
+    "tech": "Document the Workflows example (screenshot + short write-up) as portfolio/GitHub proof.",
+    "content": "Practice storytelling structure with a real draft (not theory only).",
+    "islamic": "Write short personal notes summarizing today's lesson \u2014 start of your Islamic content idea log.",
+    "asset": "Identify one realistic first asset (e.g. ERPNext Health Check template, discovery questionnaire) and outline it."
+  },
+  "13": {
+    "day": 13,
+    "date": "Oct 04",
+    "bd": "Share portfolio draft with one trusted contact for feedback; note changes needed.",
+    "tech": "Study Permissions fundamentals in the Frappe framework docs \u2014 take structured notes.",
+    "content": "Practice TTS/voice-over Study tools with a real draft (not m theory only). s a c",
+    "islamic": "routine: 15\u201320 in from an authentic ource (Qur'an tafsir or recognized Hadith ollection).",
+    "asset": "Identify one realistic first asset (e.g. ERPNext Health Check template, discovery questionnaire) and outline it."
+  },
+  "14": {
+    "day": 14,
+    "date": "Oct 05",
+    "bd": "Finalize 1-page portfolio v1 Bui based on feedback. exa Per sit",
+    "tech": "ld one small, working mple using missions in a test/dev e.",
+    "content": "Practice basic video editing with a real draft (not theory only).",
+    "islamic": "Source verification practice: check the narrator chain / cross-reference the translation used for today's topic.",
+    "asset": "Identify one realistic first asset (e.g. ERPNext Health Check template, discovery questionnaire) and outline it."
+  },
+  "15": {
+    "day": 15,
+    "date": "Oct 06",
+    "bd": "Build prospect tracker (spreadsheet or Frappe CRM) with columns: lead, channel, BANT status, next follow-up.",
+    "tech": "Document the Permissions example (screenshot + short write-up) as portfolio/GitHub proof.",
+    "content": "Practice thumbnail design with a real draft (not theory only).",
+    "islamic": "Write short personal notes summarizing today's lesson \u2014 start of your Islamic content idea log.",
+    "asset": "Identify one realistic first asset (e.g. ERPNext Health Check template, discovery questionnaire) and outline it."
+  },
+  "16": {
+    "day": 16,
+    "date": "Oct 07",
+    "bd": "Research and add 15 pharmacy-niche prospects to the tracker.",
+    "tech": "Study Reports (Query & Script Report) fundamentals in the Frappe framework docs \u2014 take structured notes.",
+    "content": "Practice title writing with a real draft (not theory only).",
+    "islamic": "Study routine: 15\u201320 min from an authentic source (Qur'an tafsir or a recognized Hadith collection).",
+    "asset": "Identify one realistic first asset (e.g. ERPNext Health Check template, discovery questionnaire) and outline it."
+  },
+  "17": {
+    "day": 17,
+    "date": "Oct 08",
+    "bd": "Research and add 15 SME Build on retail/wholesale prospects examp to the tracker. (Quer a tes",
+    "tech": "e small, working le using Reports y & Script Report) in t/dev site.",
+    "content": "Practice retention techniques with a real draft (not theory only).",
+    "islamic": "Source verification practice: check the narrator chain / cross-reference the translation used for today's topic.",
+    "asset": "Identify one realistic first asset (e.g. ERPNext Health Check template, discovery questionnaire) and outline it."
+  },
+  "18": {
+    "day": 18,
+    "date": "Oct 09",
+    "bd": "Draft 3 LinkedIn connection-note templates (under 300 characters, personalized variable).",
+    "tech": "Document the Reports (Query & Script Report) example (screenshot + short write-up) as portfolio/GitHub proof.",
+    "content": "Practice building a content idea database with a real draft (not theory only).",
+    "islamic": "Write short personal notes summarizing today's lesson \u2014 start of your Islamic content idea log.",
+    "asset": "Identify one realistic first asset (e.g. ERPNext Health Check template, discovery questionnaire) and outline it."
+  },
+  "19": {
+    "day": 19,
+    "date": "Oct 10",
+    "bd": "Draft 2 cold email templates referencing a specific business detail, not generic pitch.",
+    "tech": "Study Print Formats fundamentals in the Frappe framework docs \u2014 take structured notes.",
+    "content": "Apply scripting to one ERPNext-related content idea.",
+    "islamic": "Study routine: 15\u201320 min from an authentic source (Qur'an tafsir or a recognized Hadith collection).",
+    "asset": "Identify one realistic first asset (e.g. ERPNext Health Check template, discovery questionnaire) and outline it."
+  },
+  "20": {
+    "day": 20,
+    "date": "Oct 11",
+    "bd": "Set up/refresh Upwork profile aligned to the 3 productized offers.",
+    "tech": "Build one small, working example using Print Formats in a test/dev site.",
+    "content": "Apply hooks to one ERPNext-related content idea.",
+    "islamic": "Source verification practice: check the narrator chain / cross-reference the translation used for today's topic.",
+    "asset": "Identify one realistic first asset (e.g. ERPNext Health Check template, discovery questionnaire) and outline it."
+  },
+  "21": {
+    "day": 21,
+    "date": "Oct 12",
+    "bd": "Week review: refine templates based on any early reactions or re-reads.",
+    "tech": "Document the Print Formats example (screenshot + short write-up) as portfolio/GitHub proof.",
+    "content": "Apply storytelling structure to one ERPNext-related content idea.",
+    "islamic": "Write short personal Bu notes summarizing fi today's lesson \u2014 start of on your Islamic content idea log.",
+    "asset": "ild one section of the rst small asset (based Day 21 outline)."
+  },
+  "22": {
+    "day": 22,
+    "date": "Oct 13",
+    "bd": "Study the discovery-call/BANT structure (from the earlier BD research report, Section 6).",
+    "tech": "Study REST APIs fundamentals in the Frappe framework docs \u2014 take structured notes.",
+    "content": "Apply TTS/voice-over tools to one ERPNext-related content idea.",
+    "islamic": "Study routine: 15\u201320 min from an authentic source (Qur'an tafsir or a recognized Hadith collection).",
+    "asset": "Build one section of the first small asset (based on Day 21 outline)."
+  },
+  "23": {
+    "day": 23,
+    "date": "Oct 14",
+    "bd": "Write your own discovery-call script for an ERPNext prospect using that structure.",
+    "tech": "Build one small, working example using REST APIs in a test/dev site.",
+    "content": "Apply basic video editing to one ERPNext-related content idea.",
+    "islamic": "Source verification practice: check the narrator chain / cross-reference the translation used for today's topic.",
+    "asset": "Build one section of the first small asset (based on Day 21 outline)."
+  },
+  "24": {
+    "day": 24,
+    "date": "Oct 15",
+    "bd": "Start outreach: send 15\u201320 personalized LinkedIn connection requests from the tracker list.",
+    "tech": "Document the REST APIs example (screenshot + short write-up) as portfolio/GitHub proof.",
+    "content": "Apply thumbnail design to one ERPNext-related content idea.",
+    "islamic": "Write short personal B notes summarizing f today's lesson \u2014 start of o your Islamic content idea log.",
+    "asset": "uild one section of the irst small asset (based n Day 21 outline)."
+  },
+  "25": {
+    "day": 25,
+    "date": "Oct 16",
+    "bd": "Continue outreach: 15\u201320 more connection requests + send 5 cold emails.",
+    "tech": "Study Webhooks fundamentals in the Frappe framework docs \u2014 take structured notes.",
+    "content": "Apply title writing to one ERPNext-related content idea.",
+    "islamic": "Study routine: 15\u201320 min from an authentic source (Qur'an tafsir or a recognized Hadith collection).",
+    "asset": "Build one section of the first small asset (based on Day 21 outline)."
+  },
+  "26": {
+    "day": 26,
+    "date": "Oct 17",
+    "bd": "Follow up on any replies from Days 24\u201325; log status changes in the tracker.",
+    "tech": "Build one small, working example using Webhooks in a test/dev site.",
+    "content": "Apply retention techniques to one ERPNext-related content idea.",
+    "islamic": "Source verification practice: check the narrator chain / cross-reference the translation used for today's topic.",
+    "asset": "Build one section of the first small asset (based on Day 21 outline)."
+  },
+  "27": {
+    "day": 27,
+    "date": "Oct 18",
+    "bd": "Continue outreach (15\u201320 Docume requests) + respond to new exam replies same day. shor port",
+    "tech": "nt the Webhooks ple (screenshot + t write-up) as folio/GitHub proof.",
+    "content": "Apply building a content idea database to one ERPNext-related content idea.",
+    "islamic": "Write short personal B notes summarizing f today's lesson \u2014 start of o your Islamic content idea log.",
+    "asset": "uild one section of the irst small asset (based n Day 21 outline)."
+  },
+  "28": {
+    "day": 28,
+    "date": "Oct 19",
+    "bd": "Week review: outreach results so far (sent / accepted / replied), adjust templates if reply rate is low.",
+    "tech": "Study Background Jobs fundamentals in the Frappe framework docs \u2014 take structured notes.",
+    "content": "Study scripting: read/watch one solid resource and take notes.",
+    "islamic": "Study routine: 15\u201320 min from an authentic source (Qur'an tafsir or a recognized Hadith collection).",
+    "asset": "Build one section of the first small asset (based on Day 21 outline)."
+  },
+  "29": {
+    "day": 29,
+    "date": "Oct 20",
+    "bd": "Consolidate Phase 1 assets: portfolio, 3 offers, prospect tracker, Case Study #1 \u2014 final review pass.",
+    "tech": "Build one small, working St example using Background on Jobs in a test/dev site. ta",
+    "content": "udy hooks: read/watch e solid resource and ke notes.",
+    "islamic": "Source verification practice: check the narrator chain / cross-reference the translation used for today's topic.",
+    "asset": "Build one section of the first small asset (based on Day 21 outline)."
+  },
+  "30": {
+    "day": 30,
+    "date": "Oct 21",
+    "bd": "Phase 1 retrospective: what worked, what didn't, what changes going into Phase 2 outreach.",
+    "tech": "Document the Background Jobs example (screenshot + short write-up) as portfolio/GitHub proof.",
+    "content": "Study storytelling structure: read/watch one solid resource and take notes.",
+    "islamic": "Write short personal B notes summarizing f today's lesson \u2014 start of o your Islamic content idea log.",
+    "asset": "uild one section of the irst small asset (based n Day 21 outline)."
+  },
+  "31": {
+    "day": 31,
+    "date": "Oct 22",
+    "bd": "Re-launch outreach for Phase 2: refresh tracker, re-send templates to non-responders from Phase 1.",
+    "tech": "Study ERPNext REST/API consumption \u2014 read documentation and take notes.",
+    "content": "Long-form: outline this week's YouTube video (business-problem-first, ERPNext angle).",
+    "islamic": "Source \u2192 Verify: pick this week's topic from an authentic source; verify references.",
+    "asset": "Build one more section of the first asset (checkli st/questionnaire/propos al template/Health Check template)."
+  },
+  "32": {
+    "day": 32,
+    "date": "Oct 23",
+    "bd": "Send 5\u201310 cold emails; follow up on any open threads in the tracker.",
+    "tech": "Study Third-party integrations (general pattern) \u2014 read documentation and take notes.",
+    "content": "Long-form: script + record this week's YouTube video.",
+    "islamic": "Understand: study the topic in depth; expand personal notes.",
+    "asset": "Review and tighten the asset's content for clarity."
+  },
+  "33": {
+    "day": 33,
+    "date": "Oct 24",
+    "bd": "Discovery call slot (if booked) or discovery-script rehearsal if none booked yet.",
+    "tech": "Study Automation (scheduled jobs / server scripts) \u2014 read documentation and take notes.",
+    "content": "Long-form: edit + publish this week's YouTube video.",
+    "islamic": "Script: turn notes into a short-form script (Qur'an /Hadith/Seerah/akhlaq, clearly labeled by type).",
+    "asset": "Design/format pass on the asset (make it presentable, not just functional)."
+  },
+  "34": {
+    "day": 34,
+    "date": "Oct 25",
+    "bd": "Proposal/scope work: draft or refine a proposal for an active conversation using the SOW structure.",
+    "tech": "Build a small working example using ERPNext REST/API consumption.",
+    "content": "Shorts: cut and publish Pu Short #1 from this week's pu long-form video. Is",
+    "islamic": "blish: record and blish this week's lamic content piece.",
+    "asset": "Test the asset yourself on a real or sample ERPNext scenario."
+  },
+  "35": {
+    "day": 35,
+    "date": "Oct 26",
+    "bd": "Client communication practice: refine how you explain scope/pricing in plain language.",
+    "tech": "Build a small working example using Third-party integrations (general pattern).",
+    "content": "Shorts: cut and publish Re Short #2 from this week's pu long-form video. so mo",
+    "islamic": "view: check the blished piece against urce material once re for accuracy.",
+    "asset": "Prepare a simple way to share the asset (a page, a LinkedIn post, or a lead-magnet link)."
+  },
+  "36": {
+    "day": 36,
+    "date": "Oct 27",
+    "bd": "Follow-up day: nudge every open lead that's gone quiet (2nd follow-up, per the LinkedIn benchmark data).",
+    "tech": "Build a small working example using Automation (scheduled jobs / server scripts).",
+    "content": "Shorts: cut and publish St Short #3 from this week's pu long-form video. co le",
+    "islamic": "udy routine (no blishing today): ntinue personal arning uninterrupted.",
+    "asset": "Get feedback on the asset from one contact; note revisions."
+  },
+  "37": {
+    "day": 37,
+    "date": "Oct 28",
+    "bd": "Week review: update KPI dashboard (Section 18) \u2014 leads, replies, calls, proposals.",
+    "tech": "Document/refine the ERPNext REST/API consumption example for your portfolio.",
+    "content": "LinkedIn: write and publish 2 posts repurposing this week's video idea; review basic metrics.",
+    "islamic": "Week review: note consistency and source quality; plan next week's topic.",
+    "asset": "Week review: is the asset ready to publish as free/low-ticket? If yes, plan the publish date."
+  },
+  "38": {
+    "day": 38,
+    "date": "Oct 29",
+    "bd": "Send 15\u201320 LinkedIn connection requests + check Upwork for new relevant postings.",
+    "tech": "Document/refine the Third-party integrations (general pattern) example for your portfolio.",
+    "content": "Long-form: outline this week's YouTube video (business-problem-first, ERPNext angle).",
+    "islamic": "Source \u2192 Verify: pick this week's topic from an authentic source; verify references.",
+    "asset": "Build one more section of the first asset (checkli st/questionnaire/propos al template/Health Check template)."
+  },
+  "39": {
+    "day": 39,
+    "date": "Oct 30",
+    "bd": "Send 5\u201310 cold emails; follow up on any open threads in the tracker.",
+    "tech": "Document/refine the Automation (scheduled jobs / server scripts) example for your portfolio.",
+    "content": "Long-form: script + record this week's YouTube video.",
+    "islamic": "Understand: study the topic in depth; expand personal notes.",
+    "asset": "Review and tighten the asset's content for clarity."
+  },
+  "40": {
+    "day": 40,
+    "date": "Oct 31",
+    "bd": "Discovery call slot (if booked) or discovery-script rehearsal if none booked yet.",
+    "tech": "Study ERPNext REST/API consumption \u2014 read documentation and take notes.",
+    "content": "Long-form: edit + publish this week's YouTube video.",
+    "islamic": "Script: turn notes into a short-form script (Qur'an /Hadith/Seerah/akhlaq, clearly labeled by type).",
+    "asset": "Design/format pass on the asset (make it presentable, not just functional)."
+  },
+  "41": {
+    "day": 41,
+    "date": "Nov 01",
+    "bd": "Proposal/scope work: draft or refine a proposal for an active conversation using the SOW structure.",
+    "tech": "Study Third-party integrations (general pattern) \u2014 read documentation and take notes.",
+    "content": "Shorts: cut and publish Pu Short #1 from this week's pu long-form video. Is",
+    "islamic": "blish: record and blish this week's lamic content piece.",
+    "asset": "Test the asset yourself on a real or sample ERPNext scenario."
+  },
+  "42": {
+    "day": 42,
+    "date": "Nov 02",
+    "bd": "Client communication practice: refine how you explain scope/pricing in plain language.",
+    "tech": "Study Automation (scheduled jobs / server scripts) \u2014 read documentation and take notes.",
+    "content": "Shorts: cut and publish Re Short #2 from this week's pu long-form video. so mo",
+    "islamic": "view: check the blished piece against urce material once re for accuracy.",
+    "asset": "Prepare a simple way to share the asset (a page, a LinkedIn post, or a lead-magnet link)."
+  },
+  "43": {
+    "day": 43,
+    "date": "Nov 03",
+    "bd": "Follow-up day: nudge every open lead that's gone quiet (2nd follow-up, per the LinkedIn benchmark data).",
+    "tech": "paymob_integration: read/review the integration's existing code and document how it works end-to-end.",
+    "content": "Shorts: cut and publish Short #3 from this week's long-form video.",
+    "islamic": "Study routine (no publishing today): continue personal learning uninterrupted.",
+    "asset": "Get feedback on the asset from one contact; note revisions."
+  },
+  "44": {
+    "day": 44,
+    "date": "Nov 04",
+    "bd": "Week review: update KPI dashboard (Section 18) \u2014 leads, replies, calls, proposals.",
+    "tech": "paymob_integration: identify one improvement or edge case to handle; implement it.",
+    "content": "LinkedIn: write and publish 2 posts repurposing this week's video idea; review basic metrics.",
+    "islamic": "Week review: note consistency and source quality; plan next week's topic.",
+    "asset": "Week review: is the asset ready to publish as free/low-ticket? If yes, plan the publish date."
+  },
+  "45": {
+    "day": 45,
+    "date": "Nov 05",
+    "bd": "Mid-phase checkpoint: review pipeline; if no proposal sent yet, prioritize the warmest 3 leads this week.",
+    "tech": "paymob_integration: test the improvement in a dev/sandbox environment.",
+    "content": "Long-form: outline this week's YouTube video (business-problem-first, ERPNext angle).",
+    "islamic": "Source \u2192 Verify: pick this week's topic from an authentic source; verify references.",
+    "asset": "Build one more section of the first asset (checkli st/questionnaire/propos al template/Health Check template)."
+  },
+  "46": {
+    "day": 46,
+    "date": "Nov 06",
+    "bd": "Send 5\u201310 cold emails; follow up on any open threads in the tracker.",
+    "tech": "paymob_integration: write a short technical case-study draft (problem \u2192 approach \u2192 result).",
+    "content": "Long-form: script + record this week's YouTube video.",
+    "islamic": "Understand: study the topic in depth; expand personal notes.",
+    "asset": "Review and tighten the asset's content for clarity."
+  },
+  "47": {
+    "day": 47,
+    "date": "Nov 07",
+    "bd": "Discovery call slot (if paym booked) or discovery-script up c rehearsal if none booked case yet.",
+    "tech": "ob_integration: clean ode/comments for the -study repo.",
+    "content": "Long-form: edit + publish this week's YouTube video.",
+    "islamic": "Script: turn notes into a short-form script (Qur'an /Hadith/Seerah/akhlaq, clearly labeled by type).",
+    "asset": "Design/format pass on the asset (make it presentable, not just functional)."
+  },
+  "48": {
+    "day": 48,
+    "date": "Nov 08",
+    "bd": "Proposal/scope work: draft or refine a proposal for an active conversation using the SOW structure.",
+    "tech": "paymob_integration: publish the cleaned-up version to GitHub with a clear README.",
+    "content": "Shorts: cut and publish Pu Short #1 from this week's pu long-form video. Is",
+    "islamic": "blish: record and blish this week's lamic content piece.",
+    "asset": "Test the asset yourself on a real or sample ERPNext scenario."
+  },
+  "49": {
+    "day": 49,
+    "date": "Nov 09",
+    "bd": "Client communication practice: refine how you explain scope/pricing in plain language.",
+    "tech": "paymob_integration: review the case study for use as a content piece (see Content track).",
+    "content": "Shorts: cut and publish Re Short #2 from this week's pu long-form video. so mo",
+    "islamic": "view: check the blished piece against urce material once re for accuracy.",
+    "asset": "Prepare a simple way to share the asset (a page, a LinkedIn post, or a lead-magnet link)."
+  },
+  "50": {
+    "day": 50,
+    "date": "Nov 10",
+    "bd": "Follow-up day: nudge every open lead that's gone quiet (2nd follow-up, per the LinkedIn benchmark data).",
+    "tech": "Build a small working example using ERPNext REST/API consumption.",
+    "content": "Shorts: cut and publish St Short #3 from this week's pu long-form video. co le",
+    "islamic": "udy routine (no blishing today): ntinue personal arning uninterrupted.",
+    "asset": "Get feedback on the asset from one contact; note revisions."
+  },
+  "51": {
+    "day": 51,
+    "date": "Nov 11",
+    "bd": "Week review: update KPI dashboard (Section 18) \u2014 leads, replies, calls, proposals.",
+    "tech": "Build a small working example using Third-party integrations (general pattern).",
+    "content": "LinkedIn: write and publish 2 posts repurposing this week's video idea; review basic metrics.",
+    "islamic": "Week review: note consistency and source quality; plan next week's topic.",
+    "asset": "Week review: is the asset ready to publish as free/low-ticket? If yes, plan the publish date."
+  },
+  "52": {
+    "day": 52,
+    "date": "Nov 12",
+    "bd": "Send 15\u201320 LinkedIn connection requests + check Upwork for new relevant postings.",
+    "tech": "Build a small working example using Automation (scheduled jobs / server scripts).",
+    "content": "Long-form: outline this week's YouTube video (business-problem-first, ERPNext angle).",
+    "islamic": "Source \u2192 Verify: pick this week's topic from an authentic source; verify references.",
+    "asset": "Build one more section of the first asset (checkli st/questionnaire/propos al template/Health Check template)."
+  },
+  "53": {
+    "day": 53,
+    "date": "Nov 13",
+    "bd": "Send 5\u201310 cold emails; follow up on any open threads in the tracker.",
+    "tech": "Document/refine the ERPNext REST/API consumption example for your portfolio.",
+    "content": "Long-form: script + record this week's YouTube video.",
+    "islamic": "Understand: study the topic in depth; expand personal notes.",
+    "asset": "Review and tighten the asset's content for clarity."
+  },
+  "54": {
+    "day": 54,
+    "date": "Nov 14",
+    "bd": "Discovery call slot (if booked) or discovery-script rehearsal if none booked yet.",
+    "tech": "Document/refine the Third-party integrations (general pattern) example for your portfolio.",
+    "content": "Long-form: edit + publish this week's YouTube video.",
+    "islamic": "Script: turn notes into a short-form script (Qur'an /Hadith/Seerah/akhlaq, clearly labeled by type).",
+    "asset": "Design/format pass on the asset (make it presentable, not just functional)."
+  },
+  "55": {
+    "day": 55,
+    "date": "Nov 15",
+    "bd": "Proposal/scope work: draft or refine a proposal for an active conversation using the SOW structure.",
+    "tech": "Document/refine the Automation (scheduled jobs / server scripts) example for your portfolio.",
+    "content": "Shorts: cut and publish P Short #1 from this week's p long-form video. I",
+    "islamic": "ublish: record and ublish this week's slamic content piece.",
+    "asset": "Test the asset yourself on a real or sample ERPNext scenario."
+  },
+  "56": {
+    "day": 56,
+    "date": "Nov 16",
+    "bd": "Client communication practice: refine how you explain scope/pricing in plain language.",
+    "tech": "Study ERPNext REST/API consumption \u2014 read documentation and take notes.",
+    "content": "Shorts: cut and publish R Short #2 from this week's p long-form video. s m",
+    "islamic": "eview: check the ublished piece against ource material once ore for accuracy.",
+    "asset": "Prepare a simple way to share the asset (a page, a LinkedIn post, or a lead-magnet link)."
+  },
+  "57": {
+    "day": 57,
+    "date": "Nov 17",
+    "bd": "Follow-up day: nudge every open lead that's gone quiet (2nd follow-up, per the LinkedIn benchmark data).",
+    "tech": "Study Third-party integrations (general pattern) \u2014 read documentation and take notes.",
+    "content": "Shorts: cut and publish S Short #3 from this week's p long-form video. c l",
+    "islamic": "tudy routine (no ublishing today): ontinue personal earning uninterrupted.",
+    "asset": "Get feedback on the asset from one contact; note revisions."
+  },
+  "58": {
+    "day": 58,
+    "date": "Nov 18",
+    "bd": "Week review: update KPI dashboard (Section 18) \u2014 leads, replies, calls, proposals.",
+    "tech": "Study Automation (scheduled jobs / server scripts) \u2014 read documentation and take notes.",
+    "content": "LinkedIn: write and publish 2 posts repurposing this week's video idea; review basic metrics.",
+    "islamic": "Week review: note consistency and source quality; plan next week's topic.",
+    "asset": "Week review: is the asset ready to publish as free/low-ticket? If yes, plan the publish date."
+  },
+  "59": {
+    "day": 59,
+    "date": "Nov 19",
+    "bd": "Send 15\u201320 LinkedIn connection requests + check Upwork for new relevant postings.",
+    "tech": "Build a small working example using ERPNext REST/API consumption.",
+    "content": "Long-form: outline this week's YouTube video (business-problem-first, ERPNext angle).",
+    "islamic": "Source \u2192 Verify: pick this week's topic from an authentic source; verify references.",
+    "asset": "Build one more section of the first asset (checkli st/questionnaire/propos al template/Health Check template)."
+  },
+  "60": {
+    "day": 60,
+    "date": "Nov 20",
+    "bd": "Phase 2 wrap: target is at least one active proposal or first paid project in motion \u2014 review status honestly.",
+    "tech": "Build a small working example using Third-party integrations (general pattern).",
+    "content": "Long-form: script + record this week's YouTube video.",
+    "islamic": "Understand: study the topic in depth; expand personal notes.",
+    "asset": "Review and tighten the asset's content for clarity."
+  },
+  "61": {
+    "day": 61,
+    "date": "Nov 21",
+    "bd": "Active client delivery block (if a project is live) OR continued outreach if pipeline needs rebuilding.",
+    "tech": "Advanced integrations: study a new integration pattern relevant to a real or prospective client need.",
+    "content": "Business-problem content: outline a piece on an ERPNext/payment -integration problem you've actually solved.",
+    "islamic": "Continue this week's content series topic: source \u2192 verify \u2192 understand.",
+    "asset": "Expand the published asset (add a section, update based on user feedback)."
+  },
+  "62": {
+    "day": 62,
+    "date": "Nov 22",
+    "bd": "Proposal refinement: apply lessons from closed/lost deals so far to improve the template.",
+    "tech": "Automation: build/refine one automation (scheduled job, server script, or webhook chain).",
+    "content": "Business-problem content: outline a piece on an inventory or implementation-mistake problem.",
+    "islamic": "Script this week's piece; keep Qur'an / authentic Hadith / interpretation / personal reflection clearly labeled.",
+    "asset": "Test one monetization path for the asset (e.g. YouTube eligibility check, a relevant affiliate fit) \u2014 no guarantees, just testing."
+  },
+  "63": {
+    "day": 63,
+    "date": "Nov 23",
+    "bd": "Client communication: status update / check-in with any active client.",
+    "tech": "API architecture: review and document how your integrations fit together as a reusable pattern.",
+    "content": "Script + record this week's long-form video.",
+    "islamic": "Record and publish this week's Islamic content piece.",
+    "asset": "Draft/refine a simple email or contact-capture step tied to the asset."
+  },
+  "64": {
+    "day": 64,
+    "date": "Nov 24",
+    "bd": "Referral ask: reach out to one past or current client for an introduction.",
+    "tech": "Practical AI/LLM integration: explore one way an LLM API could automate a real ERPNext workflow task.",
+    "content": "Edit + publish this week's long-form video; cut 2\u20133 fo Shorts from it.",
+    "islamic": "Review published piece r accuracy once more; note any correction needed.",
+    "asset": "Review asset traffic/downloads/leads so far (if any) and note honestly."
+  },
+  "65": {
+    "day": 65,
+    "date": "Nov 25",
+    "bd": "Care Plan pitch: identify one completed project to offer an ongoing Care Plan retainer to.",
+    "tech": "Business automation: identify one manual process (yours or a client's) and prototype automating it.",
+    "content": "Publish Shorts + 2 LinkedIn posts repurposing the same core idea.",
+    "islamic": "Study routine (no publishing): protect consistency even on lighter weeks.",
+    "asset": "Explore one more digital-product idea for 2027 without committing time to build it yet."
+  },
+  "66": {
+    "day": 66,
+    "date": "Nov 26",
+    "bd": "Testimonial/case-study request: ask a satisfied client for a short testimonial or permission to write it up.",
+    "tech": "Consolidate technical proof: update GitHub/portfolio with this week's strongest technical work.",
+    "content": "Analyze last week's metrics: CTR, retention, watch time, returning viewers, subscribers, leads generated.",
+    "islamic": "Engage respectfully with any audience questions/comments on published content.",
+    "asset": "Consolidate: update the digital asset ladder (Section 22) with real status, not projections."
+  },
+  "67": {
+    "day": 67,
+    "date": "Nov 27",
+    "bd": "Week review: update KPI dashboard; assess whether the sales funnel (Section 18) needs adjustment.",
+    "tech": "Week review: is your specialization narrative (ERPNext + APIs + Automation + AI) getting sharper?",
+    "content": "Week review: adjust next week's topic based on what the metrics show performed best.",
+    "islamic": "Week review: series consistency + source quality check.",
+    "asset": "Week review: what actually moved on the passive-income ladder this week, if anything."
+  },
+  "68": {
+    "day": 68,
+    "date": "Nov 28",
+    "bd": "Active client delivery block (if a project is live) OR continued outreach if pipeline needs rebuilding.",
+    "tech": "Advanced integrations: study a new integration pattern relevant to a real or prospective client need.",
+    "content": "Business-problem content: outline a piece on an ERPNext/payment -integration problem you've actually solved.",
+    "islamic": "Continue this week's content series topic: source \u2192 verify \u2192 understand.",
+    "asset": "Expand the published asset (add a section, update based on user feedback)."
+  },
+  "69": {
+    "day": 69,
+    "date": "Nov 29",
+    "bd": "Proposal refinement: apply lessons from closed/lost deals so far to improve the template.",
+    "tech": "Automation: build/refine one automation (scheduled job, server script, or webhook chain).",
+    "content": "Business-problem content: outline a piece on an inventory or implementation-mistake problem.",
+    "islamic": "Script this week's piece; keep Qur'an / authentic Hadith / interpretation / personal reflection clearly labeled.",
+    "asset": "Test one monetization path for the asset (e.g. YouTube eligibility check, a relevant affiliate fit) \u2014 no guarantees, just testing."
+  },
+  "70": {
+    "day": 70,
+    "date": "Nov 30",
+    "bd": "Client communication: status update / check-in with any active client.",
+    "tech": "API architecture: review and document how your integrations fit together as a reusable pattern.",
+    "content": "Script + record this week's long-form video.",
+    "islamic": "Record and publish this week's Islamic content piece.",
+    "asset": "Draft/refine a simple email or contact-capture step tied to the asset."
+  },
+  "71": {
+    "day": 71,
+    "date": "Dec 01",
+    "bd": "Referral ask: reach out to one past or current client for an introduction.",
+    "tech": "Practical AI/LLM integration: explore one way an LLM API could automate a real ERPNext workflow task.",
+    "content": "Edit + publish this week's long-form video; cut 2\u20133 fo Shorts from it.",
+    "islamic": "Review published piece r accuracy once more; note any correction needed.",
+    "asset": "Review asset traffic/downloads/leads so far (if any) and note honestly."
+  },
+  "72": {
+    "day": 72,
+    "date": "Dec 02",
+    "bd": "Care Plan pitch: identify one completed project to offer an ongoing Care Plan retainer to.",
+    "tech": "Business automation: identify one manual process (yours or a client's) and prototype automating it.",
+    "content": "Publish Shorts + 2 LinkedIn posts repurposing the same core idea.",
+    "islamic": "Study routine (no publishing): protect consistency even on lighter weeks.",
+    "asset": "Explore one more digital-product idea for 2027 without committing time to build it yet."
+  },
+  "73": {
+    "day": 73,
+    "date": "Dec 03",
+    "bd": "Testimonial/case-study request: ask a satisfied client for a short testimonial or permission to write it up.",
+    "tech": "Consolidate technical proof: update GitHub/portfolio with this week's strongest technical work.",
+    "content": "Analyze last week's metrics: CTR, retention, watch time, returning viewers, subscribers, leads generated.",
+    "islamic": "Engage respectfully with any audience questions/comments on published content.",
+    "asset": "Consolidate: update the digital asset ladder (Section 22) with real status, not projections."
+  },
+  "74": {
+    "day": 74,
+    "date": "Dec 04",
+    "bd": "Week review: update KPI dashboard; assess whether the sales funnel (Section 18) needs adjustment.",
+    "tech": "Week review: is your specialization narrative (ERPNext + APIs + Automation + AI) getting sharper?",
+    "content": "Week review: adjust next week's topic based on what the metrics show performed best.",
+    "islamic": "Week review: series consistency + source quality check.",
+    "asset": "Week review: what actually moved on the passive-income ladder this week, if anything."
+  },
+  "75": {
+    "day": 75,
+    "date": "Dec 05",
+    "bd": "Active client delivery block (if a project is live) OR continued outreach if pipeline needs rebuilding.",
+    "tech": "Advanced integrations: study a new integration pattern relevant to a real or prospective client need.",
+    "content": "Business-problem content: outline a piece on an ERPNext/payment -integration problem you've actually solved.",
+    "islamic": "Continue this week's content series topic: source \u2192 verify \u2192 understand.",
+    "asset": "Expand the published asset (add a section, update based on user feedback)."
+  },
+  "76": {
+    "day": 76,
+    "date": "Dec 06",
+    "bd": "Proposal refinement: apply lessons from closed/lost deals so far to improve the template.",
+    "tech": "Automation: build/refine one automation (scheduled job, server script, or webhook chain).",
+    "content": "Business-problem content: outline a piece on an inventory or implementation-mistake problem.",
+    "islamic": "Script this week's piece; keep Qur'an / authentic Hadith / interpretation / personal reflection clearly labeled.",
+    "asset": "Test one monetization path for the asset (e.g. YouTube eligibility check, a relevant affiliate fit) \u2014 no guarantees, just testing."
+  },
+  "77": {
+    "day": 77,
+    "date": "Dec 07",
+    "bd": "Client communication: status update / check-in with any active client.",
+    "tech": "API architecture: review and document how your integrations fit together as a reusable pattern.",
+    "content": "Script + record this week's long-form video.",
+    "islamic": "Record and publish this week's Islamic content piece.",
+    "asset": "Draft/refine a simple email or contact-capture step tied to the asset."
+  },
+  "78": {
+    "day": 78,
+    "date": "Dec 08",
+    "bd": "Referral ask: reach out to one past or current client for an introduction.",
+    "tech": "Practical AI/LLM integration: explore one way an LLM API could automate a real ERPNext workflow task.",
+    "content": "Edit + publish this week's long-form video; cut 2\u20133 fo Shorts from it.",
+    "islamic": "Review published piece r accuracy once more; note any correction needed.",
+    "asset": "Review asset traffic/downloads/leads so far (if any) and note honestly."
+  },
+  "79": {
+    "day": 79,
+    "date": "Dec 09",
+    "bd": "Care Plan pitch: identify one completed project to offer an ongoing Care Plan retainer to.",
+    "tech": "Business automation: identify one manual process (yours or a client's) and prototype automating it.",
+    "content": "Publish Shorts + 2 LinkedIn posts repurposing the same core idea.",
+    "islamic": "Study routine (no publishing): protect consistency even on lighter weeks.",
+    "asset": "Explore one more digital-product idea for 2027 without committing time to build it yet."
+  },
+  "80": {
+    "day": 80,
+    "date": "Dec 10",
+    "bd": "Testimonial/case-study request: ask a satisfied client for a short testimonial or permission to write it up.",
+    "tech": "Consolidate technical proof: update GitHub/portfolio with this week's strongest technical work.",
+    "content": "Analyze last week's metrics: CTR, retention, watch time, returning viewers, subscribers, leads generated.",
+    "islamic": "Engage respectfully with any audience questions/comments on published content.",
+    "asset": "Consolidate: update the digital asset ladder (Section 22) with real status, not projections."
+  },
+  "81": {
+    "day": 81,
+    "date": "Dec 11",
+    "bd": "Week review: update KPI dashboard; assess whether the sales funnel (Section 18) needs adjustment.",
+    "tech": "Week review: is your specialization narrative (ERPNext + APIs + Automation + AI) getting sharper?",
+    "content": "Week review: adjust next week's topic based on what the metrics show performed best.",
+    "islamic": "Week review: series consistency + source quality check.",
+    "asset": "Week review: what actually moved on the passive-income ladder this week, if anything."
+  },
+  "82": {
+    "day": 82,
+    "date": "Dec 12",
+    "bd": "Active client delivery block (if a project is live) OR continued outreach if pipeline needs rebuilding.",
+    "tech": "Advanced integrations: study a new integration pattern relevant to a real or prospective client need.",
+    "content": "Business-problem content: outline a piece on an ERPNext/payment -integration problem you've actually solved.",
+    "islamic": "Continue this week's content series topic: source \u2192 verify \u2192 understand.",
+    "asset": "Expand the published asset (add a section, update based on user feedback)."
+  },
+  "83": {
+    "day": 83,
+    "date": "Dec 13",
+    "bd": "Proposal refinement: apply lessons from closed/lost deals so far to improve the template.",
+    "tech": "Automation: build/refine one automation (scheduled job, server script, or webhook chain).",
+    "content": "Business-problem content: outline a piece on an inventory or implementation-mistake problem.",
+    "islamic": "Script this week's piece; keep Qur'an / authentic Hadith / interpretation / personal reflection clearly labeled.",
+    "asset": "Test one monetization path for the asset (e.g. YouTube eligibility check, a relevant affiliate fit) \u2014 no guarantees, just testing."
+  },
+  "84": {
+    "day": 84,
+    "date": "Dec 14",
+    "bd": "Client communication: status update / check-in with any active client.",
+    "tech": "API architecture: review and document how your integrations fit together as a reusable pattern.",
+    "content": "Script + record this week's long-form video.",
+    "islamic": "Record and publish this week's Islamic content piece.",
+    "asset": "Draft/refine a simple email or contact-capture step tied to the asset."
+  },
+  "85": {
+    "day": 85,
+    "date": "Dec 15",
+    "bd": "Referral ask: reach out to one past or current client for an introduction.",
+    "tech": "Practical AI/LLM integration: explore one way an LLM API could automate a real ERPNext workflow task.",
+    "content": "Edit + publish this week's long-form video; cut 2\u20133 fo Shorts from it.",
+    "islamic": "Review published piece r accuracy once more; note any correction needed.",
+    "asset": "Review asset traffic/downloads/leads so far (if any) and note honestly."
+  },
+  "86": {
+    "day": 86,
+    "date": "Dec 16",
+    "bd": "Care Plan pitch: identify one completed project to offer an ongoing Care Plan retainer to.",
+    "tech": "Business automation: identify one manual process (yours or a client's) and prototype automating it.",
+    "content": "Publish Shorts + 2 LinkedIn posts repurposing the same core idea.",
+    "islamic": "Study routine (no publishing): protect consistency even on lighter weeks.",
+    "asset": "Explore one more digital-product idea for 2027 without committing time to build it yet."
+  },
+  "87": {
+    "day": 87,
+    "date": "Dec 17",
+    "bd": "Testimonial/case-study request: ask a satisfied client for a short testimonial or permission to write it up.",
+    "tech": "Consolidate technical proof: update GitHub/portfolio with this week's strongest technical work.",
+    "content": "Analyze last week's metrics: CTR, retention, watch time, returning viewers, subscribers, leads generated.",
+    "islamic": "Engage respectfully with any audience questions/comments on published content.",
+    "asset": "Consolidate: update the digital asset ladder (Section 22) with real status, not projections."
+  },
+  "88": {
+    "day": 88,
+    "date": "Dec 18",
+    "bd": "Week review: update KPI dashboard; assess whether the sales funnel (Section 18) needs adjustment.",
+    "tech": "Week review: is your specialization narrative (ERPNext + APIs + Automation + AI) getting sharper?",
+    "content": "Week review: adjust next week's topic based on what the metrics show performed best.",
+    "islamic": "Week review: series consistency + source quality check.",
+    "asset": "Week review: what actually moved on the passive-income ladder this week, if anything."
+  },
+  "89": {
+    "day": 89,
+    "date": "Dec 19",
+    "bd": "Active client delivery block (if a project is live) OR continued outreach if pipeline needs rebuilding.",
+    "tech": "Advanced integrations: study a new integration pattern relevant to a real or prospective client need.",
+    "content": "Business-problem content: outline a piece on an ERPNext/payment -integration problem you've actually solved.",
+    "islamic": "Continue this week's content series topic: source \u2192 verify \u2192 understand.",
+    "asset": "Expand the published asset (add a section, update based on user feedback)."
+  },
+  "90": {
+    "day": 90,
+    "date": "Dec 20",
+    "bd": "Proposal refinement: apply lessons from closed/lost deals so far to improve the template.",
+    "tech": "Automation: build/refine one automation (scheduled job, server script, or webhook chain).",
+    "content": "Business-problem content: outline a piece on an inventory or implementation-mistake problem.",
+    "islamic": "Script this week's piece; keep Qur'an / authentic Hadith / interpretation / personal reflection clearly labeled.",
+    "asset": "Test one monetization path for the asset (e.g. YouTube eligibility check, a relevant affiliate fit) \u2014 no guarantees, just testing."
+  },
+  "91": {
+    "day": 91,
+    "date": "Dec 21",
+    "bd": "Client communication: status update / check-in with any active client.",
+    "tech": "API architecture: review and document how your integrations fit together as a reusable pattern.",
+    "content": "Script + record this week's long-form video.",
+    "islamic": "Record and publish this week's Islamic content piece.",
+    "asset": "Draft/refine a simple email or contact-capture step tied to the asset."
+  },
+  "92": {
+    "day": 92,
+    "date": "Dec 22",
+    "bd": "Referral ask: reach out to one past or current client for an introduction.",
+    "tech": "Practical AI/LLM integration: explore one way an LLM API could automate a real ERPNext workflow task.",
+    "content": "Edit + publish this week's long-form video; cut 2\u20133 fo Shorts from it.",
+    "islamic": "Review published piece r accuracy once more; note any correction needed.",
+    "asset": "Review asset traffic/downloads/leads so far (if any) and note honestly."
+  },
+  "93": {
+    "day": 93,
+    "date": "Dec 23",
+    "bd": "Care Plan pitch: identify one completed project to offer an ongoing Care Plan retainer to.",
+    "tech": "Business automation: identify one manual process (yours or a client's) and prototype automating it.",
+    "content": "Publish Shorts + 2 LinkedIn posts repurposing the same core idea.",
+    "islamic": "Study routine (no publishing): protect consistency even on lighter weeks.",
+    "asset": "Explore one more digital-product idea for 2027 without committing time to build it yet."
+  },
+  "94": {
+    "day": 94,
+    "date": "Dec 24",
+    "bd": "Testimonial/case-study request: ask a satisfied client for a short testimonial or permission to write it up.",
+    "tech": "Consolidate technical proof: update GitHub/portfolio with this week's strongest technical work.",
+    "content": "Analyze last week's metrics: CTR, retention, watch time, returning viewers, subscribers, leads generated.",
+    "islamic": "Engage respectfully with any audience questions/comments on published content.",
+    "asset": "Consolidate: update the digital asset ladder (Section 22) with real status, not projections."
+  },
+  "95": {
+    "day": 95,
+    "date": "Dec 25",
+    "bd": "Week review: update KPI dashboard; assess whether the sales funnel (Section 18) needs adjustment.",
+    "tech": "Week review: is your specialization narrative (ERPNext + APIs + Automation + AI) getting sharper?",
+    "content": "Week review: adjust next week's topic based on what the metrics show performed best.",
+    "islamic": "Week review: series consistency + source quality check.",
+    "asset": "Week review: what actually moved on the passive-income ladder this week, if anything."
+  },
+  "96": {
+    "day": 96,
+    "date": "Dec 26",
+    "bd": "Active client delivery block (if a project is live) OR continued outreach if pipeline needs rebuilding.",
+    "tech": "Advanced integrations: study a new integration pattern relevant to a real or prospective client need.",
+    "content": "Business-problem content: outline a piece on an ERPNext/payment -integration problem you've actually solved.",
+    "islamic": "Continue this week's content series topic: source \u2192 verify \u2192 understand.",
+    "asset": "Expand the published asset (add a section, update based on user feedback)."
+  },
+  "97": {
+    "day": 97,
+    "date": "Dec 27",
+    "bd": "Proposal refinement: apply lessons from closed/lost deals so far to improve the template.",
+    "tech": "Automation: build/refine one automation (scheduled job, server script, or webhook chain).",
+    "content": "Business-problem content: outline a piece on an inventory or implementation-mistake problem.",
+    "islamic": "Script this week's piece; keep Qur'an / authentic Hadith / interpretation / personal reflection clearly labeled.",
+    "asset": "Test one monetization path for the asset (e.g. YouTube eligibility check, a relevant affiliate fit) \u2014 no guarantees, just testing."
+  },
+  "98": {
+    "day": 98,
+    "date": "Dec 28",
+    "bd": "Client communication: status update / check-in with any active client.",
+    "tech": "API architecture: review and document how your integrations fit together as a reusable pattern.",
+    "content": "Script + record this week's long-form video.",
+    "islamic": "Record and publish this week's Islamic content piece.",
+    "asset": "Draft/refine a simple email or contact-capture step tied to the asset."
+  },
+  "99": {
+    "day": 99,
+    "date": "Dec 29",
+    "bd": "Referral ask: reach out to one past or current client for an introduction.",
+    "tech": "Practical AI/LLM integration: explore one way an LLM API could automate a real ERPNext workflow task.",
+    "content": "Edit + publish this week's long-form video; cut 2\u20133 fo Shorts from it.",
+    "islamic": "Review published piece r accuracy once more; note any correction needed.",
+    "asset": "Review asset traffic/downloads/leads so far (if any) and note honestly."
+  },
+  "100": {
+    "day": 100,
+    "date": "Dec 30",
+    "bd": "Care Plan pitch: identify one completed project to offer an ongoing Care Plan retainer to.",
+    "tech": "Business automation: identify one manual process (yours or a client's) and prototype automating it.",
+    "content": "Publish Shorts + 2 LinkedIn posts repurposing the same core idea.",
+    "islamic": "Study routine (no publishing): protect consistency even on lighter weeks.",
+    "asset": "Explore one more digital-product idea for 2027 without committing time to build it yet."
+  },
+  "101": {
+    "day": 101,
+    "date": "Dec 31",
+    "bd": "Testimonial/case-study request: ask a satisfied client for a short testimonial or permission to write it up.",
+    "tech": "Consolidate technical proof: update GitHub/portfolio with this week's strongest technical work.",
+    "content": "Analyze last week's metrics: CTR, retention, watch time, returning viewers, subscribers, leads generated.",
+    "islamic": "Engage respectfully with any audience questions/comments on published content.",
+    "asset": "Consolidate: update the digital asset ladder (Section 22) with real status, not projections."
+  }
+}

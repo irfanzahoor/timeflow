@@ -922,3 +922,128 @@ textarea.input {
     background: rgba(200, 169, 110, 0.08);
     border: 1px solid rgba(200, 169, 110, 0.2);
 }
+
+/* ============================================================
+   100-DAY ROADMAP STYLES
+   ============================================================ */
+.rm-grid-chip {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+    color: var(--muted);
+}
+.rm-grid-chip:hover {
+    border-color: var(--accent);
+    color: var(--text);
+    transform: translateY(-1px);
+}
+.rm-grid-chip.active {
+    border-color: var(--accent) !important;
+    box-shadow: 0 0 0 2px rgba(200, 169, 110, 0.4);
+}
+.rm-grid-chip.done {
+    background: rgba(74, 222, 128, 0.15);
+    border-color: rgba(74, 222, 128, 0.4);
+    color: var(--success);
+}
+.rm-grid-chip.partial {
+    background: rgba(200, 169, 110, 0.15);
+    border-color: rgba(200, 169, 110, 0.4);
+    color: var(--accent);
+}
+.rm-grid-chip.today-chip {
+    border: 2px solid var(--accent) !important;
+    font-weight: 700;
+}
+
+.rm-track-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    transition: all 0.2s;
+}
+.rm-track-card:hover {
+    border-color: rgba(200, 169, 110, 0.3);
+}
+.rm-track-card.completed {
+    border-color: rgba(74, 222, 128, 0.3);
+    background: rgba(74, 222, 128, 0.04);
+}
+
+/* CRM KANBAN & TABLE */
+.crm-kanban-col {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 260px;
+}
+.crm-kanban-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 700;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.crm-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.crm-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+}
+.crm-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+.crm-table th, .crm-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+}
+.crm-table th {
+    background: var(--surface2);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+
+/* CONTENT HUB */
+.content-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    transition: all 0.2s;
+}
+.content-card:hover {
+    border-color: var(--border);
+}

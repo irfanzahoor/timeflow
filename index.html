@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Discipline — Daily Tracker</title>
+  <link rel="icon" type="image/png" href="./images /icon.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap"
@@ -26,6 +27,22 @@
     <nav style="padding: 12px 0; flex: 1;">
       <div class="nav-item active" onclick="showPage('dashboard')" id="nav-dashboard">
         <span class="nav-icon">🖥️</span> Dashboard
+      </div>
+      <div class="nav-item" onclick="showPage('roadmap')" id="nav-roadmap">
+        <span class="nav-icon">🎯</span> 100-Day Roadmap
+        <span id="nav-roadmap-badge"
+          style="margin-left:auto;font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px;background:rgba(200,169,110,0.2);color:var(--accent);">Day 1</span>
+      </div>
+      <div class="nav-item" onclick="showPage('crm')" id="nav-crm">
+        <span class="nav-icon">💼</span> ERPNext CRM
+        <span id="nav-crm-badge"
+          style="margin-left:auto;font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px;background:rgba(124,110,240,0.2);color:var(--accent2);display:none;">0</span>
+      </div>
+      <div class="nav-item" onclick="showPage('kpi')" id="nav-kpi">
+        <span class="nav-icon">📈</span> Weekly KPIs
+      </div>
+      <div class="nav-item" onclick="showPage('contenthub')" id="nav-contenthub">
+        <span class="nav-icon">🎬</span> Content Hub
       </div>
       <div class="nav-item" onclick="showPage('log')" id="nav-log">
         <span class="nav-icon">✏️</span> Daily Log
@@ -99,6 +116,9 @@
 
       <!-- TODAY panel -->
       <div id="dash-panel-today">
+        <!-- 100-DAY ROADMAP HERO WIDGET -->
+        <div id="dash-roadmap-hero" style="margin-bottom:20px;"></div>
+
         <!-- Completion ring + quick stats -->
         <div style="display:grid; grid-template-columns:auto 1fr; gap:20px; margin-bottom:20px; align-items:center;">
           <div class="card card-sm" style="text-align:center; padding:20px 24px;">
@@ -2184,6 +2204,455 @@
       <div id="routine-profiles-list"></div>
     </div>
 
+    <!-- ============================================================
+         100-DAY ERPNEXT BD MASTER ROADMAP PAGE
+         ============================================================ -->
+    <div class="page" id="page-roadmap">
+      <div
+        style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+        <div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <h1 class="serif section-title">100-Day Master Roadmap</h1>
+            <span class="pill pill-yellow" style="font-size:11px;">Sep 22 → Dec 31, 2026</span>
+          </div>
+          <div class="section-sub">ERPNext Technical Consultant to Business Development · 5-Track Operating System</div>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+          <button class="btn btn-secondary" onclick="jumpToRoadmapToday()">⚡ Jump to Today</button>
+          <button class="btn btn-primary" onclick="markAllRoadmapDoneToday()">✓ Mark Today Complete</button>
+        </div>
+      </div>
+
+      <!-- Roadmap Overview & Progress Cards -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:14px; margin-bottom:20px;">
+        <div class="card card-sm">
+          <div class="label">Overall Progress</div>
+          <div class="stat-big" id="rm-stat-overall">0/101</div>
+          <div class="progress-bar" style="margin-top:8px;">
+            <div class="progress-fill" id="rm-bar-overall" style="width:0%;"></div>
+          </div>
+          <div style="font-size:11px; color:var(--muted); margin-top:4px;" id="rm-pct-overall">0% complete</div>
+        </div>
+        <div class="card card-sm">
+          <div class="label">Phase 1: Foundation (1–30)</div>
+          <div class="stat-big" id="rm-stat-p1">0/30</div>
+          <div class="progress-bar" style="margin-top:8px;">
+            <div class="progress-fill" id="rm-bar-p1" style="width:0%; background:#c8a96e;"></div>
+          </div>
+          <div style="font-size:11px; color:var(--muted); margin-top:4px;">Positioning, 3 Offers, Setup</div>
+        </div>
+        <div class="card card-sm">
+          <div class="label">Phase 2: First Revenue (31–60)</div>
+          <div class="stat-big" id="rm-stat-p2">0/30</div>
+          <div class="progress-bar" style="margin-top:8px;">
+            <div class="progress-fill" id="rm-bar-p2" style="width:0%; background:#7c6ef0;"></div>
+          </div>
+          <div style="font-size:11px; color:var(--muted); margin-top:4px;">Outreach, Paymob Case, Deals</div>
+        </div>
+        <div class="card card-sm">
+          <div class="label">Phase 3: Systemization (61–101)</div>
+          <div class="stat-big" id="rm-stat-p3">0/41</div>
+          <div class="progress-bar" style="margin-top:8px;">
+            <div class="progress-fill" id="rm-bar-p3" style="width:0%; background:#4ade80;"></div>
+          </div>
+          <div style="font-size:11px; color:var(--muted); margin-top:4px;">Retainers, AI Integration, Year End</div>
+        </div>
+      </div>
+
+      <!-- Time Split Guide Card -->
+      <div class="card" style="margin-bottom:20px; padding:14px 18px; border-color:rgba(124,110,240,0.25); background:rgba(124,110,240,0.03);">
+        <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:18px;">⏱️</span>
+            <span style="font-size:13px; font-weight:600;">Daily Time Allocation Target (2.5 – 3 hrs):</span>
+          </div>
+          <div style="display:flex; gap:12px; flex-wrap:wrap; font-size:12px;">
+            <span style="color:#c8a96e;">💼 BD: <b>65m (40%)</b></span>
+            <span style="color:#7c6ef0;">💻 Tech: <b>33m (20%)</b></span>
+            <span style="color:#38bdf8;">🎥 Content: <b>33m (20%)</b></span>
+            <span style="color:#4ade80;">🕌 Islamic: <b>16m (10%)</b></span>
+            <span style="color:#fb923c;">📦 Asset: <b>16m (10%)</b></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase / Week Filter and Day Navigation Bar -->
+      <div class="card" style="margin-bottom:20px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+          <div class="toggle" id="rm-phase-filters">
+            <button class="toggle-btn active" onclick="filterRoadmapPhase('all')" id="rm-filter-all">All 101 Days</button>
+            <button class="toggle-btn" onclick="filterRoadmapPhase(1)" id="rm-filter-p1">Phase 1 (1–30)</button>
+            <button class="toggle-btn" onclick="filterRoadmapPhase(2)" id="rm-filter-p2">Phase 2 (31–60)</button>
+            <button class="toggle-btn" onclick="filterRoadmapPhase(3)" id="rm-filter-p3">Phase 3 (61–101)</button>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <label class="label" style="margin:0; font-size:12px;">Select Day:</label>
+            <select class="input" id="rm-day-select" style="width:160px; font-size:12px; padding:6px 10px;" onchange="selectRoadmapDay(this.value)">
+            </select>
+          </div>
+        </div>
+
+        <!-- 101 Day Quick Visual Grid -->
+        <div style="font-size:11px; color:var(--muted); margin-bottom:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+          <span>Interactive 101-Day Timeline (Click any day to inspect / log):</span>
+          <span id="rm-grid-stats-legend" style="display:flex; gap:10px;">
+            <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:8px;height:8px;border-radius:2px;background:var(--success);"></span> Done</span>
+            <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:8px;height:8px;border-radius:2px;background:var(--accent);"></span> Today</span>
+            <span style="display:inline-flex; align-items:center; gap:4px;"><span style="width:8px;height:8px;border-radius:2px;background:var(--surface2);border:1px solid var(--border);"></span> Pending</span>
+          </span>
+        </div>
+        <div id="rm-101-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(36px, 1fr)); gap:5px; max-height:160px; overflow-y:auto; padding:4px;"></div>
+      </div>
+
+      <!-- ACTIVE DAY ACTION DETAIL VIEW -->
+      <div class="card" id="rm-day-detail-card" style="margin-bottom:20px; border-color:rgba(200,169,110,0.4);">
+        <!-- Populated via renderRoadmapDayDetail() -->
+      </div>
+    </div>
+
+    <!-- ============================================================
+         ERPNEXT BD & PROSPECT CRM PAGE
+         ============================================================ -->
+    <div class="page" id="page-crm">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+        <div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <h1 class="serif section-title">ERPNext BD & CRM</h1>
+            <span class="pill pill-purple" style="font-size:11px;">Pharmacy / SME Niche</span>
+          </div>
+          <div class="section-sub">Lead Pipeline, 3 Productized Offers & SOW Proposal Management</div>
+        </div>
+        <button class="btn btn-primary" onclick="openProspectModal()">＋ Add Prospect</button>
+      </div>
+
+      <!-- CRM Metrics -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:12px; margin-bottom:20px;">
+        <div class="card card-sm">
+          <div class="label">Total Prospects</div>
+          <div class="stat-big" id="crm-stat-total">0</div>
+        </div>
+        <div class="card card-sm">
+          <div class="label">BANT Qualified</div>
+          <div class="stat-big" id="crm-stat-qualified" style="color:var(--accent);">0</div>
+        </div>
+        <div class="card card-sm">
+          <div class="label">Discovery Calls</div>
+          <div class="stat-big" id="crm-stat-calls" style="color:var(--accent2);">0</div>
+        </div>
+        <div class="card card-sm">
+          <div class="label">Proposals Sent</div>
+          <div class="stat-big" id="crm-stat-proposals" style="color:#38bdf8;">0</div>
+        </div>
+        <div class="card card-sm">
+          <div class="label">Closed Won / Care Plans</div>
+          <div class="stat-big" id="crm-stat-closed" style="color:var(--success);">0</div>
+        </div>
+        <div class="card card-sm">
+          <div class="label">Pipeline Value</div>
+          <div class="stat-big" id="crm-stat-val" style="font-size:20px;">$0</div>
+        </div>
+      </div>
+
+      <!-- Tab view: Pipeline vs 3 Offers vs Sales Scripts -->
+      <div class="toggle" style="margin-bottom:18px; width:fit-content;" id="crm-view-toggle">
+        <button class="toggle-btn active" onclick="switchCrmTab('pipeline')">Pipeline Kanban</button>
+        <button class="toggle-btn" onclick="switchCrmTab('table')">List View</button>
+        <button class="toggle-btn" onclick="switchCrmTab('offers')">3 Productized Offers</button>
+        <button class="toggle-btn" onclick="switchCrmTab('scripts')">Sales Scripts & BANT</button>
+      </div>
+
+      <!-- Pipeline Kanban View -->
+      <div id="crm-tab-pipeline" style="display:block;">
+        <div id="crm-kanban-board" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:14px; overflow-x:auto; padding-bottom:12px;"></div>
+      </div>
+
+      <!-- Table View -->
+      <div id="crm-tab-table" style="display:none;">
+        <div class="card" style="padding:0; overflow-x:auto;">
+          <div id="crm-table-container"></div>
+        </div>
+      </div>
+
+      <!-- 3 Offers Reference -->
+      <div id="crm-tab-offers" style="display:none;">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:16px; margin-bottom:20px;">
+          <!-- Offer 1 -->
+          <div class="card" style="border-color:rgba(200,169,110,0.3);">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+              <span class="pill pill-yellow" style="font-weight:700;">OFFER 1</span>
+              <span style="font-size:12px; color:var(--muted);">Entry Low-Ticket / Free</span>
+            </div>
+            <h3 style="font-size:16px; font-weight:700; margin-bottom:6px;">ERPNext Health Check & Quick-Win Report</h3>
+            <div style="font-size:12px; color:var(--muted); line-height:1.5; margin-bottom:12px;">
+              Comprehensive audit of an existing ERPNext instance (workflows, permissions, bottlenecks, slow queries, print formats). Delivers a prioritized 1-page action plan.
+            </div>
+            <div style="background:var(--surface2); padding:10px 12px; border-radius:8px; font-size:12px;">
+              <b>Target:</b> Pharmacy & SME retail owners experiencing sluggishness or user frustration.
+            </div>
+          </div>
+
+          <!-- Offer 2 -->
+          <div class="card" style="border-color:rgba(124,110,240,0.3);">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+              <span class="pill pill-purple" style="font-weight:700;">OFFER 2</span>
+              <span style="font-size:12px; color:var(--muted);">Core Customization</span>
+            </div>
+            <h3 style="font-size:16px; font-weight:700; margin-bottom:6px;">Customization & Workflow Build</h3>
+            <div style="font-size:12px; color:var(--muted); line-height:1.5; margin-bottom:12px;">
+              Custom DocTypes, Server Scripts, Client Scripts, Custom Reports, Integrations (e.g. Paymob / Payment Gateways, WhatsApp alerts, third-party APIs), Barcode POS tailoring.
+            </div>
+            <div style="background:var(--surface2); padding:10px 12px; border-radius:8px; font-size:12px;">
+              <b>Target:</b> Growing pharmacies & retail businesses needing custom workflow automation.
+            </div>
+          </div>
+
+          <!-- Offer 3 -->
+          <div class="card" style="border-color:rgba(74,222,128,0.3);">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+              <span class="pill pill-green" style="font-weight:700;">OFFER 3</span>
+              <span style="font-size:12px; color:var(--muted);">Recurring Retainer</span>
+            </div>
+            <h3 style="font-size:16px; font-weight:700; margin-bottom:6px;">Ongoing ERPNext Care Plan</h3>
+            <div style="font-size:12px; color:var(--muted); line-height:1.5; margin-bottom:12px;">
+              Monthly retainer for proactive database optimization, backup monitoring, security patch review, up to 10-15 hrs priority support and minor script enhancements.
+            </div>
+            <div style="background:var(--surface2); padding:10px 12px; border-radius:8px; font-size:12px;">
+              <b>Target:</b> Past and completed project clients who value zero downtime & peace of mind.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scripts & BANT Cheatsheet -->
+      <div id="crm-tab-scripts" style="display:none;">
+        <div class="card" style="margin-bottom:16px;">
+          <h3 style="font-size:15px; font-weight:700; margin-bottom:10px; color:var(--accent);">🎯 BANT / CHAMP Qualification Framework</h3>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px; font-size:13px;">
+            <div style="background:var(--surface2); padding:12px; border-radius:8px;">
+              <b>Budget:</b> Is there dedicated budget for ERP improvements?
+            </div>
+            <div style="background:var(--surface2); padding:12px; border-radius:8px;">
+              <b>Authority:</b> Are you speaking directly with the business owner / CTO?
+            </div>
+            <div style="background:var(--surface2); padding:12px; border-radius:8px;">
+              <b>Need:</b> What specific bottleneck is causing revenue loss or friction?
+            </div>
+            <div style="background:var(--surface2); padding:12px; border-radius:8px;">
+              <b>Timeline:</b> When do they need the customized workflow operational?
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="font-size:15px; font-weight:700; margin-bottom:10px; color:var(--accent2);">💬 LAER Objection Handling Framework</h3>
+          <div style="font-size:13px; color:var(--muted); line-height:1.6;">
+            <b>Listen:</b> Let the client explain their concern without interruption.<br>
+            <b>Acknowledge:</b> Validate their concern ("I completely understand why cost/downtime is a priority...").<br>
+            <b>Explore:</b> Ask a clarifying question to uncover the root cause.<br>
+            <b>Respond:</b> Position your solution, proof case study (e.g. Paymob integration), and clear SOW milestones.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         WEEKLY KPI DASHBOARD & SCORECARDS PAGE
+         ============================================================ -->
+    <div class="page" id="page-kpi">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+        <div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <h1 class="serif section-title">Weekly KPI Dashboard</h1>
+            <span class="pill pill-yellow" style="font-size:11px;">Section 18 & 19</span>
+          </div>
+          <div class="section-sub">14+ Weeks Consistency Dashboard & Monthly Scorecards</div>
+        </div>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <label class="label" style="margin:0;">Week:</label>
+          <select class="input" id="kpi-week-select" style="width:180px; font-size:12px;" onchange="loadKpiForWeek(this.value)">
+          </select>
+          <button class="btn btn-primary" onclick="saveCurrentWeekKpi()">💾 Save KPIs</button>
+        </div>
+      </div>
+
+      <!-- KPI Input 5-Track Grid -->
+      <div class="card" style="margin-bottom:20px;">
+        <div style="font-size:15px; font-weight:600; margin-bottom:16px;">📊 Weekly Logging — <span id="kpi-week-label" style="color:var(--accent);">Week 1</span></div>
+        
+        <!-- Track 1: ERPNext BD -->
+        <div style="margin-bottom:18px; border-bottom:1px solid var(--border); padding-bottom:14px;">
+          <div style="font-size:13px; font-weight:600; color:var(--accent); margin-bottom:8px;">💼 Track 1: ERPNext Technical BD</div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:10px;">
+            <div><label class="label" style="font-size:10px;">Prospects Added</label><input type="number" class="input" id="kpi-bd-prospects" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">BANT Qualified</label><input type="number" class="input" id="kpi-bd-qualified" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">Outreach Sent</label><input type="number" class="input" id="kpi-bd-outreach" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">Replies Received</label><input type="number" class="input" id="kpi-bd-replies" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">Discovery Calls</label><input type="number" class="input" id="kpi-bd-calls" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">Proposals Sent</label><input type="number" class="input" id="kpi-bd-proposals" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">Deals Closed</label><input type="number" class="input" id="kpi-bd-deals" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">Weekly Revenue ($)</label><input type="number" class="input" id="kpi-bd-revenue" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">Active Retainers</label><input type="number" class="input" id="kpi-bd-retainers" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">Referrals</label><input type="number" class="input" id="kpi-bd-referrals" placeholder="0" min="0"></div>
+          </div>
+        </div>
+
+        <!-- Track 2: Technical Skill -->
+        <div style="margin-bottom:18px; border-bottom:1px solid var(--border); padding-bottom:14px;">
+          <div style="font-size:13px; font-weight:600; color:var(--accent2); margin-bottom:8px;">💻 Track 2: Technical Skill</div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:10px;">
+            <div><label class="label" style="font-size:10px;">Study Hours</label><input type="number" class="input" id="kpi-tech-hrs" placeholder="0" step="0.5" min="0"></div>
+            <div><label class="label" style="font-size:10px;">Concepts Learned</label><input type="number" class="input" id="kpi-tech-concepts" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">Implementations Built</label><input type="number" class="input" id="kpi-tech-built" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">GitHub Proof Items</label><input type="number" class="input" id="kpi-tech-github" placeholder="0" min="0"></div>
+          </div>
+        </div>
+
+        <!-- Track 3: Tech Content -->
+        <div style="margin-bottom:18px; border-bottom:1px solid var(--border); padding-bottom:14px;">
+          <div style="font-size:13px; font-weight:600; color:#38bdf8; margin-bottom:8px;">🎥 Track 3: Tech Content</div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(120px, 1fr)); gap:10px;">
+            <div><label class="label" style="font-size:10px;">Long-form Videos</label><input type="number" class="input" id="kpi-cont-long" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">Shorts Published</label><input type="number" class="input" id="kpi-cont-shorts" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">LinkedIn Posts</label><input type="number" class="input" id="kpi-cont-linkedin" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">Total Views</label><input type="number" class="input" id="kpi-cont-views" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">Watch Time (hrs)</label><input type="number" class="input" id="kpi-cont-watch" placeholder="0" step="0.5" min="0"></div>
+            <div><label class="label" style="font-size:10px;">CTR (%)</label><input type="number" class="input" id="kpi-cont-ctr" placeholder="0" step="0.1" min="0"></div>
+            <div><label class="label" style="font-size:10px;">New Subscribers</label><input type="number" class="input" id="kpi-cont-subs" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">Leads from Content</label><input type="number" class="input" id="kpi-cont-leads" placeholder="0" min="0"></div>
+          </div>
+        </div>
+
+        <!-- Track 4: Islamic Knowledge & Content -->
+        <div style="margin-bottom:18px; border-bottom:1px solid var(--border); padding-bottom:14px;">
+          <div style="font-size:13px; font-weight:600; color:var(--success); margin-bottom:8px;">🕌 Track 4: Islamic Knowledge & Content</div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:10px;">
+            <div><label class="label" style="font-size:10px;">Study Hours</label><input type="number" class="input" id="kpi-isl-hrs" placeholder="0" step="0.5" min="0"></div>
+            <div><label class="label" style="font-size:10px;">Topics Completed</label><input type="number" class="input" id="kpi-isl-topics" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">Pieces Published</label><input type="number" class="input" id="kpi-isl-published" placeholder="0" min="0"></div>
+            <div>
+              <label class="label" style="font-size:10px;">Source Verification Check</label>
+              <select class="input" id="kpi-isl-verified">
+                <option value="yes">✓ Yes (100% verified)</option>
+                <option value="no">No</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Track 5: Digital Assets / Passive Income -->
+        <div>
+          <div style="font-size:13px; font-weight:600; color:#fb923c; margin-bottom:8px;">📦 Track 5: Digital Assets</div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:10px;">
+            <div><label class="label" style="font-size:10px;">Assets Created</label><input type="number" class="input" id="kpi-asset-created" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">Assets Published</label><input type="number" class="input" id="kpi-asset-published" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">Asset Traffic</label><input type="number" class="input" id="kpi-asset-traffic" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">Leads from Asset</label><input type="number" class="input" id="kpi-asset-leads" placeholder="0" min="0"></div>
+            <div><label class="label" style="font-size:10px;">Sales ($)</label><input type="number" class="input" id="kpi-asset-sales" placeholder="0" min="0"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monthly Scorecards Checklist (Section 19) -->
+      <div class="card" style="margin-bottom:20px;">
+        <div style="font-size:15px; font-weight:600; margin-bottom:14px;">🏆 Monthly Scorecards (Section 19)</div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:14px;">
+          <!-- September -->
+          <div style="background:var(--surface2); padding:14px; border-radius:10px; border:1px solid var(--border);">
+            <div style="font-size:13px; font-weight:700; color:var(--accent); margin-bottom:8px;">End of September (Days 1–9)</div>
+            <div style="font-size:12px; display:flex; flex-direction:column; gap:6px;">
+              <label><input type="checkbox" id="sc-sep-1" onchange="saveScorecard('sep')"> GitHub cleaned up & repositioned</label>
+              <label><input type="checkbox" id="sc-sep-2" onchange="saveScorecard('sep')"> LinkedIn headline/About rewritten</label>
+              <label><input type="checkbox" id="sc-sep-3" onchange="saveScorecard('sep')"> Positioning statement finalized</label>
+              <label><input type="checkbox" id="sc-sep-4" onchange="saveScorecard('sep')"> Case Study #1 drafted & Niche list (10)</label>
+            </div>
+          </div>
+          <!-- October -->
+          <div style="background:var(--surface2); padding:14px; border-radius:10px; border:1px solid var(--border);">
+            <div style="font-size:13px; font-weight:700; color:var(--accent2); margin-bottom:8px;">End of October (Through Day 40)</div>
+            <div style="font-size:12px; display:flex; flex-direction:column; gap:6px;">
+              <label><input type="checkbox" id="sc-oct-1" onchange="saveScorecard('oct')"> 3 Offers drafted & 1-page portfolio</label>
+              <label><input type="checkbox" id="sc-oct-2" onchange="saveScorecard('oct')"> Prospect tracker built (30+ leads)</label>
+              <label><input type="checkbox" id="sc-oct-3" onchange="saveScorecard('oct')"> Outreach started (60+ invites)</label>
+              <label><input type="checkbox" id="sc-oct-4" onchange="saveScorecard('oct')"> First discovery call held / proposal</label>
+            </div>
+          </div>
+          <!-- November -->
+          <div style="background:var(--surface2); padding:14px; border-radius:10px; border:1px solid var(--border);">
+            <div style="font-size:13px; font-weight:700; color:#38bdf8; margin-bottom:8px;">End of November (Through Day 70)</div>
+            <div style="font-size:12px; display:flex; flex-direction:column; gap:6px;">
+              <label><input type="checkbox" id="sc-nov-1" onchange="saveScorecard('nov')"> Consistent outreach & follow-up</label>
+              <label><input type="checkbox" id="sc-nov-2" onchange="saveScorecard('nov')"> paymob_integration case study published</label>
+              <label><input type="checkbox" id="sc-nov-3" onchange="saveScorecard('nov')"> First free/low-ticket asset published</label>
+              <label><input type="checkbox" id="sc-nov-4" onchange="saveScorecard('nov')"> 4+ long-form & Islamic pieces published</label>
+            </div>
+          </div>
+          <!-- December -->
+          <div style="background:var(--surface2); padding:14px; border-radius:10px; border:1px solid var(--border);">
+            <div style="font-size:13px; font-weight:700; color:var(--success); margin-bottom:8px;">End of December (Day 101)</div>
+            <div style="font-size:12px; display:flex; flex-direction:column; gap:6px;">
+              <label><input type="checkbox" id="sc-dec-1" onchange="saveScorecard('dec')"> Repeatable proposal template refined</label>
+              <label><input type="checkbox" id="sc-dec-2" onchange="saveScorecard('dec')"> 14+ weeks KPI history completed</label>
+              <label><input type="checkbox" id="sc-dec-3" onchange="saveScorecard('dec')"> Care Plan retainer pitched & closed</label>
+              <label><input type="checkbox" id="sc-dec-4" onchange="saveScorecard('dec')"> January 2027 continuation plan ready</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         TECH & ISLAMIC CONTENT HUB PAGE
+         ============================================================ -->
+    <div class="page" id="page-contenthub">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
+        <div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <h1 class="serif section-title">Content Engine & Verification Gate</h1>
+            <span class="pill pill-yellow" style="font-size:11px;">Sections 20 & 21</span>
+          </div>
+          <div class="section-sub">Tech Content Repurposing (YouTube ➔ Shorts ➔ LinkedIn) + Islamic 5-Step Verification Gate</div>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-secondary" onclick="openIdeaModal()">💡 + Add Idea</button>
+          <button class="btn btn-primary" onclick="openTechContentModal()">🎬 + New Tech Piece</button>
+          <button class="btn btn-primary" style="background:var(--success); color:#000;" onclick="openIslamicContentModal()">🕌 + New Islamic Piece</button>
+        </div>
+      </div>
+
+      <!-- Tab switcher -->
+      <div class="toggle" style="margin-bottom:18px; width:fit-content;" id="content-tab-toggle">
+        <button class="toggle-btn active" onclick="switchContentTab('tech')">💻 Tech Channel (Repurposing)</button>
+        <button class="toggle-btn" onclick="switchContentTab('islamic')">🕌 Islamic Channel (Verified)</button>
+        <button class="toggle-btn" onclick="switchContentTab('ideas')">💡 Idea Bank</button>
+      </div>
+
+      <!-- Tech Channel Content Tab -->
+      <div id="content-tab-tech" style="display:block;">
+        <div class="card" style="margin-bottom:16px; background:rgba(56,189,248,0.04); border-color:rgba(56,189,248,0.2);">
+          <div style="font-size:13px; font-weight:600; color:#38bdf8; margin-bottom:4px;">🔄 1-to-6 Repurposing Multiplier Rule</div>
+          <div style="font-size:12px; color:var(--muted); line-height:1.5;">
+            Every core business problem solved = <b>1 Long-form YouTube Video</b> + <b>3 YouTube Shorts / Reels</b> + <b>2 LinkedIn Posts</b>.
+          </div>
+        </div>
+        <div id="tech-content-list" style="display:flex; flex-direction:column; gap:12px;"></div>
+      </div>
+
+      <!-- Islamic Channel Content Tab -->
+      <div id="content-tab-islamic" style="display:none;">
+        <div class="card" style="margin-bottom:16px; background:rgba(74,222,128,0.04); border-color:rgba(74,222,128,0.25);">
+          <div style="font-size:13px; font-weight:600; color:var(--success); margin-bottom:4px;">🛡️ Non-Negotiable Islamic Verification Gate (Section 21)</div>
+          <div style="font-size:12px; color:var(--muted); line-height:1.5;">
+            Source (Quran/Sahih) ➔ Verification (Grading/Tafsir) ➔ Understanding (Own notes) ➔ Script (Clear labels) ➔ Publish. Accuracy always overrides publishing speed.
+          </div>
+        </div>
+        <div id="islamic-content-list" style="display:flex; flex-direction:column; gap:12px;"></div>
+      </div>
+
+      <!-- Idea Bank Tab -->
+      <div id="content-tab-ideas" style="display:none;">
+        <div id="idea-bank-list" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:12px;"></div>
+      </div>
+    </div>
+
   </div>
   <!-- END MAIN -->
 
@@ -2784,6 +3253,290 @@
     </div>
   </div>
 
+
+  <!-- ============================================================
+     CRM PROSPECT MODAL
+     ============================================================ -->
+  <div class="modal-bg" id="modal-prospect">
+    <div class="modal animate-in">
+      <div class="modal-header">
+        <h3 class="serif" id="prospect-modal-title">Add Prospect</h3>
+        <button class="btn btn-ghost" onclick="closeModal('modal-prospect')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="grid-2" style="gap:12px; margin-bottom:12px;">
+          <div>
+            <label class="label">Contact / Owner Name</label>
+            <input type="text" class="input" id="crm-p-name" placeholder="e.g. Dr. Ahmed Khan" maxlength="200">
+          </div>
+          <div>
+            <label class="label">Business / Company</label>
+            <input type="text" class="input" id="crm-p-company" placeholder="e.g. City Care Pharmacy Chain" maxlength="200">
+          </div>
+        </div>
+        <div class="grid-2" style="gap:12px; margin-bottom:12px;">
+          <div>
+            <label class="label">Niche</label>
+            <select class="input" id="crm-p-niche">
+              <option value="Pharmacy">💊 Pharmacy / Pharma Retail</option>
+              <option value="SME Retail">🏪 SME Retail & Point of Sale</option>
+              <option value="Wholesale">📦 Wholesale / Distribution</option>
+              <option value="Healthcare / Clinic">🏥 Healthcare / Clinic</option>
+              <option value="Other SME">🏢 Other SME</option>
+            </select>
+          </div>
+          <div>
+            <label class="label">Acquisition Channel</label>
+            <select class="input" id="crm-p-channel">
+              <option value="LinkedIn">LinkedIn Outreach</option>
+              <option value="Cold Email">Cold Email</option>
+              <option value="Upwork">Upwork / Freelance</option>
+              <option value="Referral">Client Referral</option>
+              <option value="Content Inbound">YouTube / Content Inbound</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid-2" style="gap:12px; margin-bottom:12px;">
+          <div>
+            <label class="label">Stage</label>
+            <select class="input" id="crm-p-stage">
+              <option value="prospect">📥 1. Prospect Identified</option>
+              <option value="qualified">🎯 2. BANT Qualified</option>
+              <option value="outreach">✉️ 3. Outreach Sent</option>
+              <option value="replied">💬 4. Conversation / Replied</option>
+              <option value="discovery">📞 5. Discovery Call Held</option>
+              <option value="proposal">📄 6. SOW Proposal Sent</option>
+              <option value="closed_won">🏆 7. Closed Won (Active Project)</option>
+              <option value="care_plan">🔁 8. Care Plan Retainer Active</option>
+              <option value="closed_lost">❌ Closed Lost / Nurture</option>
+            </select>
+          </div>
+          <div>
+            <label class="label">Target Offer</label>
+            <select class="input" id="crm-p-offer">
+              <option value="Health Check">Offer 1: Health Check & Quick-Win Report</option>
+              <option value="Customization Build">Offer 2: Customization & Workflow Build</option>
+              <option value="Care Plan">Offer 3: Ongoing Care Plan (Retainer)</option>
+              <option value="Custom Consulting">Custom Scope Consulting</option>
+            </select>
+          </div>
+        </div>
+        <div class="grid-2" style="gap:12px; margin-bottom:12px;">
+          <div>
+            <label class="label">Estimated Value ($ / PKR)</label>
+            <input type="number" class="input" id="crm-p-value" placeholder="e.g. 500" min="0">
+          </div>
+          <div>
+            <label class="label">Next Follow-Up Date</label>
+            <input type="date" class="input" id="crm-p-followup">
+          </div>
+        </div>
+        <div style="margin-bottom:12px;">
+          <label class="label">BANT Qualification Check</label>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:12px;">
+            <label style="display:flex; align-items:center; gap:6px;"><input type="checkbox" id="crm-p-b"> 💰 Budget Confirmed</label>
+            <label style="display:flex; align-items:center; gap:6px;"><input type="checkbox" id="crm-p-a"> 👑 Direct Authority (Decision Maker)</label>
+            <label style="display:flex; align-items:center; gap:6px;"><input type="checkbox" id="crm-p-n"> 🎯 Clear Pain Point / Need</label>
+            <label style="display:flex; align-items:center; gap:6px;"><input type="checkbox" id="crm-p-t"> ⏱️ Clear Timeline</label>
+          </div>
+        </div>
+        <div style="margin-bottom:12px;">
+          <label class="label">Contact Link / Profile / Email (optional)</label>
+          <input type="text" class="input" id="crm-p-link" placeholder="e.g. linkedin.com/in/prospect or email" maxlength="300">
+        </div>
+        <div style="margin-bottom:14px;">
+          <label class="label">Discovery Notes & Bottlenecks</label>
+          <textarea class="input" id="crm-p-notes" rows="2" placeholder="Key problems discussed, system issues, SOW highlights..." maxlength="2000"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" id="crm-p-delete-btn" style="display:none; margin-right:auto;" onclick="deleteCurrentProspect()">Delete</button>
+        <button class="btn btn-secondary" onclick="closeModal('modal-prospect')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveProspect()">Save Prospect</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+     TECH CONTENT PIECE MODAL (1-to-6 Repurposing)
+     ============================================================ -->
+  <div class="modal-bg" id="modal-content-tech">
+    <div class="modal animate-in">
+      <div class="modal-header">
+        <h3 class="serif" id="tech-content-modal-title">New Tech Content Piece</h3>
+        <button class="btn btn-ghost" onclick="closeModal('modal-content-tech')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom:12px;">
+          <label class="label">Content Title / Theme</label>
+          <input type="text" class="input" id="tcont-title" placeholder="e.g. How we automated Paymob payment reconciliations in ERPNext" maxlength="200">
+        </div>
+        <div style="margin-bottom:12px;">
+          <label class="label">Core Business Problem Solved</label>
+          <textarea class="input" id="tcont-problem" rows="2" placeholder="What actual business pain does this solve for SMEs/Pharmacies?" maxlength="1000"></textarea>
+        </div>
+        <div class="grid-2" style="gap:12px; margin-bottom:12px;">
+          <div>
+            <label class="label">Status</label>
+            <select class="input" id="tcont-status">
+              <option value="Idea">💡 Outlined</option>
+              <option value="Scripted">📝 Scripted</option>
+              <option value="Recorded">🎙️ Recorded</option>
+              <option value="Edited">✂️ Edited</option>
+              <option value="Published">🚀 Published</option>
+            </select>
+          </div>
+          <div>
+            <label class="label">Publish Date</label>
+            <input type="date" class="input" id="tcont-date">
+          </div>
+        </div>
+        <div style="margin-bottom:12px;">
+          <label class="label">Long-form Video Link (YouTube)</label>
+          <input type="text" class="input" id="tcont-long-link" placeholder="e.g. https://youtu.be/..." maxlength="300">
+        </div>
+        <div class="grid-3" style="gap:8px; margin-bottom:12px;">
+          <div>
+            <label class="label" style="font-size:11px;">Short 1 Link / Angle</label>
+            <input type="text" class="input" id="tcont-short1" placeholder="Short 1" maxlength="200">
+          </div>
+          <div>
+            <label class="label" style="font-size:11px;">Short 2 Link / Angle</label>
+            <input type="text" class="input" id="tcont-short2" placeholder="Short 2" maxlength="200">
+          </div>
+          <div>
+            <label class="label" style="font-size:11px;">Short 3 Link / Angle</label>
+            <input type="text" class="input" id="tcont-short3" placeholder="Short 3" maxlength="200">
+          </div>
+        </div>
+        <div class="grid-2" style="gap:8px; margin-bottom:14px;">
+          <div>
+            <label class="label" style="font-size:11px;">LinkedIn Post 1</label>
+            <input type="text" class="input" id="tcont-li1" placeholder="LinkedIn Post 1 URL/Hook" maxlength="200">
+          </div>
+          <div>
+            <label class="label" style="font-size:11px;">LinkedIn Post 2</label>
+            <input type="text" class="input" id="tcont-li2" placeholder="LinkedIn Post 2 URL/Hook" maxlength="200">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" id="tcont-delete-btn" style="display:none; margin-right:auto;" onclick="deleteCurrentTechContent()">Delete</button>
+        <button class="btn btn-secondary" onclick="closeModal('modal-content-tech')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveTechContent()">Save Piece</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+     ISLAMIC CONTENT MODAL (5-Step Verification Gate)
+     ============================================================ -->
+  <div class="modal-bg" id="modal-content-islamic">
+    <div class="modal animate-in">
+      <div class="modal-header">
+        <h3 class="serif" id="isl-content-modal-title">New Islamic Content Piece</h3>
+        <button class="btn btn-ghost" onclick="closeModal('modal-content-islamic')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom:12px;">
+          <label class="label">Title / Subject</label>
+          <input type="text" class="input" id="icont-title" placeholder="e.g. Sincerity of Intention in Business & Trade" maxlength="200">
+        </div>
+        <div class="grid-2" style="gap:12px; margin-bottom:12px;">
+          <div>
+            <label class="label">Category</label>
+            <select class="input" id="icont-cat">
+              <option value="Quran Lesson">📖 Quran Tafsir / Ayah Lesson</option>
+              <option value="Authentic Hadith">📜 Authentic Hadith & Reflection</option>
+              <option value="Seerah">🕌 Seerah of the Prophet ﷺ</option>
+              <option value="Akhlaq / Character">✨ Akhlaq & Character in Daily Life</option>
+              <option value="Halal Trade">💼 Islamic Ethics in Business & Work</option>
+            </select>
+          </div>
+          <div>
+            <label class="label">Date</label>
+            <input type="date" class="input" id="icont-date">
+          </div>
+        </div>
+        <div style="margin-bottom:12px;">
+          <label class="label">Authentic Primary Source Reference</label>
+          <input type="text" class="input" id="icont-source" placeholder="e.g. Sahih al-Bukhari #1 / Surah Al-Kahf 18:10" maxlength="300">
+        </div>
+
+        <!-- Non-Negotiable 5-Step Verification Gate Checklist -->
+        <div style="background:rgba(74,222,128,0.06); border:1px solid rgba(74,222,128,0.25); border-radius:10px; padding:12px; margin-bottom:14px;">
+          <div style="font-size:12px; font-weight:700; color:var(--success); margin-bottom:8px;">🛡️ Section 21 Verification Gate Checklist:</div>
+          <div style="display:flex; flex-direction:column; gap:6px; font-size:12px;">
+            <label style="display:flex; align-items:center; gap:6px;"><input type="checkbox" id="icont-v1"> <b>Step 1: Source</b> — Primary text from Quran / Sahih Hadith identified</label>
+            <label style="display:flex; align-items:center; gap:6px;"><input type="checkbox" id="icont-v2"> <b>Step 2: Verification</b> — Chain of narration / translation checked</label>
+            <label style="display:flex; align-items:center; gap:6px;"><input type="checkbox" id="icont-v3"> <b>Step 3: Understanding</b> — Studied in depth with personal notes written</label>
+            <label style="display:flex; align-items:center; gap:6px;"><input type="checkbox" id="icont-v4"> <b>Step 4: Labeled Script</b> — Quran / Hadith / Tafsir / Reflection explicitly separated</label>
+            <label style="display:flex; align-items:center; gap:6px;"><input type="checkbox" id="icont-v5"> <b>Step 5: Publish Gate</b> — Zero fabricated or uncertain claims presented as fact</label>
+          </div>
+        </div>
+
+        <div style="margin-bottom:12px;">
+          <label class="label">Notes / Personal Reflection / Script Summary</label>
+          <textarea class="input" id="icont-notes" rows="2" placeholder="Key takeaways and scholarly explanations..." maxlength="2000"></textarea>
+        </div>
+        <div>
+          <label class="label">Published Video / Post Link (optional)</label>
+          <input type="text" class="input" id="icont-link" placeholder="e.g. https://youtu.be/..." maxlength="300">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" id="icont-delete-btn" style="display:none; margin-right:auto;" onclick="deleteCurrentIslamicContent()">Delete</button>
+        <button class="btn btn-secondary" onclick="closeModal('modal-content-islamic')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveIslamicContent()">Save Piece</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+     IDEA BANK MODAL
+     ============================================================ -->
+  <div class="modal-bg" id="modal-content-idea">
+    <div class="modal animate-in">
+      <div class="modal-header">
+        <h3 class="serif" id="idea-modal-title">New Content / Asset Idea</h3>
+        <button class="btn btn-ghost" onclick="closeModal('modal-content-idea')">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="margin-bottom:12px;">
+          <label class="label">Idea Title</label>
+          <input type="text" class="input" id="idea-title" placeholder="e.g. Multi-currency POS barcode batch scanning tutorial" maxlength="200">
+        </div>
+        <div class="grid-2" style="gap:12px; margin-bottom:12px;">
+          <div>
+            <label class="label">Track / Type</label>
+            <select class="input" id="idea-type">
+              <option value="tech">💻 Tech Channel</option>
+              <option value="islamic">🕌 Islamic Channel</option>
+              <option value="asset">📦 Digital Asset</option>
+            </select>
+          </div>
+          <div>
+            <label class="label">Priority</label>
+            <select class="input" id="idea-priority">
+              <option value="high">🔴 High Priority</option>
+              <option value="medium" selected>🟡 Medium</option>
+              <option value="low">🟢 Low</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-bottom:14px;">
+          <label class="label">Idea Details & Hook</label>
+          <textarea class="input" id="idea-notes" rows="3" placeholder="Key problem angle, target audience, format..." maxlength="1500"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" id="idea-delete-btn" style="display:none; margin-right:auto;" onclick="deleteCurrentIdea()">Delete</button>
+        <button class="btn btn-secondary" onclick="closeModal('modal-content-idea')">Cancel</button>
+        <button class="btn btn-primary" onclick="saveIdea()">Save Idea</button>
+      </div>
+    </div>
+  </div>
 
 </body>
 
