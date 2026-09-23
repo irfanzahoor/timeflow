@@ -4537,6 +4537,79 @@ function loadSettings() {
     if (deleteRow) deleteRow.style.display = s.autoDelete ? 'block' : 'none';
     updateBackupLabels();
     updateFolderDisplay();
+    renderSettingsAccount();
+}
+
+function renderSettingsAccount() {
+    const session = AUTH.getSession();
+    if (!session) return;
+    const usernameEl = document.getElementById('acc-username');
+    const emailEl = document.getElementById('acc-email');
+    const avatarEl = document.getElementById('acc-avatar');
+    if (usernameEl) usernameEl.textContent = session.username || '—';
+    if (emailEl) emailEl.textContent = session.email || '—';
+    if (avatarEl) avatarEl.textContent = (session.username || '?').charAt(0).toUpperCase();
+    document.getElementById('acc-current-pwd').value = '';
+    document.getElementById('acc-new-pwd').value = '';
+    document.getElementById('acc-confirm-pwd').value = '';
+    const msg = document.getElementById('acc-pwd-msg');
+    if (msg) { msg.style.display = 'none'; }
+    const delMsg = document.getElementById('acc-delete-msg');
+    if (delMsg) { delMsg.style.display = 'none'; }
+}
+
+function accChangePassword() {
+    const session = AUTH.getSession();
+    if (!session) return;
+    const current = document.getElementById('acc-current-pwd').value;
+    const newPwd = document.getElementById('acc-new-pwd').value;
+    const confirm = document.getElementById('acc-confirm-pwd').value;
+    const msgEl = document.getElementById('acc-pwd-msg');
+    const key = session.username.toLowerCase();
+    const users = AUTH.getUsers();
+    const storedHash = users[key]?.hash;
+    const inputHash = hashPassword(current, AUTH.SALT + key);
+    if (!storedHash || storedHash !== inputHash) {
+        msgEl.textContent = 'Incorrect current password.';
+        msgEl.style.display = 'block';
+        msgEl.style.color = 'var(--danger)';
+        return;
+    }
+    if (newPwd.length < 8) {
+        msgEl.textContent = 'New password must be at least 8 characters.';
+        msgEl.style.display = 'block';
+        msgEl.style.color = 'var(--danger)';
+        return;
+    }
+    if (newPwd !== confirm) {
+        msgEl.textContent = 'New passwords do not match.';
+        msgEl.style.display = 'block';
+        msgEl.style.color = 'var(--danger)';
+        return;
+    }
+    const newHash = hashPassword(newPwd, AUTH.SALT + key);
+    users[key] = { ...users[key], hash: newHash };
+    DB.set('auth_users', users);
+    document.getElementById('acc-current-pwd').value = '';
+    document.getElementById('acc-new-pwd').value = '';
+    document.getElementById('acc-confirm-pwd').value = '';
+    msgEl.textContent = 'Password updated successfully! ✓';
+    msgEl.style.display = 'block';
+    msgEl.style.color = 'var(--success)';
+}
+
+function accDeleteAccount() {
+    const session = AUTH.getSession();
+    if (!session) return;
+    if (!confirm('Are you sure? This will delete your account and ALL data permanently. This cannot be undone.')) return;
+    const key = session.username.toLowerCase();
+    const users = AUTH.getUsers();
+    delete users[key];
+    DB.set('auth_users', users);
+    AUTH.clearSession();
+    showAuthScreen();
+    showToast('Account deleted.');
+    setTimeout(() => location.reload(), 500);
 }
 
 let _backupDirHandle = null;

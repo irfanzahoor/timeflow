@@ -1899,6 +1899,52 @@
       <h1 class="serif section-title">Settings</h1>
       <div class="section-sub">Personalise your experience</div>
       <div style="max-width:620px; display:flex; flex-direction:column; gap:16px;">
+        <!-- Account Card -->
+        <div class="card" id="settings-account-card" style="border-color:rgba(200,169,110,0.15);">
+          <div style="font-size:15px; font-weight:600; margin-bottom:4px;">👤 Account</div>
+          <div style="font-size:12px; color:var(--muted); margin-bottom:16px;">Manage your account security</div>
+
+          <!-- Current user display -->
+          <div id="acc-user-info" style="margin-bottom:16px; padding:10px 14px; background:var(--surface2); border-radius:10px; display:flex; align-items:center; gap:10px;">
+            <div id="acc-avatar" style="width:36px;height:36px;border-radius:50%;background:rgba(200,169,110,0.15);border:1px solid rgba(200,169,110,0.3);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--accent);">?</div>
+            <div>
+              <div style="font-size:13px; font-weight:600;" id="acc-username">—</div>
+              <div style="font-size:11px; color:var(--muted);" id="acc-email">—</div>
+            </div>
+          </div>
+
+          <!-- Change Password -->
+          <div style="margin-bottom:16px;">
+            <div style="font-size:13px; font-weight:600; margin-bottom:10px; color:var(--accent);">🔒 Change Password</div>
+            <div style="display:grid; gap:10px;">
+              <div>
+                <label class="label">Current Password</label>
+                <input type="password" class="input" id="acc-current-pwd" placeholder="Enter current password" maxlength="100" style="font-size:13px;">
+              </div>
+              <div>
+                <label class="label">New Password</label>
+                <input type="password" class="input" id="acc-new-pwd" placeholder="New password (min 8 chars)" maxlength="100" style="font-size:13px;">
+              </div>
+              <div>
+                <label class="label">Confirm New Password</label>
+                <input type="password" class="input" id="acc-confirm-pwd" placeholder="Repeat new password" maxlength="100" style="font-size:13px;">
+              </div>
+              <button class="btn btn-primary" onclick="accChangePassword()" style="padding:9px 18px; font-size:13px;">Update Password</button>
+            </div>
+            <div id="acc-pwd-msg" style="display:none; margin-top:8px; font-size:12px;"></div>
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- Danger Zone -->
+          <div style="margin-top:14px;">
+            <div style="font-size:13px; font-weight:600; margin-bottom:6px; color:var(--danger);">⚠️ Danger Zone</div>
+            <div style="font-size:11px; color:var(--muted); margin-bottom:10px;">Deleting your account removes all your data permanently. This cannot be undone.</div>
+            <button class="btn" onclick="accDeleteAccount()" style="background:rgba(248,113,113,0.1); color:var(--danger); border:1px solid rgba(248,113,113,0.3); padding:8px 16px; font-size:13px; border-radius:8px;">Delete My Account</button>
+            <div id="acc-delete-msg" style="display:none; margin-top:8px; font-size:12px;"></div>
+          </div>
+        </div>
+
         <div class="card">
           <div style="font-size:15px; font-weight:600; margin-bottom:4px;">🎨 Themes</div>
           <div style="font-size:12px; color:var(--muted); margin-bottom:16px;">Choose a preset or build your own</div>
