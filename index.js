@@ -4467,6 +4467,43 @@ function importData(e) {
     };
     reader.readAsText(file);
 }
+function exportRoadmapProgress() {
+    const progress = DB.get('roadmap_progress', {});
+    const data = { roadmap_progress: progress, exported: todayStr(), day: roadmapTodayNumber() };
+    const json = JSON.stringify(data, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'roadmap-progress-' + todayStr() + '.json';
+    a.click();
+    const el = document.getElementById('rm-export-status');
+    if (el) el.textContent = `Exported ${Object.keys(progress).length} days · ${Object.keys(progress).filter(d => roadmapDone(d, progress)).length} complete`;
+}
+function importRoadmapProgress(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 1 * 1024 * 1024) { showToast('⚠️ File too large. Max 1 MB.'); return; }
+    const reader = new FileReader();
+    reader.onload = ev => {
+        try {
+            const data = JSON.parse(ev.target.result);
+            if (!data.roadmap_progress || typeof data.roadmap_progress !== 'object')
+                throw new Error('Invalid roadmap file format');
+            const progress = data.roadmap_progress;
+            const BLOCKED = ['__proto__', 'constructor', 'prototype'];
+            Object.entries(progress).forEach(([k]) => { if (BLOCKED.includes(k)) delete progress[k]; });
+            DB.set('roadmap_progress', progress);
+            const daysCount = Object.keys(progress).length;
+            const doneCount = Object.keys(progress).filter(d => roadmapDone(d, progress)).length;
+            const el = document.getElementById('rm-export-status');
+            if (el) el.textContent = `Imported ${daysCount} days · ${doneCount} complete`;
+            showToast(`Roadmap imported (${daysCount} days, ${doneCount} complete)!`);
+            renderRoadmap();
+            renderRoadmapHeroWidget();
+        } catch { showToast('⚠️ Invalid roadmap file.'); }
+    };
+    reader.readAsText(file);
+}
 
 function triggerImportFromFirstTime() {
     closeFirstTimeModal();
@@ -6821,10 +6858,109 @@ function roadmapTodayNumber() {
 }
 function roadmapDone(day, progress) { return Object.keys(ROADMAP_TRACKS).every(t => progress[day]?.[t]); }
 function renderRoadmapHeroWidget() {
-    const day = roadmapTodayNumber();
+    const todayNum = roadmapTodayNumber();
     const progress = DB.get('roadmap_progress', {});
-    const done = Object.keys(ROADMAP_DAYS).filter(d => roadmapDone(d, progress)).length;
-    document.getElementById('dash-roadmap-hero').innerHTML = `<div class="card"><h3>100-Day Master Roadmap</h3><p>${day < 1 ? 'Starts September 22, 2026' : day > 101 ? 'Roadmap period ended' : 'Day ' + day + ' · ' + esc(ROADMAP_DAYS[day].bd)}</p><p>${done}/101 days complete</p><button class="btn btn-primary" onclick="showPage('roadmap')">Open Roadmap</button></div>`;
+
+    const phaseColors = ['#c8a96e', '#7c6ef0', '#4ade80', '#c8a96e'];
+    const phaseLabels = ['Phase 1: Foundation', 'Phase 2: First Revenue', 'Phase 3: Systemization', 'Overall'];
+    const phaseRanges = [[1, 30], [31, 60], [61, 101], [1, 101]];
+
+    const trackLabels = { bd: 'Business Development', tech: 'Technical Skill', content: 'Tech Content', islamic: 'Islamic Knowledge', asset: 'Digital Assets' };
+    const trackColors = { bd: '#c8a96e', tech: '#7c6ef0', content: '#38bdf8', islamic: '#4ade80', asset: '#fb923c' };
+    const trackIcons = { bd: '💼', tech: '💻', content: '🎥', islamic: '🕌', asset: '📦' };
+
+    const phaseStatBars = phaseRanges.map(([first, last], i) => {
+        let done = 0;
+        for (let d = first; d <= last; d++) if (roadmapDone(d, progress)) done++;
+        const total = last - first + 1;
+        const pct = Math.round(done / total * 100);
+        return `<div style="margin-bottom:10px;">
+            <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:4px;">
+                <span style="color:${phaseColors[i]}; font-weight:600;">${phaseLabels[i]} (${first}–${last})</span>
+                <span style="color:var(--muted);">${done}/${total} days · ${pct}%</span>
+            </div>
+            <div style="height:6px; background:var(--surface2); border-radius:3px; overflow:hidden;">
+                <div style="height:6px; width:${pct}%; background:${phaseColors[i]}; border-radius:3px;"></div>
+            </div>
+        </div>`;
+    }).join('');
+
+    const trackTaskRows = Object.entries(trackLabels).map(([track, label]) => {
+        const dayData = ROADMAP_DAYS[todayNum];
+        const isDone = progress[todayNum]?.[track] || false;
+        const taskText = dayData ? dayData[track] : '—';
+        const color = trackColors[track];
+        const icon = trackIcons[track];
+        return `<div style="display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid var(--border);${!isDone ? '' : ' opacity:0.6;'}">
+            <input type="checkbox" ${isDone ? 'checked' : ''}
+                onchange="toggleRoadmapTrack(${todayNum}, '${track}', this.checked)"
+                style="margin-top:3px; accent-color:${color}; width:15px; height:15px; cursor:pointer; flex-shrink:0;">
+            <div style="flex:1; min-width:0;">
+                <div style="display:flex; align-items:center; gap:6px; margin-bottom:2px;">
+                    <span style="font-size:12px;">${icon}</span>
+                    <span style="font-size:11px; font-weight:600; color:${color};">${label}</span>
+                    ${isDone ? '<span style="font-size:10px; color:var(--success);">✓ Done</span>' : ''}
+                </div>
+                <div style="font-size:12px; color:${isDone ? 'var(--muted)' : 'var(--text)'}; ${isDone ? 'text-decoration:line-through;' : ''} line-height:1.4;">${esc(taskText)}</div>
+            </div>
+        </div>`;
+    }).join('');
+
+    const overallDone = Object.keys(ROADMAP_DAYS).filter(d => roadmapDone(d, progress)).length;
+    const totalDays = Object.keys(ROADMAP_DAYS).length;
+    const overallPct = Math.round(overallDone / totalDays * 100);
+    const currentPhase = todayNum <= 30 ? 1 : todayNum <= 60 ? 2 : 3;
+    const daysRemaining = Math.max(0, 101 - todayNum);
+    const currentPhaseLabel = ['Foundation', 'First Revenue', 'Systemization'][currentPhase - 1];
+    const todayTasksDone = Object.keys(ROADMAP_TRACKS).filter(t => progress[todayNum]?.[t]).length;
+    const todayTasksTotal = Object.keys(ROADMAP_TRACKS).length;
+    const todayPct = Math.round(todayTasksDone / todayTasksTotal * 100);
+
+    document.getElementById('dash-roadmap-hero').innerHTML = `
+        <div style="background:linear-gradient(135deg, rgba(200,169,110,0.08) 0%, rgba(124,110,240,0.05) 100%); border:1px solid rgba(200,169,110,0.2); border-radius:14px; padding:20px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:22px;">🎯</span>
+                    <div>
+                        <div style="font-size:15px; font-weight:700; color:var(--accent); font-family:'DM Serif Display',serif;">100-Day Master Roadmap</div>
+                        <div style="font-size:11px; color:var(--muted);">Day ${todayNum < 1 || todayNum > 101 ? '—' : todayNum + ' · Phase ' + currentPhase + ': ' + currentPhaseLabel}</div>
+                    </div>
+                </div>
+                <div style="display:flex; gap:20px; flex-wrap:wrap;">
+                    <div style="text-align:center;">
+                        <div style="font-size:20px; font-weight:700; color:var(--accent);">${overallDone}</div>
+                        <div style="font-size:10px; color:var(--muted);">days done</div>
+                    </div>
+                    <div style="text-align:center;">
+                        <div style="font-size:20px; font-weight:700; color:var(--accent2);">${overallPct}%</div>
+                        <div style="font-size:10px; color:var(--muted);">complete</div>
+                    </div>
+                    <div style="text-align:center;">
+                        <div style="font-size:20px; font-weight:700; color:var(--success);">${todayTasksDone}/${todayTasksTotal}</div>
+                        <div style="font-size:10px; color:var(--muted);">today</div>
+                    </div>
+                    <div style="text-align:center;">
+                        <div style="font-size:20px; font-weight:700; color:var(--muted);">${daysRemaining}</div>
+                        <div style="font-size:10px; color:var(--muted);">left</div>
+                    </div>
+                </div>
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                <div>
+                    <div style="font-size:12px; font-weight:600; color:var(--muted); margin-bottom:10px; letter-spacing:0.05em; text-transform:uppercase;">Phase Progress</div>
+                    ${phaseStatBars}
+                </div>
+                <div>
+                    <div style="font-size:12px; font-weight:600; color:var(--muted); margin-bottom:6px; letter-spacing:0.05em; text-transform:uppercase;">Today's Tasks (Day ${todayNum < 1 || todayNum > 101 ? '—' : todayNum})</div>
+                    <div style="background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:6px 12px; max-height:200px; overflow-y:auto;">
+                        ${todayNum >= 1 && todayNum <= 101 ? trackTaskRows : '<div style="font-size:12px; color:var(--muted); padding:8px 0;">No tasks for today.</div>'}
+                    </div>
+                    ${todayNum >= 1 && todayNum <= 101 && todayTasksDone === todayTasksTotal ? '<div style="font-size:11px; color:var(--success); margin-top:6px;">✓ All tracks done for today!</div>' : ''}
+                    <button class="btn btn-secondary" onclick="showPage('roadmap')" style="margin-top:10px; width:100%; font-size:12px; padding:8px;">📋 Full Roadmap →</button>
+                </div>
+            </div>
+        </div>`;
+
     updateRoadmapBadges();
 }
 function updateRoadmapBadges() {
@@ -6833,26 +6969,233 @@ function updateRoadmapBadges() {
 }
 function renderRoadmap() {
     const progress = DB.get('roadmap_progress', {});
+
+    // --- Phase stat bars (stats only — progress bars removed, donut handles visuals) ---
     for (const [key, first, last] of [['overall', 1, 101], ['p1', 1, 30], ['p2', 31, 60], ['p3', 61, 101]]) {
         let done = 0;
         for (let d = first; d <= last; d++) if (roadmapDone(d, progress)) done++;
         const pct = Math.round(done / (last - first + 1) * 100);
-        document.getElementById('rm-stat-' + key).textContent = `${done}/${last - first + 1}`;
-        document.getElementById('rm-bar-' + key).style.width = pct + '%';
-        if (key === 'overall') document.getElementById('rm-pct-overall').textContent = pct + '% complete';
+        const statEl = document.getElementById('rm-stat-' + key);
+        if (statEl) statEl.textContent = `${done}/${last - first + 1}`;
+        if (key === 'overall') {
+            const pctEl = document.getElementById('rm-pct-overall');
+            if (pctEl) pctEl.textContent = pct + '% complete';
+        }
     }
+
+    // --- SVG donut ring for overall ---
+    const overallDone = Object.keys(ROADMAP_DAYS).filter(d => roadmapDone(d, progress)).length;
+    const overallPct = Math.round(overallDone / 101 * 100);
+    const circ = 2 * Math.PI * 36;
+    const donutArc = document.getElementById('rm-donut-arc');
+    if (donutArc) donutArc.style.strokeDashoffset = circ - (circ * overallPct / 100);
+    const donutPct = document.getElementById('rm-donut-pct');
+    if (donutPct) donutPct.textContent = overallPct + '%';
+
     const days = Object.values(ROADMAP_DAYS).filter(d => roadmapPhase === 'all' || (d.day <= 30 ? 1 : d.day <= 60 ? 2 : 3) === roadmapPhase);
     if (!days.some(d => d.day === roadmapSelectedDay)) roadmapSelectedDay = days[0].day;
     document.getElementById('rm-day-select').innerHTML = days.map(d => `<option value="${d.day}">Day ${d.day} · ${esc(d.date)}</option>`).join('');
     document.getElementById('rm-day-select').value = roadmapSelectedDay;
     document.getElementById('rm-101-grid').innerHTML = days.map(d => `<button class="btn btn-secondary" id="rm-day-${d.day}" onclick="selectRoadmapDay(${d.day})" aria-pressed="${d.day === roadmapSelectedDay}" style="padding:6px;${roadmapDone(d.day, progress) ? 'background:var(--success);color:#000;' : d.day === roadmapTodayNumber() ? 'background:var(--accent);color:#000;' : ''}${d.day === roadmapSelectedDay ? 'outline:2px solid var(--accent2);' : ''}">${d.day}</button>`).join('');
     document.querySelectorAll('#rm-phase-filters .toggle-btn').forEach(b => b.classList.toggle('active', b.id === 'rm-filter-' + (roadmapPhase === 'all' ? 'all' : 'p' + roadmapPhase)));
+
     renderRoadmapDayDetail();
+    renderRoadmapUpNext();
+    renderRoadmapWeeklySummary();
+}
+function renderRoadmapUpNext() {
+    const todayNum = roadmapTodayNumber();
+    const progress = DB.get('roadmap_progress', {});
+    const trackColors = { bd: '#c8a96e', tech: '#7c6ef0', content: '#38bdf8', islamic: '#4ade80', asset: '#fb923c' };
+    const trackIcons = { bd: '💼', tech: '💻', content: '🎥', islamic: '🕌', asset: '📦' };
+    const trackLabels = { bd: 'BD', tech: 'Tech', content: 'Content', islamic: 'Islamic', asset: 'Asset' };
+
+    const upNextDays = [1, 2, 3].map(offset => {
+        const dayNum = todayNum + offset;
+        if (dayNum < 1 || dayNum > 101) return null;
+        const dayData = ROADMAP_DAYS[dayNum];
+        if (!dayData) return null;
+        const isDone = roadmapDone(dayNum, progress);
+        const tracksDone = Object.keys(ROADMAP_TRACKS).filter(t => progress[dayNum]?.[t]).length;
+        const totalTracks = Object.keys(ROADMAP_TRACKS).length;
+        const phase = dayNum <= 30 ? 1 : dayNum <= 60 ? 2 : 3;
+        const phaseColors = { 1: '#c8a96e', 2: '#7c6ef0', 3: '#4ade80' };
+        const trackDots = Object.keys(ROADMAP_TRACKS).map(t =>
+            `<span style="width:7px;height:7px;border-radius:50%;background:${progress[dayNum]?.[t] ? trackColors[t] : 'var(--border)'}; display:inline-block;"></span>`
+        ).join('');
+
+        return `<div style="background:var(--surface2); border-radius:10px; padding:12px 14px; border:1px solid var(--border);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                <span style="font-size:13px; font-weight:600;">Day ${dayNum} · ${esc(dayData.date)}</span>
+                <span style="font-size:10px; font-weight:600; color:${phaseColors[phase]}; background:${phaseColors[phase]}22; padding:2px 8px; border-radius:8px;">Phase ${phase}</span>
+            </div>
+            <div style="font-size:11px; color:var(--muted); margin-bottom:8px;">BD: ${esc(dayData.bd.slice(0, 60))}${dayData.bd.length > 60 ? '…' : ''}</div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; gap:4px;">${trackDots}</div>
+                <span style="font-size:11px; color:${tracksDone === totalTracks ? 'var(--success)' : 'var(--muted)'};">${tracksDone}/${totalTracks} tracks</span>
+            </div>
+        </div>`;
+    }).filter(Boolean);
+
+    document.getElementById('rm-up-next').innerHTML = upNextDays.length
+        ? upNextDays.join('')
+        : '<div style="font-size:12px; color:var(--muted);">No upcoming days within roadmap range.</div>';
+}
+function renderRoadmapWeeklySummary() {
+    const todayNum = roadmapTodayNumber();
+    const progress = DB.get('roadmap_progress', {});
+    const trackColors = { bd: '#c8a96e', tech: '#7c6ef0', content: '#38bdf8', islamic: '#4ade80', asset: '#fb923c' };
+    const trackLabels = { bd: 'BD', tech: 'Tech', content: 'Content', islamic: 'Islamic', asset: 'Asset' };
+
+    // Calculate roadmap day number from calendar date string (e.g. "2026-09-22" => 1)
+    function calDateToRoadmapDay(dateStr) {
+        const start = new Date('2026-09-22T00:00:00');
+        const d = new Date(dateStr + 'T00:00:00');
+        const diffMs = d - start;
+        if (isNaN(diffMs)) return null;
+        const diffDays = Math.floor(diffMs / 86400000) + 1;
+        return diffDays;
+    }
+
+    // --- 7-day heatmap ---
+    const weekDates = getWeekDates(todayStr());
+    const doneThisWeek = weekDates.reduce((count, ds) => {
+        const rd = calDateToRoadmapDay(ds);
+        if (rd !== null && rd >= 1 && rd <= 101 && roadmapDone(String(rd), progress)) return count + 1;
+        return count;
+    }, 0);
+    const dayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+
+    // Calculate streak
+    let streak = 0;
+    for (let i = todayNum; i >= 1; i--) {
+        if (roadmapDone(String(i), progress)) streak++;
+        else break;
+    }
+
+    document.getElementById('rm-week-done').textContent = doneThisWeek;
+    document.getElementById('rm-week-streak').textContent = streak;
+
+    document.getElementById('rm-week-heatmap').innerHTML = weekDates.map((ds, i) => {
+        const rd = calDateToRoadmapDay(ds);
+        if (rd === null || rd < 1 || rd > 101) {
+            return `<div style="text-align:center; width:28px;" title="${ds}: Outside roadmap">
+                <div style="width:20px;height:20px;border-radius:4px;background:var(--surface2);opacity:0.3;margin:0 auto;"></div>
+                <div style="font-size:9px;color:var(--muted);margin-top:2px;">${dayNames[i]}</div>
+            </div>`;
+        }
+        const done = roadmapDone(String(rd), progress);
+        const doneCount = Object.keys(ROADMAP_TRACKS).filter(t => progress[rd]?.[t]).length;
+        const bg = done ? 'var(--success)' : doneCount > 0 ? 'var(--accent)' : 'var(--surface2)';
+        const isToday = ds === todayStr();
+        return `<div style="text-align:center; width:28px;" title="${ds} Day ${rd}: ${doneCount}/5 tracks">
+            <div style="width:20px;height:20px;border-radius:4px;background:${bg};margin:0 auto;${isToday ? 'outline:2px solid var(--accent);outline-offset:1px;' : ''}border:${isToday ? '' : '1px solid var(--border)'};"></div>
+            <div style="font-size:9px;color:${isToday ? 'var(--accent)' : 'var(--muted)'};margin-top:2px;">${dayNames[i]}</div>
+        </div>`;
+    }).join('');
+
+    // --- Track completion for this week ---
+    const trackCounts = { bd: 0, tech: 0, content: 0, islamic: 0, asset: 0 };
+    let validDays = 0;
+    weekDates.forEach(ds => {
+        const rd = calDateToRoadmapDay(ds);
+        if (rd === null || rd < 1 || rd > 101) return;
+        validDays++;
+        Object.keys(ROADMAP_TRACKS).forEach(t => { if (progress[rd]?.[t]) trackCounts[t]++; });
+    });
+
+    document.getElementById('rm-week-tracks').innerHTML = Object.entries(trackCounts).map(([track, cnt]) => {
+        const pct = validDays > 0 ? Math.round(cnt / validDays * 100) : 0;
+        return `<div>
+            <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:3px;">
+                <span style="color:${trackColors[track]};">${trackLabels[track]}</span>
+                <span style="color:var(--muted);">${cnt}/${validDays}</span>
+            </div>
+            <div style="height:5px; background:var(--surface2); border-radius:3px;">
+                <div style="height:5px; width:${pct}%; background:${trackColors[track]}; border-radius:3px;"></div>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+// --- Roadmap data validation ---
+function validateRoadmapData() {
+    const errors = [];
+    const totalDays = Object.keys(ROADMAP_DAYS).length;
+    if (totalDays < 101) errors.push(`Only ${totalDays} days in roadmap, expected 101.`);
+    Object.entries(ROADMAP_DAYS).forEach(([dayNum, dayData]) => {
+        const d = parseInt(dayNum);
+        if (d < 1 || d > 101) errors.push(`Day ${dayNum} is out of range.`);
+        ['bd', 'tech', 'content', 'islamic', 'asset'].forEach(track => {
+            if (!dayData[track]) errors.push(`Day ${dayNum} missing "${track}" task.`);
+        });
+    });
+    return errors;
+}
+
+// --- Roadmap streak ---
+function getRoadmapStreak() {
+    const progress = DB.get('roadmap_progress', {});
+    let streak = 0;
+    for (let i = roadmapTodayNumber(); i >= 1; i--) {
+        if (roadmapDone(String(i), progress)) streak++;
+        else break;
+    }
+    return streak;
 }
 function renderRoadmapDayDetail() {
     const day = ROADMAP_DAYS[roadmapSelectedDay];
+    if (!day) return;
     const progress = DB.get('roadmap_progress', {})[day.day] || {};
-    document.getElementById('rm-day-detail-card').innerHTML = `<h3>Day ${day.day} · ${esc(day.date)}, 2026</h3>` + Object.entries(ROADMAP_TRACKS).map(([track, label]) => `<label style="display:block;margin-top:16px;"><input type="checkbox" ${progress[track] ? 'checked' : ''} onchange="toggleRoadmapTrack(${day.day}, '${track}', this.checked)"> <b>${label}</b><div style="margin-top:6px;">${esc(day[track])}</div></label>`).join('');
+    const trackColors = { bd: '#c8a96e', tech: '#7c6ef0', content: '#38bdf8', islamic: '#4ade80', asset: '#fb923c' };
+    const trackIcons = { bd: '💼', tech: '💻', content: '🎥', islamic: '🕌', asset: '📦' };
+
+    const dayPhase = day.day <= 30 ? 1 : day.day <= 60 ? 2 : 3;
+    const phaseColors = { 1: '#c8a96e', 2: '#7c6ef0', 3: '#4ade80' };
+    const phaseLabels = { 1: 'Foundation (1–30)', 2: 'First Revenue (31–60)', 3: 'Systemization (61–101)' };
+
+    const tracksHtml = Object.entries(ROADMAP_TRACKS).map(([track, label]) => {
+        const isDone = progress[track] || false;
+        const color = trackColors[track];
+        const icon = trackIcons[track];
+        const task = day[track] || '—';
+        return `<label style="display:flex; align-items:flex-start; gap:12px; padding:12px 0; border-bottom:1px solid var(--border); cursor:pointer; transition:opacity 0.2s; ${isDone ? 'opacity:0.55;' : ''}">
+            <input type="checkbox" ${isDone ? 'checked' : ''}
+                onchange="toggleRoadmapTrack(${day.day}, '${track}', this.checked)"
+                style="margin-top:4px; accent-color:${color}; width:16px; height:16px; cursor:pointer; flex-shrink:0;">
+            <div style="flex:1; min-width:0;">
+                <div style="display:flex; align-items:center; gap:6px; margin-bottom:4px;">
+                    <span style="font-size:14px;">${icon}</span>
+                    <span style="font-size:12px; font-weight:600; color:${color};">${esc(label)}</span>
+                    ${isDone ? '<span style="font-size:10px; font-weight:600; color:var(--success); background:rgba(74,222,128,0.1); padding:1px 7px; border-radius:8px;">✓ Complete</span>' : ''}
+                </div>
+                <div style="font-size:12px; color:var(--text); line-height:1.5; ${isDone ? 'text-decoration:line-through; color:var(--muted);' : ''}">${esc(task)}</div>
+            </div>
+        </label>`;
+    }).join('');
+
+    const tracksDone = Object.keys(ROADMAP_TRACKS).filter(t => progress[t]).length;
+    const allDone = tracksDone === Object.keys(ROADMAP_TRACKS).length;
+
+    document.getElementById('rm-day-detail-card').innerHTML = `
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+            <div>
+                <h3 style="font-family:'DM Serif Display',serif; font-size:18px; margin-bottom:2px;">Day ${day.day} · ${esc(day.date)}, 2026</h3>
+                <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                    <span style="font-size:11px; color:${phaseColors[dayPhase]}; background:${phaseColors[dayPhase]}18; padding:2px 8px; border-radius:6px;">${phaseLabels[dayPhase]}</span>
+                    <span style="font-size:11px; color:var(--muted);">${tracksDone}/${Object.keys(ROADMAP_TRACKS).length} tracks</span>
+                </div>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                <div style="display:flex; align-items:center; gap:6px; font-size:12px; color:${allDone ? 'var(--success)' : 'var(--muted)'};">
+                    ${allDone ? '✓ All Done' : `${tracksDone} of ${Object.keys(ROADMAP_TRACKS).length} complete`}
+                </div>
+                ${day.day === roadmapTodayNumber() && !allDone
+                    ? `<button class="btn btn-primary" onclick="markAllRoadmapDoneToday()" style="font-size:12px; padding:7px 14px;">✓ Mark Today Complete</button>`
+                    : ''}
+            </div>
+        </div>
+        <div style="margin-top:8px;">${tracksHtml}</div>`;
 }
 function selectRoadmapDay(day) { roadmapSelectedDay = safeInt(day, 1, 101, 1); renderRoadmap(); }
 function filterRoadmapPhase(phase) { roadmapPhase = [1, 2, 3].includes(Number(phase)) ? Number(phase) : 'all'; renderRoadmap(); }
