@@ -5,13 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Discipline — Daily Tracker</title>
-  <link rel="icon" type="image/png" href="./images /icon.png">
+  <link rel="icon" type="image/png" href="assets/images/icon.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap"
     rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
@@ -3747,7 +3747,30 @@
     </div>
   </div>
 
-</body>
 
-<script src="index.js"></script>
+  <!-- Classic scripts share globals used by inline handlers; keep this order. -->
+  <script src="js/core/storage.js"></script>
+  <script src="js/core/auth.js"></script>
+  <script src="js/core/navigation.js"></script>
+  <script src="js/features/dashboard.js"></script>
+  <script src="js/features/daily-log.js"></script>
+  <script src="js/features/gym.js"></script>
+  <script src="js/features/sleep.js"></script>
+  <script src="js/features/prayers.js"></script>
+  <script src="js/features/study.js"></script>
+  <script src="js/features/nutrition.js"></script>
+  <script src="js/features/screen-time.js"></script>
+  <script src="js/features/calendar.js"></script>
+  <script src="js/features/diary.js"></script>
+  <script src="js/features/analytics.js"></script>
+  <script src="js/core/ui.js"></script>
+  <script src="js/core/themes.js"></script>
+  <script src="js/features/settings.js"></script>
+  <script src="js/features/money.js"></script>
+  <script src="js/features/tasks.js"></script>
+  <script src="js/features/routine.js"></script>
+  <script src="js/data/roadmap-days.js"></script>
+  <script src="js/features/roadmap.js"></script>
+  <script src="js/core/init.js"></script>
+</body>
 </html>
